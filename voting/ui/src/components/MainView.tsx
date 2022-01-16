@@ -5,9 +5,11 @@ import React, { useMemo } from 'react';
 import { Container, Grid, Header, Icon, Segment, Divider } from 'semantic-ui-react';
 import { Party } from '@daml/types';
 import { User } from '@daml.js/voting';
+// import { Ballot } from '@daml.js/voting';
 import { useParty, useLedger, useStreamFetchByKeys, useStreamQueries } from '@daml/react';
 import UserList from './UserList';
 import PartyListEdit from './PartyListEdit';
+import VoteFor from './VoteFor';
 
 // USERS_BEGIN
 const MainView: React.FC = () => {
@@ -53,7 +55,19 @@ const MainView: React.FC = () => {
                 <Icon name='user' />
                 <Header.Content>
                   {myUser?.username ?? 'Loading...'}
-                  <Header.Subheader>Users I'm following</Header.Subheader>
+                  <Header.Subheader>Voters</Header.Subheader>
+                </Header.Content>
+              </Header>
+              <Divider />
+              <VoteFor
+                parties={myUser?.following ?? []}
+                onAddParty={follow}
+              />
+              <Header as='h2'>
+                <Icon name='user' />
+                <Header.Content>
+                  {myUser?.username ?? 'Loading...'}
+                  <Header.Subheader>Vote Options</Header.Subheader>
                 </Header.Content>
               </Header>
               <Divider />
@@ -61,11 +75,9 @@ const MainView: React.FC = () => {
                 parties={myUser?.following ?? []}
                 onAddParty={follow}
               />
-              <PartyListEdit
-                parties={myUser?.following ?? []}
-                onAddParty={follow}
-              />
             </Segment>
+
+            
             <Segment>
               <Header as='h2'>
                 <Icon name='globe' />

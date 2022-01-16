@@ -13,7 +13,7 @@ type Props = {
 /**
  * React component to edit a list of `Party`s.
  */
-const PartyListEdit: React.FC<Props> = ({parties, onAddParty}) => {
+const VoteFor: React.FC<Props> = ({parties, onAddParty}) => {
   const [newParty, setNewParty] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -66,4 +66,4 @@ const PartyListEdit: React.FC<Props> = ({parties, onAddParty}) => {
   );
 };
 
-export default PartyListEdit;
+export default VoteFor;
