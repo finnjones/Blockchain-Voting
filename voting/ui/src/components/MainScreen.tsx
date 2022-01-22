@@ -18,14 +18,14 @@ const MainScreen: React.FC<Props> = ({onLogout}) => {
     <>
       <Menu icon borderless>
         <Menu.Item>
-          <Image
-            as='a'
-            href='https://www.daml.com/'
-            target='_blank'
-            src='/daml.svg'
-            alt='Daml Logo'
-            size='mini'
-          />
+        <Image
+              as='a'
+              target='_blank'
+              src='/MainLogo.png'
+              alt='Daml Logo'
+              size="small"
+              verticalAlign='bottom'
+            />
         </Menu.Item>
         <Menu.Menu position='right' className='test-select-main-menu'>
           <Menu.Item position='right'>
