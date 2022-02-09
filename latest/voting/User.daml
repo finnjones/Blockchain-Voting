@@ -1,0 +1,88 @@
+-- Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
+-- SPDX-License-Identifier: Apache-2.0
+
+
+module User where
+
+-- import DA.Set as S
+-- import DA.List as L
+-- import Daml.Script
+
+-- MAIN_TEMPLATE_BEGIN
+
+template User with
+    username: Party
+    following: [Party]
+  where
+    signatory username
+    observer following
+-- MAIN_TEMPLATE_END
+
+    key username: Party
+    maintainer key
+
+    -- FOLLOW_BEGIN
+    nonconsuming choice Follow: ContractId User with
+        userToFollow: Party
+      controller username
+      do
+        assertMsg "You cannot follow yourself" (userToFollow /= username)
+        assertMsg "You cannot follow the same user twice" (notElem userToFollow following)
+        archive self
+        create this with following = userToFollow :: following
+    -- FOLLOW_END
+
+
+
+type BallotKey = (Party, Proposal)
+
+template Ballot
+  with
+    issuer : Party
+    proposal : Proposal
+    voters : Set Party
+    voted : Set Party
+    votes : [Bool]
+  where
+    signatory issuer, voted
+    observer voters
+
+    key (issuer, proposal) : BallotKey
+    maintainer key._1
+
+    choice Add : ()
+      with voter : Party
+      controller issuer
+      do
+        create this with voters = S.insert voter voters
+        pure ()
+
+    choice Decide : ContractId Decision
+      controller issuer
+      do
+        assertMsg "All voters must vote" $ size voters == length votes
+        let yays = length $ L.filter (\v -> v) votes
+        let nays = length $ L.filter (\v -> not v) votes
+        assertMsg "Cannot decide on tie" $ yays /= nays
+        let accept = yays > nays
+        create Decision with ..
+
+    choice Vote : ()
+      with
+        voter : Party
+        accept : Bool
+      controller voter
+      do
+        assertMsg "Voter not added" $ member voter voters
+        assertMsg "Voter already voted" $ not $ member voter voted
+        create this with voted = S.insert voter voted; votes = accept :: votes
+        pure ()
+
+template Decision
+  with
+    issuer : Party
+    proposal : Proposal
+    voters : Set Party
+    accept : Bool
+  where
+    signatory issuer, voters

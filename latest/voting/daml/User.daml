@@ -1,16 +1,17 @@
 -- Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 -- SPDX-License-Identifier: Apache-2.0
 
+
 module User where
+
 -- MAIN_TEMPLATE_BEGIN
+
 template User with
     username: Party
     following: [Party]
-    candidates: [Party]
   where
     signatory username
     observer following
-    observer candidates
 -- MAIN_TEMPLATE_END
 
     key username: Party
@@ -26,11 +27,5 @@ template User with
         archive self
         create this with following = userToFollow :: following
     -- FOLLOW_END
-    
-    
-template Ballot
-    with
-        creator : Party
-        proposal : Text
-    where
-        signatory creator
+
+
