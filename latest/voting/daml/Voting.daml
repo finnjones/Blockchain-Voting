@@ -1,7 +1,7 @@
 module Voting where
 
--- import DA.Set as S
--- import DA.List as L
+import DA.Set as S
+import DA.List as L
 import Daml.Script
 
 -- template VoteOn
@@ -15,25 +15,36 @@ template CreateVote
     with
         creator : Party
         subject : Text
+        voted : Set Party
         voters : [Party]
+        votes : [Bool]
 
     where
-        signatory creator
+        signatory creator, voted
         observer voters
         
 
+        choice Vote : ()
+            with
+                voter : Party
+                accept : Bool
+            controller voter
+            do
+                create this with voted = S.insert voter voted; votes = accept :: votes
+                pure ()
+        
+        choice Verdict : ContractId Results
+            controller creator
+            do
+                let verdict = length votes
+                create Results with ..
+
+template Results
+    with
+        creator : Party
+        subject : Text
+        verdict : Int
+    where
+        signatory creator
 
 
-
--- setup : Script CreateAVote
--- setup = script do
---     jerry <- allocateParty "Jerry"
---     elaine <- allocateParty "Elaine"
-
---     newVote <- submit jerry do
---         createCmd CreateVote with
---             creator = jerry
---             people = Elaine
-
-
-    
