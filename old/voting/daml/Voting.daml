@@ -1,0 +1,36 @@
+module Voting where
+
+import DA.Set as S
+import DA.List as L
+import Daml.Script
+
+
+type CreateAVote = ContractId CreateVote
+
+template CreateVote
+    with
+        creator : Party
+        subject : Text
+        voted : Set Party
+        voters : [Party]
+        votes : [Bool]
+
+    where
+        signatory creator, voted
+        observer voters
+        
+
+        choice Vote : ()
+            with
+                voter : Party
+                accept : Bool
+            controller voter
+            do
+                create this with voted = S.insert voter voted; votes = accept :: votes
+                pure ()
+        
+
+
+
+
+
