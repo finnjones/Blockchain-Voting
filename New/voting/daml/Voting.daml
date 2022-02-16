@@ -1,0 +1,46 @@
+module Voting where
+
+import DA.Set as S
+-- import DA.List as L
+-- import Daml.Script
+
+
+type CreateVoteId = ContractId CreateVote
+
+template CreateVote
+    with
+        creator : Party
+        subject : Text
+        voted : Set Party
+        voters : [Party]
+        votes : [Bool]
+
+    where
+        signatory creator, voted
+        observer voters
+        
+
+        choice Vote : ()
+            with
+                voter : Party
+                accept : Bool
+            controller voter
+            do
+                create this with voted = S.insert voter voted; votes = accept :: votes
+                pure ()
+        
+
+
+
+
+
+-- setup : Script ()
+
+-- setup = script do
+--     alice <- allocateParty "Alice"
+--     bob <- allocateParty "Bob"
+--     charlie <- allocateParty "Charlie"
+--     submit alice do
+--         createCmd CreateVote with creator = alice; subject = "test"; voters = [bob, charlie]; voted = [bob, charlie]; votes = [True, True]
+
+--     return()

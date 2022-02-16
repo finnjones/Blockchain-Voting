@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Ledger from "@daml/ledger";
 import { useStreamQueries, useLedger, useParty } from "@daml/react";
 import { ContractId } from "@daml/types";
-import { Vote } from "@daml.js/voting-0.0.1/lib/Main";
+import { CreateVote } from "@daml.js/voting-0.0.1/lib/Main";
 import { InputDialog, InputDialogProps } from "./InputDialog";
 import useStyles from "./styles";
 
