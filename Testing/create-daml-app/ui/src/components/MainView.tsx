@@ -1,26 +1,32 @@
 // Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useMemo } from 'react';
+
+import React, { useMemo, useCallback } from 'react';
 import { Container, Grid, Header, Icon, Segment, Divider } from 'semantic-ui-react';
 import { Party } from '@daml/types';
-import { User } from '@daml.js/create-daml-app';
-import { Voting } from '@daml.js/create-daml-app';
+import { User, Voting } from '@daml.js/create-daml-app';
+import Credentials from '../Credentials';
+import Ledger from '@daml/ledger';
+import { httpBaseUrl } from '../config';
+
 import { useParty, useLedger, useStreamFetchByKeys, useStreamQueries } from '@daml/react';
 import UserList from './UserList';
 import PartyListEdit from './PartyListEdit';
+import { CreateVote } from '@daml.js/create-daml-app/lib/Voting';
 
 // USERS_BEGIN
 const MainView: React.FC = () => {
   const username = useParty();
   const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
 
-  const test = useStreamFetchByKeys(Voting.CreateVote, () => [username], [username]);
-  console.log(test);
+
+
+  // console.log(test);
 
   
   const myUser = myUserResult.contracts[0]?.payload;
-  console.log(myUser);
+  // console.log(myUser);
   const allUsers = useStreamQueries(User.User).contracts;
 // USERS_END
 
@@ -34,6 +40,7 @@ const MainView: React.FC = () => {
 
   // FOLLOW_BEGIN
   const ledger = useLedger();
+ 
 
   const follow = async (userToFollow: Party): Promise<boolean> => {
     try {

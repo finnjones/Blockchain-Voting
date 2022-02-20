@@ -5,9 +5,10 @@ import React, { useCallback, useEffect } from 'react'
 import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import Credentials from '../Credentials';
 import Ledger from '@daml/ledger';
-import { User } from '@daml.js/create-daml-app';
+import { User, Voting } from '@daml.js/create-daml-app';
 import { authConfig, httpBaseUrl, Insecure, DamlHub } from '../config';
 import { useAuth0 } from "@auth0/auth0-react";
+import * as damlTypes from '@daml/types';
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -22,7 +23,13 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
     try {
       const ledger = new Ledger({token: credentials.token, httpBaseUrl});
       let userContract = await ledger.fetchByKey(User.User, credentials.party);
+      console.log(ledger);
+      
+
       if (userContract === null) {
+        // const createV = {creator: credentials.party, subject: "", voters: ["Bob"], voted: [], votes: []};
+        const newContractc = await ledger.create(Voting.CreateVote, {creator: credentials.party, subject: "", voters: ["Bob"], voted: [], votes: []});
+        console.log(newContractc);
         const user = {username: credentials.party, following: []};
         userContract = await ledger.create(User.User, user);
       }
