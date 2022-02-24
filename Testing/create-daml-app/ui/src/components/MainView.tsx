@@ -18,9 +18,39 @@ import { CreateVote } from '@daml.js/create-daml-app/lib/Voting';
 // USERS_BEGIN
 const MainView: React.FC = () => {
   const username = useParty();
+  
   const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
+  // const login = useCallback(async (credentials: Credentials) => {
+  //   try {
+  //     const ledger = new Ledger({token: credentials.token, httpBaseUrl});
+  //     let userContract = await ledger.fetchByKey(User.User, credentials.party);
+  //     console.log(ledger);
+      
+  //     const username = useParty();
+  
+  //     const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
+  //     const test = new Map();
+  //     test.set('Bob', {})
+  //     const createV = {creator: credentials.party, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
+  //     const newContractc = await ledger.create(Voting.CreateVote, createV);
+  //     console.log(newContractc);
+    
 
+  //     if (userContract === null) {
 
+        
+  //       // const voteBob = useQuery()
+
+  //       const user = {username: credentials.party, following: []};
+  //       userContract = await ledger.create(User.User, user);
+  //     }
+  //     onLogin(credentials);
+  //   } catch(error) {
+  //     alert(`Unknown error:\n${JSON.stringify(error)}`);
+  //   }
+  // }, [onLogin]);
+
+  // login({party: username, token: auth.makeToken(username)});
 
   // console.log(test);
 

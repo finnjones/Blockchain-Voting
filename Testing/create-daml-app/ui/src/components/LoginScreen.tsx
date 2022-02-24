@@ -13,23 +13,25 @@ import * as damlTypes from '@daml/types';
 type Props = {
   onLogin: (credentials: Credentials) => void;
 }
-
 /**
  * React component for the login screen of the `App`.
  */
 const LoginScreen: React.FC<Props> = ({onLogin}) => {
 
   const login = useCallback(async (credentials: Credentials) => {
+    console.log(credentials);
+
     try {
       const ledger = new Ledger({token: credentials.token, httpBaseUrl});
       let userContract = await ledger.fetchByKey(User.User, credentials.party);
-      console.log(ledger);
+      
       
 
       if (userContract === null) {
-        // const createV = {creator: credentials.party, subject: "", voters: ["Bob"], voted: [], votes: []};
-        const newContractc = await ledger.create(Voting.CreateVote, {creator: credentials.party, subject: "", voters: ["Bob"], voted: [], votes: []});
-        console.log(newContractc);
+
+        
+        // const voteBob = useQuery()
+
         const user = {username: credentials.party, following: []};
         userContract = await ledger.create(User.User, user);
       }

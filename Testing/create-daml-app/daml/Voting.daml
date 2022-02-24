@@ -11,7 +11,7 @@ template CreateVote
     with
         creator : Party
         subject : Text
-        voted : Set Party
+        voted : [Party]
         voters : [Party]
         votes : [Bool]
 
@@ -26,7 +26,7 @@ template CreateVote
                 accept : Bool
             controller voter
             do
-                create this with voted = S.insert voter voted; votes = accept :: votes
+                create this with voted = voter :: voted; votes = accept :: votes
                 pure ()
         
 

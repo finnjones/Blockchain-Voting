@@ -9,4 +9,4 @@ var User = require('./User');
 exports.User = User;
 var Voting = require('./Voting');
 exports.Voting = Voting;
-exports.packageId = '398dc4d171b4e77876a6a3ce7d99fecb5f4fe0436d17146df0779fbc593e8481';
+exports.packageId = '5350a1f31dd5e698343097315e8159d3368ec9230d9ff3dad2d9feb6224035ab';
