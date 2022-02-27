@@ -18,49 +18,14 @@ import { CreateVote } from '@daml.js/create-daml-app/lib/Voting';
 // USERS_BEGIN
 const MainView: React.FC = () => {
   const username = useParty();
-  const test = insecure.makeToken(username);
-  console.log(Credential.credentials);
+  // const test = insecure.makeToken(username);
 
   const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
-  // const getCookieValue = (name: string): string => (
-  //   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
-  // )
-  // const token = getCookieValue('DAMLHUB_LEDGER_ACCESS_TOKEN');
-  console.log(username);
-      // const test = new Map();
-      // test.set('Bob', {})
-    // const createV = {creator: credentials.party, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
-    // const newContractc = await ledger.create(Voting.CreateVote, createV);
-    // console.log(newContractc);
-
-  // const login = useCallback(async (credentials: Credentials) => {
-  //   try {
-  //     const ledger = new Ledger({token: credentials.token, httpBaseUrl});
-  //     let userContract = await ledger.fetchByKey(User.User, credentials.party);
-  //     console.log(ledger);
-      
-  //     const username = useParty();
-  
-
-    
-
-  //     if (userContract === null) {
-
-        
-  //       // const voteBob = useQuery()
-
-  //       const user = {username: credentials.party, following: []};
-  //       userContract = await ledger.create(User.User, user);
-  //     }
-  //     onLogin(credentials);
-  //   } catch(error) {
-  //     alert(`Unknown error:\n${JSON.stringify(error)}`);
-  //   }
-  // }, [onLogin]);
-
-  // login({party: username, token: auth.makeToken(username)});
-
-  // console.log(test);
+  // const votess = useStreamFetchByKeys(Voting.CreateVote, () => [username], [username]);
+  // const assets = useStreamQueries(CreateVote);
+  // console.log(assets)
+  const assets = useStreamQueries(Voting.CreateVote);
+  console.log(assets)
 
   
   const myUser = myUserResult.contracts[0]?.payload;
@@ -78,13 +43,23 @@ const MainView: React.FC = () => {
 
   // FOLLOW_BEGIN
   const ledger = useLedger();
- 
+
 
   const follow = async (userToFollow: Party): Promise<boolean> => {
     try {
+
+      // ledger.exercise(CreateVote.Vote, newContractc.contractId, "Bob");
+      
+
+      
       await ledger.exerciseByKey(User.User.Follow, username, {userToFollow});
+      console.log(userToFollow);
+      const createV = {creator: username, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
+      const newContractc = ledger.create(Voting.CreateVote, createV);
+      
       return true;
     } catch (error) {
+      await ledger.exerciseByKey(Voting.CreateVote.Vote, username, {voter: username, accept : true});
       alert(`Unknown error:\n${JSON.stringify(error)}`);
       return false;
     }

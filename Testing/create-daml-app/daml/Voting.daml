@@ -20,7 +20,7 @@ template CreateVote
         observer voters
         
 
-        choice Vote : ()
+        nonconsuming choice Vote : ()
             with
                 voter : Party
                 accept : Bool
