@@ -18,8 +18,21 @@ import { CreateVote } from '@daml.js/create-daml-app/lib/Voting';
 // USERS_BEGIN
 const MainView: React.FC = () => {
   const username = useParty();
-  
+  const test = insecure.makeToken(username);
+  console.log(Credential.credentials);
+
   const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
+  // const getCookieValue = (name: string): string => (
+  //   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+  // )
+  // const token = getCookieValue('DAMLHUB_LEDGER_ACCESS_TOKEN');
+  console.log(username);
+      // const test = new Map();
+      // test.set('Bob', {})
+    // const createV = {creator: credentials.party, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
+    // const newContractc = await ledger.create(Voting.CreateVote, createV);
+    // console.log(newContractc);
+
   // const login = useCallback(async (credentials: Credentials) => {
   //   try {
   //     const ledger = new Ledger({token: credentials.token, httpBaseUrl});
@@ -28,12 +41,7 @@ const MainView: React.FC = () => {
       
   //     const username = useParty();
   
-  //     const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
-  //     const test = new Map();
-  //     test.set('Bob', {})
-  //     const createV = {creator: credentials.party, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
-  //     const newContractc = await ledger.create(Voting.CreateVote, createV);
-  //     console.log(newContractc);
+
     
 
   //     if (userContract === null) {

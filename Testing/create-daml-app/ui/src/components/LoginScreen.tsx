@@ -19,7 +19,6 @@ type Props = {
 const LoginScreen: React.FC<Props> = ({onLogin}) => {
 
   const login = useCallback(async (credentials: Credentials) => {
-    console.log(credentials);
 
     try {
       const ledger = new Ledger({token: credentials.token, httpBaseUrl});
@@ -155,3 +154,7 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
 };
 
 export default LoginScreen;
+function token(token: any) {
+  throw new Error('Function not implemented.');
+}
+
