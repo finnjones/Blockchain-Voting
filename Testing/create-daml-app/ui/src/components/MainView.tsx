@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 
-import React, { useMemo, useCallback } from 'react';
-import { Container, Grid, Header, Icon, Segment, Divider } from 'semantic-ui-react';
+import React, { useMemo, useCallback, useState } from 'react';
+import { Container, Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
 import Credentials from '../Credentials';
@@ -27,7 +27,9 @@ const MainView: React.FC = () => {
   const assets = useStreamQueries(Voting.CreateVote);
   console.log(assets)
 
-  
+
+
+
   const myUser = myUserResult.contracts[0]?.payload;
   // console.log(myUser);
   const allUsers = useStreamQueries(User.User).contracts;
@@ -45,6 +47,15 @@ const MainView: React.FC = () => {
   const ledger = useLedger();
 
 
+  const [clickedButton] = useState('');
+
+  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const button: HTMLButtonElement = event.currentTarget;
+    console.log(assets)
+    ledger.exerciseByKey(Voting.CreateVote.Vote, username, {voter: username, accept : true});
+
+  }
   const follow = async (userToFollow: Party): Promise<boolean> => {
     try {
 
@@ -59,7 +70,6 @@ const MainView: React.FC = () => {
       
       return true;
     } catch (error) {
-      await ledger.exerciseByKey(Voting.CreateVote.Vote, username, {voter: username, accept : true});
       alert(`Unknown error:\n${JSON.stringify(error)}`);
       return false;
     }
@@ -108,6 +118,11 @@ const MainView: React.FC = () => {
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      <Form>
+        <button onClick={buttonHandler} className="button" name="button 1">
+          Button 1
+        </button>        
+      </Form>
     </Container>
   );
 }

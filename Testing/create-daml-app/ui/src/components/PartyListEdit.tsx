@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
+import React, {useState} from 'react'
 import { Form, List, Button } from 'semantic-ui-react';
 import { Party } from '@daml/types';
 
@@ -13,9 +13,15 @@ type Props = {
 /**
  * React component to edit a list of `Party`s.
  */
+
 const PartyListEdit: React.FC<Props> = ({parties, onAddParty}) => {
+
   const [newParty, setNewParty] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  // function myFunction()
+  // {
+  //   document.write("<h1>HELLO</h1>")
+  // }
 
   const addParty = async (event?: React.FormEvent) => {
     if (event) {
@@ -59,7 +65,15 @@ const PartyListEdit: React.FC<Props> = ({parties, onAddParty}) => {
           className='test-select-follow-button'>
           Follow
         </Button>
+        
       </Form>
+      <Button
+          onclick = "myFunction()"
+          type='button'
+          className='test-select-follow-button'>
+          Follow
+      </Button>
+
     </List>
   );
 };
