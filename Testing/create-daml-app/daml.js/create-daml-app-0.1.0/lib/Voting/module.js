@@ -29,7 +29,7 @@ exports.Vote = {
 
 
 exports.CreateVote = {
-  templateId: '5350a1f31dd5e698343097315e8159d3368ec9230d9ff3dad2d9feb6224035ab:Voting:CreateVote',
+  templateId: '9a5f860eb725edd58868ca66e747dd3774cc7f99c3d2e4e5c2237754719c4cf1:Voting:CreateVote',
   keyDecoder: damlTypes.lazyMemo(function () { return jtv.constant(undefined); }),
   keyEncode: function () { throw 'EncodeError'; },
   decoder: damlTypes.lazyMemo(function () { return jtv.object({creator: damlTypes.Party.decoder, subject: damlTypes.Text.decoder, voted: damlTypes.List(damlTypes.Party).decoder, voters: damlTypes.List(damlTypes.Party).decoder, votes: damlTypes.List(damlTypes.Bool).decoder, }); }),

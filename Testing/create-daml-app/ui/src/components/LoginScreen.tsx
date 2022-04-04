@@ -31,7 +31,7 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
         
         // const voteBob = useQuery()
 
-        const user = {username: credentials.party, following: []};
+        const user = {username: credentials.party, following: [], votes: [], subject: ""};
         userContract = await ledger.create(User.User, user);
       }
       onLogin(credentials);

@@ -2,4 +2,4 @@ import * as User from './User';
 export { User } ;
 import * as Voting from './Voting';
 export { Voting } ;
-export declare const packageId = '5350a1f31dd5e698343097315e8159d3368ec9230d9ff3dad2d9feb6224035ab';
+export declare const packageId = '9a5f860eb725edd58868ca66e747dd3774cc7f99c3d2e4e5c2237754719c4cf1';

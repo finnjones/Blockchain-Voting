@@ -29,7 +29,7 @@ export declare interface UserInterface {
   Follow: damlTypes.Choice<User, Follow, damlTypes.ContractId<User>, User.Key>;
 }
 export declare const User:
-  damlTypes.Template<User, User.Key, '5350a1f31dd5e698343097315e8159d3368ec9230d9ff3dad2d9feb6224035ab:User:User'> & UserInterface;
+  damlTypes.Template<User, User.Key, '9a5f860eb725edd58868ca66e747dd3774cc7f99c3d2e4e5c2237754719c4cf1:User:User'> & UserInterface;
 
 export declare namespace User {
   export type Key = damlTypes.Party

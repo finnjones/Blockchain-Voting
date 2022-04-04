@@ -3,7 +3,7 @@
 
 
 import React, { useMemo, useCallback, useState } from 'react';
-import { Container, Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
+import { Container, Grid, Header, Icon, Segment, Divider, Form, Button } from 'semantic-ui-react';
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
 import Credentials from '../Credentials';
@@ -13,7 +13,8 @@ import { httpBaseUrl } from '../config';
 import { useParty, useLedger, useStreamFetchByKeys, useStreamQueries } from '@daml/react';
 import UserList from './UserList';
 import PartyListEdit from './PartyListEdit';
-import { CreateVote } from '@daml.js/create-daml-app/lib/Voting';
+// import { UT } from '@daml.js/create-daml-app/lib/User';
+// import { UT } from '@daml.js/create-daml-app/lib/Voting';
 
 // USERS_BEGIN
 const MainView: React.FC = () => {
@@ -24,8 +25,8 @@ const MainView: React.FC = () => {
   // const votess = useStreamFetchByKeys(Voting.CreateVote, () => [username], [username]);
   // const assets = useStreamQueries(CreateVote);
   // console.log(assets)
-  const assets = useStreamQueries(Voting.CreateVote);
-  console.log(assets)
+  const assets = useStreamQueries(Voting.Voting);
+  console.log(assets.contracts)
 
 
 
@@ -49,11 +50,33 @@ const MainView: React.FC = () => {
 
   const [clickedButton] = useState('');
 
-  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
+    console.log(button.name)
+    if (button.name == "Create Vote"){
+      const user = {username: username, following: ["Bob", "Steve"], votes: [], subject: "Donald Trump"};
+      const userContract = ledger.create(Voting.Voting, user);
+      // await ledger.exerciseByKey(User.User.CreateVote, username, {inputSubject: "Donald Trump"});
+
+    }
+    if (button.name == "Vote Yes"){
+      console.log(assets.contracts)
+      console.log(Voting.Voting, "hello");
+      await ledger.exerciseByKey(Voting.Voting.Vote, "Alice", {vote: true})
+    }
+
+    const user = {username: username, following: []};
+    const test = "test"
+    // const userContract = ledger.create(User.User, user);
+
     console.log(assets)
-    ledger.exerciseByKey(Voting.CreateVote.Vote, username, {voter: username, accept : true});
+
+    
+    // ledger.fetch(Voting.CreateVote, )
+    // await ledger.exerciseByKey(Voting.CreateVote.Vote, username, {voter: username, accept : true}).catch(console.error);
+    // ledger.exercise(Voting.CreateVote.Vote, assets.contracts.contractId, {voter: username, accept : true});
+
 
   }
   const follow = async (userToFollow: Party): Promise<boolean> => {
@@ -64,10 +87,10 @@ const MainView: React.FC = () => {
 
       
       await ledger.exerciseByKey(User.User.Follow, username, {userToFollow});
-      console.log(userToFollow);
-      const createV = {creator: username, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
-      const newContractc = ledger.create(Voting.CreateVote, createV);
-      
+      // console.log(userToFollow);
+      // const createV = {creator: username, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
+      // const newContractc = ledger.create(Voting.CreateVote, createV);
+
       return true;
     } catch (error) {
       alert(`Unknown error:\n${JSON.stringify(error)}`);
@@ -119,9 +142,13 @@ const MainView: React.FC = () => {
         </Grid.Row>
       </Grid>
       <Form>
-        <button onClick={buttonHandler} className="button" name="button 1">
-          Button 1
-        </button>        
+        <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote">
+          Create Vote
+        </Button>
+        <Button onClick={buttonHandler} className="button" name="Vote Yes">
+          Vote Yes
+        </Button>
+
       </Form>
     </Container>
   );
