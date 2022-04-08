@@ -3,7 +3,8 @@
 
 
 import React, { useMemo, useCallback, useState } from 'react';
-import { Container, Grid, Header, Icon, Segment, Divider, Form, Button } from 'semantic-ui-react';
+import { Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
+import { Button, Container } from '@mui/material';
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
 import Credentials from '../Credentials';
@@ -62,8 +63,9 @@ const MainView: React.FC = () => {
     }
     if (button.name == "Vote Yes"){
       console.log(assets.contracts)
-      console.log(Voting.Voting, "hello");
-      await ledger.exerciseByKey(Voting.Voting.Vote, "Alice", {vote: true})
+      console.log(Voting.Voting.Vote, "hello");
+      await ledger.exerciseByKey(Voting.Voting.Vote, "Alice", {voter: username, vote: true}).catch(console.error)
+      console.log(assets.contracts, "after")
     }
 
     const user = {username: username, following: []};

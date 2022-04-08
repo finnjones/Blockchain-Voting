@@ -45,9 +45,10 @@ template Voting with
     -- FOLLOW_BEGIN
  
     nonconsuming choice Vote: ContractId Voting with
+        voter: Party
         vote: Bool
         
-      controller username
+      controller voter
       do
         -- assertMsg "You cannot follow yourself" (userToFollow /= username)
         -- assertMsg "You cannot follow the same user twice" (notElem userToFollow following)
