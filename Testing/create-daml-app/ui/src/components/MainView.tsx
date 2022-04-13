@@ -4,7 +4,7 @@
 
 import React, { useMemo, useCallback, useState } from 'react';
 import { Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Slider } from '@mui/material';
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
 import Credentials from '../Credentials';
@@ -27,14 +27,15 @@ const MainView: React.FC = () => {
   // const assets = useStreamQueries(CreateVote);
   // console.log(assets)
   const assets = useStreamQueries(Voting.Voting);
-  console.log(assets.contracts)
+  // console.log(assets.contracts)
 
-
+  console.log(assets.contracts[0]?.signatories[0])
 
 
   const myUser = myUserResult.contracts[0]?.payload;
   // console.log(myUser);
   const allUsers = useStreamQueries(User.User).contracts;
+  let sliderPosition = 49
 // USERS_END
 
   // Sorted list of users that are following the current user
@@ -48,31 +49,30 @@ const MainView: React.FC = () => {
   // FOLLOW_BEGIN
   const ledger = useLedger();
 
-
+  console.log(assets.contracts)
   const [clickedButton] = useState('');
 
+  const voteDetails = {username: username, following: ["Alice", "Steve"], votes: [], subject: "Donald Trump"};
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name)
     if (button.name == "Create Vote"){
-      const user = {username: username, following: ["Bob", "Steve"], votes: [], subject: "Donald Trump"};
-      const userContract = ledger.create(Voting.Voting, user);
+      const createVote = ledger.create(Voting.Voting, voteDetails);
       // await ledger.exerciseByKey(User.User.CreateVote, username, {inputSubject: "Donald Trump"});
 
     }
     if (button.name == "Vote Yes"){
-      console.log(assets.contracts)
-      console.log(Voting.Voting.Vote, "hello");
-      await ledger.exerciseByKey(Voting.Voting.Vote, "Alice", {voter: username, vote: true}).catch(console.error)
-      console.log(assets.contracts, "after")
+      
+      // console.log(Voting.Voting.Vote, "hello");
+      await ledger.exerciseByKey(Voting.Voting.Vote, assets.contracts[0]?.signatories[0], {voter: username, vote: true}).catch(console.error)
+
     }
 
     const user = {username: username, following: []};
     const test = "test"
     // const userContract = ledger.create(User.User, user);
 
-    console.log(assets)
 
     
     // ledger.fetch(Voting.CreateVote, )
@@ -81,14 +81,35 @@ const MainView: React.FC = () => {
 
 
   }
+  const generateVoteKeys = (voterCount: any) => {
+    const voteKeys = [];
+    for (let i = 0; i < voterCount; i++) {
+      var crypto = require("crypto");
+      var key = crypto.randomBytes(20).toString('hex');
+      voteKeys.push(`${"VoteKey"}-${key}`);
+    }
+    console.log(voteKeys)
+  }
+
+  const handleChange = (event: any, newValue: any) => {
+    console.log(newValue);
+    console.log(sliderPosition)
+    sliderPosition = 50
+    // export default sliderPosition;
+    // console.log(sliderPosition);
+
+  };
+  console.log(sliderPosition);
+  
+
   const follow = async (userToFollow: Party): Promise<boolean> => {
     try {
 
       // ledger.exercise(CreateVote.Vote, newContractc.contractId, "Bob");
       
-
+      generateVoteKeys(sliderPosition);
       
-      await ledger.exerciseByKey(User.User.Follow, username, {userToFollow});
+      // await ledger.exerciseByKey(User.User.Follow, username, {userToFollow});
       // console.log(userToFollow);
       // const createV = {creator: username, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
       // const newContractc = ledger.create(Voting.CreateVote, createV);
@@ -119,10 +140,27 @@ const MainView: React.FC = () => {
                 </Header.Content>
               </Header>
               <Divider />
+              {/* <SliderExample /> */}
               <PartyListEdit
                 parties={myUser?.following ?? []}
                 onAddParty={follow}
               />
+              <Slider
+                defaultValue={50} 
+                aria-label="Default" 
+                valueLabelDisplay="auto"
+                name='slider'
+                onChange={handleChange}
+              />
+
+              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote">
+                Create Vote
+              </Button>
+
+              <Button variant="contained" onClick={buttonHandler} className="button" name="Vote Yes">
+                Vote Yes
+              </Button>
+
             </Segment>
             <Segment>
               <Header as='h2'>
@@ -144,12 +182,7 @@ const MainView: React.FC = () => {
         </Grid.Row>
       </Grid>
       <Form>
-        <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote">
-          Create Vote
-        </Button>
-        <Button onClick={buttonHandler} className="button" name="Vote Yes">
-          Vote Yes
-        </Button>
+
 
       </Form>
     </Container>

@@ -73,6 +73,7 @@ const PartyListEdit: React.FC<Props> = ({parties, onAddParty}) => {
           className='test-select-follow-button'>
           Follow
       </Button>
+      
 
     </List>
   );
