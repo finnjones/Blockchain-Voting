@@ -1,82 +1,33 @@
-// Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
-// SPDX-License-Identifier: Apache-2.0
+import * as React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 
-import React, {useState} from 'react'
-import { Form, List, Button } from 'semantic-ui-react';
-import { Party } from '@daml/types';
-
-type Props = {
-  parties: Party[];
-  onAddParty: (party: Party) => Promise<boolean>;
-}
-
-/**
- * React component to edit a list of `Party`s.
- */
-
-const PartyListEdit: React.FC<Props> = ({parties, onAddParty}) => {
-
-  const [newParty, setNewParty] = React.useState('');
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  // function myFunction()
-  // {
-  //   document.write("<h1>HELLO</h1>")
-  // }
-
-  const addParty = async (event?: React.FormEvent) => {
-    if (event) {
-      event.preventDefault();
-    }
-    setIsSubmitting(true);
-    const success = await onAddParty(newParty);
-    setIsSubmitting(false);
-    if (success) {
-      setNewParty('');
-    }
-  }
-
+export default function PinnedSubheaderList(Keys: any) {
   return (
-    <List relaxed>
-      {[...parties].sort((x, y) => x.localeCompare(y)).map((party) =>
-        <List.Item
-          key={party}
-        >
-          <List.Icon name='user outline' />
-          <List.Content>
-            <List.Header className='test-select-following'>
-              {party}
-            </List.Header>
-          </List.Content>
-        </List.Item>
-      )}
-      <br />
-      <Form onSubmit={addParty}>
-        <Form.Input
-          fluid
-          readOnly={isSubmitting}
-          loading={isSubmitting}
-          className='test-select-follow-input'
-          placeholder="Username to follow"
-          value={newParty}
-          onChange={(event) => setNewParty(event.currentTarget.value)}
-        />
-        <Button
-          type='submit'
-          className='test-select-follow-button'>
-          Follow
-        </Button>
-        
-      </Form>
-      <Button
-          onclick = "myFunction()"
-          type='button'
-          className='test-select-follow-button'>
-          Follow
-      </Button>
-      
-
+    <List
+      sx={{
+        width: '100%',
+        bgcolor: 'background.paper',
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 300,
+        '& ul': { padding: 0 },
+      }}
+      subheader={<li />}
+    >
+      {[0].map((sectionId) => (
+        <li key={`section-${sectionId}`}>
+          <ul>
+            {Keys.map((item: any) => (
+              <ListItem key={`item-${sectionId}-${item}`}>
+                <ListItemText primary={`${item}`} />
+              </ListItem>
+            ))}
+          </ul>
+        </li>
+      ))}
     </List>
   );
-};
-
-export default PartyListEdit;
+}

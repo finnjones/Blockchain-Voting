@@ -4,7 +4,8 @@
 
 import React, { useMemo, useCallback, useState } from 'react';
 import { Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
-import { Button, Container, Slider } from '@mui/material';
+import { Button, Container, Slider, List, ListItem, ListItemText, ListSubheader} from '@mui/material';
+
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
 import Credentials from '../Credentials';
@@ -35,7 +36,7 @@ const MainView: React.FC = () => {
   const myUser = myUserResult.contracts[0]?.payload;
   // console.log(myUser);
   const allUsers = useStreamQueries(User.User).contracts;
-  let sliderPosition = 49
+  let sliderPosition = 2
 // USERS_END
 
   // Sorted list of users that are following the current user
@@ -52,13 +53,17 @@ const MainView: React.FC = () => {
   console.log(assets.contracts)
   const [clickedButton] = useState('');
 
-  const voteDetails = {username: username, following: ["Alice", "Steve"], votes: [], subject: "Donald Trump"};
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name)
     if (button.name == "Create Vote"){
+      const VoteKeys = generateVoteKeys(sliderPosition);
+      console.log(voteKeys)
+      const voteDetails = {username: username, following: VoteKeys, votes: [], subject: "Donald Trump"};
+
       const createVote = ledger.create(Voting.Voting, voteDetails);
+      
       // await ledger.exerciseByKey(User.User.CreateVote, username, {inputSubject: "Donald Trump"});
 
     }
@@ -81,25 +86,23 @@ const MainView: React.FC = () => {
 
 
   }
+  
+  let voteKeys = ["etst", "asdf"];
+  
   const generateVoteKeys = (voterCount: any) => {
-    const voteKeys = [];
+    voteKeys = [];
     for (let i = 0; i < voterCount; i++) {
       var crypto = require("crypto");
       var key = crypto.randomBytes(20).toString('hex');
       voteKeys.push(`${"VoteKey"}-${key}`);
     }
     console.log(voteKeys)
+    return voteKeys;
   }
-
+  
   const handleChange = (event: any, newValue: any) => {
-    console.log(newValue);
-    console.log(sliderPosition)
-    sliderPosition = 50
-    // export default sliderPosition;
-    // console.log(sliderPosition);
-
+    sliderPosition = newValue;
   };
-  console.log(sliderPosition);
   
 
   const follow = async (userToFollow: Party): Promise<boolean> => {
@@ -141,18 +144,15 @@ const MainView: React.FC = () => {
               </Header>
               <Divider />
               {/* <SliderExample /> */}
-              <PartyListEdit
-                parties={myUser?.following ?? []}
-                onAddParty={follow}
-              />
+              
               <Slider
-                defaultValue={50} 
+                defaultValue={2} 
                 aria-label="Default" 
                 valueLabelDisplay="auto"
                 name='slider'
                 onChange={handleChange}
               />
-
+              
               <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote">
                 Create Vote
               </Button>
@@ -171,6 +171,31 @@ const MainView: React.FC = () => {
                 </Header.Content>
               </Header>
               <Divider />
+              {/* <PartyListEdit>Keys={voteKeys}</PartyListEdit> */}
+                
+              <List
+                sx={{
+                  width: '100%',
+                  bgcolor: 'background.paper',
+                  position: 'relative',
+                  overflow: 'auto',
+                  maxHeight: 300,
+                  '& ul': { padding: 0 },
+                }}
+                subheader={<li />}
+              >
+                {[0].map((sectionId) => (
+                  <li key={`section-${sectionId}`}>
+                    <ul>
+                      {voteKeys.map((item) => (
+                        <ListItem key={`item-${sectionId}-${item}`}>
+                          <ListItemText primary={`${item}`} />
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </List>
               {/* USERLIST_BEGIN */}
               <UserList
                 users={followers}
@@ -190,3 +215,5 @@ const MainView: React.FC = () => {
 }
 
 export default MainView;
+
+
