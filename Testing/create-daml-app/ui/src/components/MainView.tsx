@@ -4,7 +4,7 @@
 
 import React, { useMemo, useCallback, useState } from 'react';
 import { Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
-import { Button, Container, Slider, List, ListItem, ListItemText, ListSubheader} from '@mui/material';
+import { Button, Container, Slider, List, ListItem, ListItemText, TextField} from '@mui/material';
 
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
@@ -17,6 +17,7 @@ import UserList from './UserList';
 import PartyListEdit from './PartyListEdit';
 // import { UT } from '@daml.js/create-daml-app/lib/User';
 // import { UT } from '@daml.js/create-daml-app/lib/Voting';
+let voteKeys: string[] = [];
 
 // USERS_BEGIN
 const MainView: React.FC = () => {
@@ -24,22 +25,17 @@ const MainView: React.FC = () => {
   // const test = insecure.makeToken(username);
 
   const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
-  // const votess = useStreamFetchByKeys(Voting.CreateVote, () => [username], [username]);
-  // const assets = useStreamQueries(CreateVote);
-  // console.log(assets)
-  const assets = useStreamQueries(Voting.Voting);
-  // console.log(assets.contracts)
 
-  console.log(assets.contracts[0]?.signatories[0])
+  const assets = useStreamQueries(Voting.Voting);
+
+
 
 
   const myUser = myUserResult.contracts[0]?.payload;
-  // console.log(myUser);
+
   const allUsers = useStreamQueries(User.User).contracts;
   let sliderPosition = 2
-// USERS_END
 
-  // Sorted list of users that are following the current user
   const followers = useMemo(() =>
     allUsers
     .map(user => user.payload)
@@ -50,7 +46,6 @@ const MainView: React.FC = () => {
   // FOLLOW_BEGIN
   const ledger = useLedger();
 
-  console.log(assets.contracts)
   const [clickedButton] = useState('');
 
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,44 +54,25 @@ const MainView: React.FC = () => {
     console.log(button.name)
     if (button.name == "Create Vote"){
       const VoteKeys = generateVoteKeys(sliderPosition);
-      console.log(voteKeys)
       const voteDetails = {username: username, following: VoteKeys, votes: [], subject: "Donald Trump"};
 
       const createVote = ledger.create(Voting.Voting, voteDetails);
-      
-      // await ledger.exerciseByKey(User.User.CreateVote, username, {inputSubject: "Donald Trump"});
-
     }
+    
     if (button.name == "Vote Yes"){
-      
-      // console.log(Voting.Voting.Vote, "hello");
       await ledger.exerciseByKey(Voting.Voting.Vote, assets.contracts[0]?.signatories[0], {voter: username, vote: true}).catch(console.error)
 
     }
-
-    const user = {username: username, following: []};
-    const test = "test"
-    // const userContract = ledger.create(User.User, user);
-
-
-    
-    // ledger.fetch(Voting.CreateVote, )
-    // await ledger.exerciseByKey(Voting.CreateVote.Vote, username, {voter: username, accept : true}).catch(console.error);
-    // ledger.exercise(Voting.CreateVote.Vote, assets.contracts.contractId, {voter: username, accept : true});
-
-
   }
   
-  let voteKeys = ["etst", "asdf"];
   
   const generateVoteKeys = (voterCount: any) => {
-    voteKeys = [];
+    
     for (let i = 0; i < voterCount; i++) {
       var crypto = require("crypto");
       var key = crypto.randomBytes(20).toString('hex');
       voteKeys.push(`${"VoteKey"}-${key}`);
     }
-    console.log(voteKeys)
     return voteKeys;
   }
   
@@ -123,8 +99,8 @@ const MainView: React.FC = () => {
       return false;
     }
   }
-  // FOLLOW_END
 
+  // FOLLOW_END
   return (
     <Container>
       <Grid centered columns={2}>
@@ -146,14 +122,15 @@ const MainView: React.FC = () => {
               {/* <SliderExample /> */}
               
               <Slider
-                defaultValue={2} 
+                defaultValue={sliderPosition} 
                 aria-label="Default" 
                 valueLabelDisplay="auto"
                 name='slider'
                 onChange={handleChange}
               />
-              
-              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote">
+              <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+
+              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote" >
                 Create Vote
               </Button>
 
@@ -171,8 +148,7 @@ const MainView: React.FC = () => {
                 </Header.Content>
               </Header>
               <Divider />
-              {/* <PartyListEdit>Keys={voteKeys}</PartyListEdit> */}
-                
+      
               <List
                 sx={{
                   width: '100%',
@@ -187,7 +163,7 @@ const MainView: React.FC = () => {
                 {[0].map((sectionId) => (
                   <li key={`section-${sectionId}`}>
                     <ul>
-                      {voteKeys.map((item) => (
+                      {assets.contracts[0]?.observers.map((item) => (
                         <ListItem key={`item-${sectionId}-${item}`}>
                           <ListItemText primary={`${item}`} />
                         </ListItem>
