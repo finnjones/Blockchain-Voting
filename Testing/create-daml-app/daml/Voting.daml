@@ -1,48 +1,19 @@
 module Voting where
 
--- import DA.List as L
--- import Daml.Script
-
--- template Test with
---     username: Party
---     following: [Party]
-    
---   where
---     signatory username
---     observer following
--- -- MAIN_TEMPLATE_END
-
---     key username: Party
---     maintainer key
-
---     -- FOLLOW_BEGIN
---     nonconsuming choice ChoiceTest: ContractId Test with
---         userToFollow: Party
---       controller username
---       do
---         -- assertMsg "You cannot follow yourself" (userToFollow /= username)
---         assertMsg "You cannot follow the same user twice" (notElem userToFollow following)
---         archive self
---         create this with following = userToFollow :: following
-
--- type CreateVoteId = ContractId CreateVote
-
-
 template Voting with
     username: Party
     following: [Party]
     votes: [Bool]
+    voted: [Party]
     subject: Text
     
   where
     signatory username
     observer following
--- MAIN_TEMPLATE_END
 
     key username: Party
     maintainer key
 
-    -- FOLLOW_BEGIN
  
     nonconsuming choice Vote: ContractId Voting with
         voter: Party
@@ -50,10 +21,9 @@ template Voting with
         
       controller voter
       do
-        -- assertMsg "You cannot follow yourself" (userToFollow /= username)
-        -- assertMsg "You cannot follow the same user twice" (notElem userToFollow following)
         archive self
-        create this with votes = vote :: votes
+        create this with voted = voter :: voted; votes = vote :: votes
+ 
 
     nonconsuming choice CreateVote: ContractId Voting with
         inputSubject: Text
@@ -61,109 +31,3 @@ template Voting with
       do
         archive self
         create this with subject = inputSubject
-
-
-
--- template CreateVote
---     with
---         creator : Party
---         subject : Text
---         voted : [Party]
---         voters : [Party]
---         votes : [Bool]
-
---     where
---         signatory creator, voted
---         observer voters
-        
-
-
-
---         nonconsuming choice Vote : ContractId CreateVote
---             with
---                 voter : Party
---                 accept : Bool
---             controller voter
---             do
---                 create this with voted = voter :: voted; votes = accept :: votes
-      
-
--- template UT with
---     username: Party
---     following: [Party]
---     response: [Text]
-    
---   where
---     signatory username
---     observer following
--- -- MAIN_TEMPLATE_END
-
---     key username: Party
---     maintainer key
-
---     -- FOLLOW_BEGIN
---     nonconsuming choice Ch: ContractId UT with
---         voter: Party
---         accept: Text
---       controller username
---       do
---         -- assertMsg "You cannot follow yourself" (userToFollow /= username)
---         -- assertMsg "You cannot follow the same user twice" (notElem userToFollow following)
---         -- archive self
---         create this with following = voter :: following
-
-
-
--- template TransferProposal
---   with
---     asset : Asset
---     newOwner : Party
---     price: Decimal
---     processstate: Text
---   where
---     signatory newOwner
---     key ( asset,newOwner,price):(Asset,Party,Decimal) 
---     maintainer key._2
---     controller asset.issuer, newOwner can
---       TransferProposal_Accept
---         : ContractId Asset
---         do
---           create asset with
---             owner = newOwner
-
---     controller asset.owner can
---       TransferProposal_Cancel
---         : ContractId Asset
---         do
---           create asset with
---             observers = []
-
---     controller newOwner can
---       TransferProposal_Reject
---         : ContractId Asset
---         do
---           create asset
-
--- nonconsuming choice ProposeTransferNFT: ContractId TransferProposal with
---     asset : Asset
---     newOwner : Party
---     price: Decimal
---     --observers : [Party]
---     controller newOwner,asset.owner,asset.issuer
---     do
---     create TransferProposal with
---         asset = asset
---         newOwner = newOwner
---         price=price
---         processstate="offered"
-
--- setup : Script ()
-
--- setup = script do
---     alice <- allocateParty "Alice"
---     bob <- allocateParty "Bob"
---     charlie <- allocateParty "Charlie"
---     submit alice do
---         createCmd CreateVote with creator = alice; subject = "test"; voters = [bob, charlie]; voted = [bob, charlie]; votes = [True, True]
-
---     return()

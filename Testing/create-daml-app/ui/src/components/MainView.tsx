@@ -3,8 +3,11 @@
 
 
 import React, { useMemo, useCallback, useState } from 'react';
-import { Grid, Header, Icon, Segment, Divider, Form } from 'semantic-ui-react';
+import { Grid, Header, Segment, Divider, Form, Icon } from 'semantic-ui-react';
 import { Button, Container, Slider, List, ListItem, ListItemText, TextField} from '@mui/material';
+// import Icon from '@mui/icons-material';
+import {Key, Ballot} from '@mui/icons-material';
+// import KeyIcon from '@mui/icons-material/Key';
 
 import { Party } from '@daml/types';
 import { User, Voting } from '@daml.js/create-daml-app';
@@ -29,6 +32,7 @@ const MainView: React.FC = () => {
   const assets = useStreamQueries(Voting.Voting);
 
 
+  let value = useState("")
 
 
   const myUser = myUserResult.contracts[0]?.payload;
@@ -64,7 +68,7 @@ const MainView: React.FC = () => {
 
     }
   }
-  
+  console.log(value)
   
   const generateVoteKeys = (voterCount: any) => {
     
@@ -84,20 +88,19 @@ const MainView: React.FC = () => {
   const follow = async (userToFollow: Party): Promise<boolean> => {
     try {
 
-      // ledger.exercise(CreateVote.Vote, newContractc.contractId, "Bob");
       
       generateVoteKeys(sliderPosition);
       
-      // await ledger.exerciseByKey(User.User.Follow, username, {userToFollow});
-      // console.log(userToFollow);
-      // const createV = {creator: username, subject: "This is a test", voters: ["Bob", "Steve"], voted: [], votes: []};
-      // const newContractc = ledger.create(Voting.CreateVote, createV);
-
       return true;
     } catch (error) {
       alert(`Unknown error:\n${JSON.stringify(error)}`);
       return false;
     }
+  }
+
+  const test = (event: any) => {  
+    value = event;
+    console.log(value)
   }
 
   // FOLLOW_END
@@ -112,25 +115,27 @@ const MainView: React.FC = () => {
 
             <Segment>
               <Header as='h2'>
-                <Icon name='user' />
+                <Ballot sx={{ fontSize: 45 }} color="primary"/>
                 <Header.Content>
                   {myUser?.username ?? 'Loading...'}
-                  <Header.Subheader>Users I'm following</Header.Subheader>
+                  <Header.Subheader>Create A Vote</Header.Subheader>
                 </Header.Content>
               </Header>
               <Divider />
               {/* <SliderExample /> */}
-              
+              <Header as='h3'>How Many Voters</Header>
               <Slider
                 defaultValue={sliderPosition} 
                 aria-label="Default" 
                 valueLabelDisplay="auto"
                 name='slider'
+                sx={{ m: 2 }}
+                style = {{width: "94%"}}
                 onChange={handleChange}
               />
-              <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+              <TextField id="outlined-basic" label="Subject" variant="outlined" onChange={test} style = {{width: '94%'}} sx={{ m: 2 }} />
 
-              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote" >
+              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote" sx={{ m: 2 }}>
                 Create Vote
               </Button>
 
@@ -141,10 +146,15 @@ const MainView: React.FC = () => {
             </Segment>
             <Segment>
               <Header as='h2'>
-                <Icon name='globe' />
+                {/* <svg data-testid="DeleteIcon"></svg> */}
+
+                <Key sx={{ fontSize: 45 }} color="primary"/>
+
+
+                {/* <Icon name='globe' /> */}
                 <Header.Content>
-                  The Network
-                  <Header.Subheader>My followers and users they are following</Header.Subheader>
+                  Vote Keys
+                  <Header.Subheader>Distribute vote keys between voters</Header.Subheader>
                 </Header.Content>
               </Header>
               <Divider />

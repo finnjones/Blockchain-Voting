@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useCallback, useEffect } from 'react'
-import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Button, TextField} from '@mui/material';
 import Credentials from '../Credentials';
 import Ledger from '@daml/ledger';
 import { User, Voting } from '@daml.js/create-daml-app';
@@ -45,21 +46,14 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h1' textAlign='center' size='huge' style={{color: '#223668'}}>
           <Header.Content>
-            Create
-            <Image
-              as='a'
-              href='https://www.daml.com/'
-              target='_blank'
-              src='/daml.svg'
-              alt='Daml Logo'
-              spaced
-              size='small'
-              verticalAlign='bottom'
-            />
-            App
+            Block Cast
           </Header.Content>
         </Header>
-        <Form size='large' className='test-select-login-screen'>
+        <Header as='h2' textAlign='center' size='small' style={{color: '#223668'}}>
+          Secure Voting On The Blockchain
+        </Header>
+
+        <Form size='huge' className='test-select-login-screen'>
           <Segment>
             {component}
           </Segment>
@@ -83,12 +77,11 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
                   value={username}
                   className='test-select-username-field'
                   onChange={e => setUsername(e.currentTarget.value)} />
-      <Button primary
-              fluid
-              className='test-select-login-button'
-              onClick={handleLogin}>
+
+      <Button variant = "contained" className='test-select-login-button' onClick={handleLogin} style = {{width: "100%"}}>
         Log in
       </Button>
+
       {/* FORM_END */}
     </>);
   };
@@ -112,7 +105,7 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
       login({token, party});
     }, []);
 
-    return wrap(<Button primary fluid onClick={handleDamlHubLogin}>
+    return wrap(<Button variant = "contained" onClick={handleDamlHubLogin}>
                   Log in with Daml Hub
                 </Button>);
   };
@@ -130,12 +123,15 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
         }
       }
     })();
-    return wrap(<Button primary
-                        fluid
-                        className='test-select-login-button'
-                        disabled={isLoading || isAuthenticated}
-                        loading={isLoading || isAuthenticated}
-                        onClick={loginWithRedirect}>
+    return wrap(<Button 
+                        // primary
+                        // fluid
+                        // className='test-select-login-button'
+                        // disabled={isLoading || isAuthenticated}
+                        // loading={isLoading || isAuthenticated}
+                        // onClick={loginWithRedirect}
+                        
+                        >
                   Log in
                 </Button>);
   };
