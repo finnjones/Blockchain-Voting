@@ -58,17 +58,23 @@ const MainView: React.FC = () => {
     console.log(button.name)
     if (button.name == "Create Vote"){
       const VoteKeys = generateVoteKeys(sliderPosition);
-      const voteDetails = {username: username, following: VoteKeys, votes: [], subject: "Donald Trump"};
+      const voteDetails = {username: username, following: VoteKeys, votes: [], voted: [], subject: "Donald Trump"};
 
       const createVote = ledger.create(Voting.Voting, voteDetails);
+      console.log(assets)
     }
     
     if (button.name == "Vote Yes"){
-      await ledger.exerciseByKey(Voting.Voting.Vote, assets.contracts[0]?.signatories[0], {voter: username, vote: true}).catch(console.error)
-
+      if (assets.contracts[0]?.payload.voted.includes(username)){
+        alert("You have already voted")
+      }
+      else{
+        await ledger.exerciseByKey(Voting.Voting.Vote, assets.contracts[0]?.signatories[0], {voter: username, vote: true}).catch(console.error)
+      }
+      console.log(assets.contracts[0]?.payload.voted)
     }
   }
-  console.log(value)
+  
   
   const generateVoteKeys = (voterCount: any) => {
     
