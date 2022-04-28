@@ -60,10 +60,10 @@ const MainView: React.FC = () => {
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name)
     if (button.name == "Create Vote"){
-      const VoteKeys = generateVoteKeys(sliderPosition);
+      const VoteKeys = generateVoteKeys(value);
       console.log(subjectText)
 
-      const voteDetails = {username: username, following: VoteKeys, votes: [], voted: [], subject: String(value)};
+      const voteDetails = {username: username, following: VoteKeys, votes: [], voted: [], subject: subjectText};
       const createVote = ledger.create(Voting.Voting, voteDetails);
       console.log(assets)
     }
