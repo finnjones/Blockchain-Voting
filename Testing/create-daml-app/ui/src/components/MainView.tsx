@@ -4,7 +4,7 @@
 
 import React, { useMemo, useCallback, useState } from 'react';
 import { Grid, Header, Segment, Divider, Form, Icon } from 'semantic-ui-react';
-import { Button, Container, Slider, List, ListItem, ListItemText, TextField} from '@mui/material';
+import { Button, Container, Slider, List, ListItem, ListItemText, TextField, Typography} from '@mui/material';
 // import Icon from '@mui/icons-material';
 import {Key, Ballot} from '@mui/icons-material';
 // import KeyIcon from '@mui/icons-material/Key';
@@ -26,13 +26,16 @@ let voteKeys: string[] = [];
 const MainView: React.FC = () => {
   const username = useParty();
   // const test = insecure.makeToken(username);
+  const [value, setValue] = React.useState<number>(10);
+  const [subjectText, setSubjectText] = useState("");
+  // const [test, tests] = React.useState<number>(10);
+
 
   const myUserResult = useStreamFetchByKeys(User.User, () => [username], [username]);
 
   const assets = useStreamQueries(Voting.Voting);
 
 
-  let value = useState("")
 
 
   const myUser = myUserResult.contracts[0]?.payload;
@@ -58,8 +61,9 @@ const MainView: React.FC = () => {
     console.log(button.name)
     if (button.name == "Create Vote"){
       const VoteKeys = generateVoteKeys(sliderPosition);
-      const voteDetails = {username: username, following: VoteKeys, votes: [], voted: [], subject: "Donald Trump"};
+      console.log(subjectText)
 
+      const voteDetails = {username: username, following: VoteKeys, votes: [], voted: [], subject: String(value)};
       const createVote = ledger.create(Voting.Voting, voteDetails);
       console.log(assets)
     }
@@ -86,9 +90,17 @@ const MainView: React.FC = () => {
     return voteKeys;
   }
   
-  const handleChange = (event: any, newValue: any) => {
-    sliderPosition = newValue;
-  };
+  // const handleChange = (event: Event, newValue: number | number[]) => {
+  //   if (typeof newValue === 'number') {
+  //     // setValue(newValue);
+      
+  // };
+  // const handleChange = (event: any, value: any) => {
+  //   // sliderPosition = newValue;
+  //   console.log(test)
+  //   setValue(value);
+  //   // test = event.target.value
+  // };
   
 
   const follow = async (userToFollow: Party): Promise<boolean> => {
@@ -104,8 +116,13 @@ const MainView: React.FC = () => {
     }
   }
 
-  const test = (event: any) => {  
-    value = event;
+  // const test = (event: any) => {  
+  //   subjectText = event;
+  //   console.log(value)
+  // }
+
+  const handleInput = async (event: React.FormEvent) => {
+    event.preventDefault();
     console.log(value)
   }
 
@@ -129,22 +146,44 @@ const MainView: React.FC = () => {
               </Header>
               <Divider />
               {/* <SliderExample /> */}
-              <Header as='h3'>How Many Voters</Header>
+              <Header as='h3'>What is the vote on</Header>
+
+              <TextField id="outlined-basic" 
+                         label="Subject" 
+                         variant="outlined" 
+                         value={subjectText}
+                        //  onChange={handleChange}
+                         onChange={(event) => {
+                          setSubjectText(event.target.value);
+                       
+                         }}
+                         style = {{width: '94%'}} 
+                         sx={{ m: 2 }} />
+
+              <Header as='h3'>Voters: {value}</Header>
+
+              <Typography id="non-linear-slider" gutterBottom>
+                Storage: {value}
+              </Typography>
               <Slider
-                defaultValue={sliderPosition} 
+                value={value}
+                // defaultValue={sliderPosition} 
                 aria-label="Default" 
                 valueLabelDisplay="auto"
                 name='slider'
                 sx={{ m: 2 }}
                 style = {{width: "94%"}}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(event: any) => {
+                  setValue(event.target.value);
+               
+                 }}
               />
-              <TextField id="outlined-basic" label="Subject" variant="outlined" onChange={test} style = {{width: '94%'}} sx={{ m: 2 }} />
 
-              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote" sx={{ m: 2 }}>
+
+              <Button variant="contained" onClick={buttonHandler} className='button' name="Create Vote" sx={{ m: 2, alignItems: "center" }}>
                 Create Vote
               </Button>
-
               <Button variant="contained" onClick={buttonHandler} className="button" name="Vote Yes">
                 Vote Yes
               </Button>

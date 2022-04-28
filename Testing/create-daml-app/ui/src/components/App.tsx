@@ -4,6 +4,7 @@
 import React from 'react';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
+import VoteScreen from './VoteScreen'
 import DamlLedger from '@daml/react';
 import Credentials from '../Credentials';
 import { httpBaseUrl } from '../config';
@@ -22,6 +23,7 @@ const App: React.FC = () => {
         httpBaseUrl={httpBaseUrl}
       >
         <MainScreen onLogout={() => setCredentials(undefined)}/>
+
       </DamlLedger>
     : <LoginScreen onLogin={setCredentials} />
 }
