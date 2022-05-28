@@ -51,6 +51,7 @@ const VoteScreen: React.FC = () => {
                                 <FormControlLabel value="Green" control={<Radio />} label="Green" />
                             </RadioGroup>
                             </FormControl>
+                            
                             </Box>
                         </Segment>
                     </Grid.Column>
