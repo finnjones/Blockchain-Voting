@@ -88,26 +88,27 @@ const MainView: React.FC = () => {
         following: VoteKeys,
         votes: [],
         voted: [],
+        candidates: candidateList,
         subject: subjectText,
       };
       const createVote = ledger.create(Voting.Voting, voteDetails);
       console.log(assets);
     }
 
-    if (button.name == "Vote Yes") {
-      if (assets.contracts[0]?.payload.voted.includes(username)) {
-        alert("You have already voted");
-      } else {
-        await ledger
-          .exerciseByKey(
-            Voting.Voting.Vote,
-            assets.contracts[0]?.signatories[0],
-            { voter: username, vote: true }
-          )
-          .catch(console.error);
-      }
-      console.log(assets.contracts[0]?.payload.voted);
-    }
+    // if (button.name == "Vote Yes") {
+    //   if (assets.contracts[0]?.payload.voted.includes(username)) {
+    //     alert("You have already voted");
+    //   } else {
+    //     await ledger
+    //       .exerciseByKey(
+    //         Voting.Voting.Vote,
+    //         assets.contracts[0]?.signatories[0],
+    //         { voter: username, vote: true }
+    //       )
+    //       .catch(console.error);
+    //   }
+    //   console.log(assets.contracts[0]?.payload.voted);
+    // }
   };
 
   const generateVoteKeys = (voterCount: any) => {
@@ -149,9 +150,9 @@ const MainView: React.FC = () => {
 
   // >>>>>>>>>>>>Was working here before<<<<<<<<<
   const removeCandidate = (e: any) => {
-    console.log(e.target);
+    console.log(e);
     setCandidateList((candidateList) =>
-      candidateList.filter((_, i) => i !== candidateList.length - 1)
+      candidateList.filter((_, i) => i !== candidateList.length - 2)
     );
 
     // candidateList.splice(
@@ -162,6 +163,7 @@ const MainView: React.FC = () => {
 
     // console.log(item);
   };
+
   return (
     <Container>
       <Grid centered columns={2}>
@@ -226,6 +228,13 @@ const MainView: React.FC = () => {
                   onChange={(event) => {
                     setCandidateText(event.target.value);
                   }}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      addCandidate();
+                      // console.log(ev.target.value);
+                    }
+                  }}
                   style={{ width: "95%" }}
                   sx={{ m: 2 }}
                 />
@@ -237,7 +246,13 @@ const MainView: React.FC = () => {
                         <IconButton
                           edge="end"
                           aria-label="delete"
-                          onClick={removeCandidate}
+                          onClick={(e) => {
+                            // const found = candidateList.find(element => element > item);
+                            setCandidateList((candidateList) =>
+                              candidateList.filter((i) => i !== item)
+                            );
+                            console.log(candidateList);
+                          }}
                         >
                           <Delete />
                         </IconButton>
