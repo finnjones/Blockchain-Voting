@@ -10,7 +10,8 @@ import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
 import { HashRouter as Router, Route, Link, Routes } from "react-router-dom";
 // import Home from "./Home";
-import { Home, Foo, Bar } from "./Topics";
+// import { Home, Foo, Bar } from "./Topics";
+import VoteAnalitics from "./VoteAnalitics";
 /**
  * React component for the entry point into the application.
  */
@@ -37,6 +38,10 @@ const App: React.FC = () => {
                 <MainScreen onLogout={() => setCredentials(undefined)} />
               }
             ></Route>
+            <Route path="/VoteAnalitics" element={<VoteAnalitics />}></Route>
+
+
+
           </Routes>
         </div>
       </Router>
@@ -55,6 +60,9 @@ const App: React.FC = () => {
               path="/CreateVote"
               element={<LoginScreenCreateVote onLogin={setCredentials} />}
             ></Route>
+
+
+
           </Routes>
         </div>
       </Router>
