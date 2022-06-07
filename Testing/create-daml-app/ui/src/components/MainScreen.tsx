@@ -21,6 +21,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import MuiDrawer from "@mui/material/Drawer";
@@ -156,6 +158,20 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   } else {
     return (
       <>
+        <Menu icon borderless>
+          <Menu.Menu position="right" className="test-select-main-menu">
+            <Menu.Item position="right">
+              You are logged in as {username}.
+            </Menu.Item>
+            <Menu.Item
+              position="right"
+              active={false}
+              className="test-select-log-out"
+              onClick={onLogout}
+              icon="log out"
+            />
+          </Menu.Menu>
+        </Menu>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           {/* <Menu icon borderless>
@@ -242,10 +258,10 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
                     >
                       {index % 2 === 0 ? <Ballot /> : <Poll />}
                     </ListItemIcon>
-                    <ListItemText
+                    {/* <ListItemText
                       primary={text}
                       sx={{ opacity: open ? 1 : 0 }}
-                    />
+                    /> */}
                   </ListItemButton>
                 </ListItem>
               ))}
