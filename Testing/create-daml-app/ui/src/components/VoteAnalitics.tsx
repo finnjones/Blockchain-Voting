@@ -31,7 +31,8 @@ import {
   PieSeries,
   Title,
 } from "@devexpress/dx-react-chart-material-ui";
-import { PieChart } from "react-minimal-pie-chart";
+// import { PieChart } from "react-minimal-pie-chart";
+import { Pie, PieChart } from "recharts";
 
 const VoteAnalitics: React.FC = () => {
   const username = useParty();
@@ -43,18 +44,47 @@ const VoteAnalitics: React.FC = () => {
   const assets = useStreamQueries(Voting.Voting);
   const myUser = myUserResult.contracts[0]?.payload;
   const [radioStatus, setRadioStatus] = useState("");
-  const data = [
-    { title: "One", value: 10, color: "#E38627" },
-    { title: "Two", value: 15, color: "#C13C37" },
-    { title: "Three", value: 40, color: "#6A2135" },
+  const data01 = [
+    {
+      "name": "Group A",
+      "value": 400
+    },
+    {
+      "name": "Group B",
+      "value": 300
+    },
+    {
+      "name": "Group C",
+      "value": 300
+    },
+    {
+      "name": "Group D",
+      "value": 200
+    },
+    {
+      "name": "Group E",
+      "value": 278
+    },
+    {
+      "name": "Group F",
+      "value": 189
+    }
   ];
 
   const map = assets.contracts[0]?.payload?.votes.reduce(
     (acc, e) => acc.set(e, (acc.get(e) || 0) + 1),
     new Map()
   );
-  console.log(map);
-  console.log(data);
+  
+  
+  const target = Object.entries(map).map(v => ({
+    name: v[0],
+    value: v[1]
+  }));
+  console.log(target);
+
+  console.log(data01);
+  // console.log(data);
   const buttonHandler = async () => {
     if (assets.contracts[0]?.payload.voted.includes(username)) {
       alert("You have already voted");
@@ -104,12 +134,16 @@ const VoteAnalitics: React.FC = () => {
               {assets.contracts[0]?.payload?.subject ?? "Loading..."}
               <Divider />
               <Paper>
-                <Chart data={data}>
+                {/* <Chart data={data}>
                   <PieSeries valueField="key" argumentField="value" />
                   <Title text="Studies per day" />
-                </Chart>
+                </Chart> */}
               </Paper>
-              <PieChart data={data} />
+              {/* <PieChart width={730} height={250}>
+                <Pie data={target} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" /> */}
+                {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label /> */}
+              {/* </PieChart> */}
+              {/* <PieChart data={data} /> */}
             </Segment>
           </Grid.Column>
         </Grid.Row>
