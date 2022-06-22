@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useMemo, useCallback, useState } from "react";
-import { Grid, Header, Segment, Divider, Form, Icon } from "semantic-ui-react";
+import { Header, Segment, Form, Icon } from "semantic-ui-react";
 import {
   Button,
   Container,
@@ -13,11 +13,15 @@ import {
   TextField,
   Typography,
   Box,
+  Snackbar,
+  Grid,
+  Divider,
   ButtonGroup,
   IconButton,
+  Paper,
 } from "@mui/material";
 // import Icon from '@mui/icons-material';
-import { Key, Ballot, Delete } from "@mui/icons-material";
+import { Key, Ballot, Delete, Close } from "@mui/icons-material";
 // import KeyIcon from '@mui/icons-material/Key';
 
 import { Party } from "@daml/types";
@@ -48,6 +52,7 @@ const MainView: React.FC = () => {
   const [value, setValue] = React.useState<number>(10);
   const [subjectText, setSubjectText] = useState("");
   const [candidateText, setCandidateText] = useState("");
+  const [open, setOpen] = React.useState(false);
 
   // const [test, tests] = React.useState<number>(10);
 
@@ -81,6 +86,7 @@ const MainView: React.FC = () => {
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name);
     if (button.name == "Create Vote") {
+      setOpen(true);
       const VoteKeys = generateVoteKeys(value);
       console.log(candidateText);
       const voteDetails = {
@@ -131,233 +137,248 @@ const MainView: React.FC = () => {
     }
   };
 
-  const handleInput = async (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log(value);
-  };
-
   const addCandidate = () => {
-    // setCandidateList(list);
-
-    // const newCandidate = candidateList.map((candidate) => {
-    //   return candidate;
-    // });
-    // var newCandidate = "test";
     console.log(candidateText);
     setCandidateList([...candidateList, candidateText]);
     console.log(candidateList);
   };
 
   // >>>>>>>>>>>>Was working here before<<<<<<<<<
-  const removeCandidate = (e: any) => {
-    console.log(e);
-    setCandidateList((candidateList) =>
-      candidateList.filter((_, i) => i !== candidateList.length - 2)
-    );
 
-    // candidateList.splice(
-    //   candidateList.indexOf(item),
-    //   1
-    // );
-    // setCandidateList(candidateList);
+  // candidateList.splice(
+  //   candidateList.indexOf(item),
+  //   1
+  // );
+  // setCandidateList(candidateList);
 
-    // console.log(item);
+  // console.log(item);
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <Close fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <Container>
-      <Grid centered columns={2}>
-        <Grid.Row stretched>
-          <Grid.Column>
-            <Header
-              as="h1"
-              size="huge"
-              color="blue"
-              textAlign="center"
-              style={{ padding: "1ex 0em 0ex 0em" }}
-            >
-              {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
-            </Header>
+      <Typography
+        variant="h3"
+        textAlign="center"
+        color="primary"
+        sx={{ padding: 3 }}
+      >
+        {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
+      </Typography>
 
-            <Segment>
-              <Header as="h2">
-                <Ballot sx={{ fontSize: 45 }} color="primary" />
-                <Header.Content>
-                  {myUser?.username ?? "Loading..."}
-                  <Header.Subheader>Create A Vote</Header.Subheader>
-                </Header.Content>
-              </Header>
-              <Divider />
-              {/* <SliderExample /> */}
-              <Header as="h3">What is the vote on</Header>
+      <Box sx={{ p: 1 }}>
+        <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            <Ballot sx={{ fontSize: 45 }} color="primary" />
+            <Typography variant="h5">Create A Vote</Typography>
+          </div>
+          <Divider sx={{ p: 0 }} />
 
-              <TextField
-                id="outlined-basic"
-                label="Subject"
-                variant="outlined"
-                value={subjectText}
-                onChange={(event) => {
-                  setSubjectText(event.target.value);
-                }}
-                style={{ width: "94%" }}
-                sx={{ m: 2 }}
-              />
+          <Typography variant="h6" sx={{ pt: 2 }}>
+            What is the vote on?
+          </Typography>
+          <Box textAlign="center">
+            <TextField
+              id="outlined-basic"
+              label="Subject"
+              variant="outlined"
+              value={subjectText}
+              onChange={(event) => {
+                setSubjectText(event.target.value);
+              }}
+              style={{ width: "94%" }}
+              sx={{ m: 2 }}
+            />
+          </Box>
+          <Typography variant="h6">Voters: {value}</Typography>
 
-              <Header as="h3">Voters: {value}</Header>
+          <Box textAlign="center">
+            <Slider
+              value={value}
+              aria-label="Default"
+              valueLabelDisplay="auto"
+              name="slider"
+              sx={{ m: 2 }}
+              style={{ width: "95%" }}
+              onChange={(event: any) => {
+                setValue(event.target.value);
+              }}
+            />
+          </Box>
+          <Typography variant="h6">
+            Candidates: {candidateList.length}
+          </Typography>
+          {/* <Header as="h3">Who are the candidates?</Header> */}
 
-              <Slider
-                value={value}
-                aria-label="Default"
-                valueLabelDisplay="auto"
-                name="slider"
-                sx={{ m: 2 }}
-                style={{ width: "94%" }}
-                onChange={(event: any) => {
-                  setValue(event.target.value);
-                }}
-              />
-              <Header as="h3">Who are the candidates?</Header>
+          <Box textAlign="center">
+            <TextField
+              id="outlined-basic"
+              label="Candidate"
+              variant="outlined"
+              value={candidateText}
+              //  onChange={handleChange}
+              onChange={(event) => {
+                setCandidateText(event.target.value);
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  addCandidate();
+                  // console.log(ev.target.value);
+                }
+              }}
+              style={{ width: "95%" }}
+              sx={{ m: 2 }}
+            />
 
-              <Box textAlign="center">
-                <TextField
-                  id="outlined-basic"
-                  label="Candidate"
-                  variant="outlined"
-                  value={candidateText}
-                  //  onChange={handleChange}
-                  onChange={(event) => {
-                    setCandidateText(event.target.value);
-                  }}
-                  onKeyPress={(event) => {
-                    if (event.key === "Enter") {
-                      event.preventDefault();
-                      addCandidate();
-                      // console.log(ev.target.value);
-                    }
-                  }}
-                  style={{ width: "95%" }}
-                  sx={{ m: 2 }}
-                />
-                <List>
-                  {candidateList.map((item) => (
-                    <ListItem
-                      key={item}
-                      secondaryAction={
-                        <IconButton
-                          edge="end"
-                          aria-label="delete"
-                          onClick={(e) => {
-                            // const found = candidateList.find(element => element > item);
-                            setCandidateList((candidateList) =>
-                              candidateList.filter((i) => i !== item)
-                            );
-                            console.log(candidateList);
-                          }}
-                        >
-                          <Delete />
-                        </IconButton>
-                      }
+            <List>
+              {candidateList.map((item) => (
+                <ListItem
+                  key={item}
+                  secondaryAction={
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={(e) => {
+                        // const found = candidateList.find(element => element > item);
+                        setCandidateList((candidateList) =>
+                          candidateList.filter((i) => i !== item)
+                        );
+                        console.log(candidateList);
+                      }}
                     >
-                      <ListItemText primary={item} />
-                    </ListItem>
-                  ))}
-                </List>
-                {/* <List
-                  sx={{
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    position: "relative",
-                    overflow: "auto",
-                    maxHeight: 300,
-                    "& ul": { padding: 0 },
-                  }}
-                  subheader={<li />}
+                      <Delete />
+                    </IconButton>
+                  }
                 >
-                  {[0].map((sectionId) => (
-                    <li key={`section-${sectionId}`}>
-                      <ul>
-                        {candidateList.map((item) => (
-                          <ListItem key={`item-${sectionId}-${item}`}>
-                            <ListItemText primary={`${item}`} />
-                          </ListItem>
-                        ))}
-                      </ul>
-                    </li>
-                  ))}   
-                </List> */}
-                <ButtonGroup
-                  variant="contained"
-                  aria-label="outlined primary button group"
-                >
-                  {/* <Button onClick={removeCandidate}>-</Button> */}
-                  <Button onClick={addCandidate}>+</Button>
-                </ButtonGroup>
-              </Box>
+                  <ListItemText primary={item} />
+                </ListItem>
+              ))}
+            </List>
 
-              {/* {candidateList} */}
-              <Box textAlign="center">
-                <Button
-                  variant="contained"
-                  onClick={buttonHandler}
-                  className="button"
-                  name="Create Vote"
-                  sx={{ m: 2, alignItems: "center" }}
-                >
-                  Create Vote
-                </Button>
-              </Box>
+            <ButtonGroup
+              variant="contained"
+              aria-label="outlined primary button group"
+            >
+              {/* <Button onClick={removeCandidate}>-</Button> */}
+              <Button onClick={addCandidate}>+</Button>
+            </ButtonGroup>
+          </Box>
 
-              {/* <Button variant="contained" onClick={buttonHandler} className="button" name="Vote Yes">
+          {/* {candidateList} */}
+          <Box textAlign="center">
+            <Button
+              variant="contained"
+              onClick={buttonHandler}
+              className="button"
+              name="Create Vote"
+              sx={{ m: 2, alignItems: "center" }}
+            >
+              Create Vote
+            </Button>
+          </Box>
+          <Snackbar
+            open={open}
+            autoHideDuration={2000}
+            onClose={handleClose}
+            message="Vote Created"
+            action={action}
+          />
+
+          {/* <Button variant="contained" onClick={buttonHandler} className="button" name="Vote Yes">
                 Vote Yes
               </Button> */}
-            </Segment>
-            <Segment>
-              <Header as="h2">
-                {/* <svg data-testid="DeleteIcon"></svg> */}
-
-                <Key sx={{ fontSize: 45 }} color="primary" />
-
-                {/* <Icon name='globe' /> */}
-                <Header.Content>
+          {/* </Segment> */}
+        </Paper>
+      </Box>
+      {/* <Segment> */}
+      <Box sx={{ p: 1 }}>
+        <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
+          <Grid container spacing={0}>
+            <Grid item>
+              <Key sx={{ fontSize: 45 }} color="primary" />
+            </Grid>
+            <Grid direction="column">
+              <Grid item>
+                <Typography variant="h5" display="block">
                   Vote Keys
-                  <Header.Subheader>
-                    Distribute vote keys between voters
-                  </Header.Subheader>
-                </Header.Content>
-              </Header>
-              <Divider />
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="subtitle1"
+                  color="secondary"
+                  display="block"
+                  style={{ lineHeight: "15px" }}
+                >
+                  Distribute vote keys between voters
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
 
-              <List
-                sx={{
-                  width: "100%",
-                  bgcolor: "background.paper",
-                  position: "relative",
-                  overflow: "auto",
-                  maxHeight: 300,
-                  "& ul": { padding: 0 },
-                }}
-                subheader={<li />}
-              >
-                {[0].map((sectionId) => (
-                  <li key={`section-${sectionId}`}>
-                    <ul>
-                      {assets.contracts[0]?.observers.map((item) => (
-                        <ListItem key={`item-${sectionId}-${item}`}>
-                          <ListItemText primary={`${item}`} />
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </List>
-              {/* USERLIST_BEGIN */}
-              <UserList users={followers} onFollow={follow} />
-              {/* USERLIST_END */}
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      <Form></Form>
+          <Divider />
+          <List
+            sx={{
+              width: "100%",
+              bgcolor: "background.paper",
+              position: "relative",
+              overflow: "auto",
+              maxHeight: 300,
+              "& ul": { padding: 0 },
+            }}
+            subheader={<li />}
+          >
+            {[0].map((sectionId) => (
+              <li key={`section-${sectionId}`}>
+                <ul>
+                  {assets.contracts[0]?.observers.map((item) => (
+                    <ListItem key={`item-${sectionId}-${item}`}>
+                      <ListItemText primary={`${item}`} />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </List>
+          {/* USERLIST_BEGIN */}
+          <UserList users={followers} onFollow={follow} />
+          {/* USERLIST_END */}
+        </Paper>
+      </Box>
+      {/* </Segment> */}
+      {/* </Grid.Column>
+          </Grid.Row>
+        </Grid> */}
+
+      {/* <Form></Form> */}
     </Container>
   );
 };

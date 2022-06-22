@@ -12,10 +12,37 @@ import { HashRouter as Router, Route, Link, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
 import VoteAnalitics from "./VoteAnalitics";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { blue, purple } from "@mui/material/colors";
 /**
  * React component for the entry point into the application.
  */
 // APP_BEGIN
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#387DF6",
+    },
+    secondary: {
+      main: "#666666",
+    },
+  },
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+    subtitle1: {
+      fontSize: 16,
+    },
+    h5: {
+      fontWeight: 700,
+      fontSize: 24,
+    },
+    h6: {
+      fontWeight: 500,
+    },
+  },
+});
+
 const App: React.FC = () => {
   const [credentials, setCredentials] = React.useState<
     Credentials | undefined
@@ -28,45 +55,43 @@ const App: React.FC = () => {
       httpBaseUrl={httpBaseUrl}
     >
       <Router>
-        <div>
-          <Routes>
-            {/* <Route path="/" component={Home} /> */}
-            <Route path="/" element={<VoteScreen />}></Route>
-            <Route
-              path="/CreateVote"
-              element={
-                <MainScreen onLogout={() => setCredentials(undefined)} />
-              }
-            ></Route>
-            <Route path="/VoteAnalitics" element={<VoteAnalitics />}></Route>
-
-
-
-          </Routes>
-        </div>
+        <ThemeProvider theme={theme}>
+          <div>
+            <Routes>
+              {/* <Route path="/" component={Home} /> */}
+              <Route path="/" element={<VoteScreen />}></Route>
+              <Route
+                path="/CreateVote"
+                element={
+                  <MainScreen onLogout={() => setCredentials(undefined)} />
+                }
+              ></Route>
+              <Route path="/VoteAnalitics" element={<VoteAnalitics />}></Route>
+            </Routes>
+          </div>
+        </ThemeProvider>
       </Router>
     </DamlLedger>
   ) : (
-    <>
-      <Router>
-        <div>
-          <Routes>
-            {/* <Route path="/" component={Home} /> */}
-            <Route
-              path="/"
-              element={<LoginScreen onLogin={setCredentials} />}
-            ></Route>
-            <Route
-              path="/CreateVote"
-              element={<LoginScreenCreateVote onLogin={setCredentials} />}
-            ></Route>
-
-
-
-          </Routes>
-        </div>
-      </Router>
-    </>
+    <ThemeProvider theme={theme}>
+      <>
+        <Router>
+          <div>
+            <Routes>
+              {/* <Route path="/" component={Home} /> */}
+              <Route
+                path="/"
+                element={<LoginScreen onLogin={setCredentials} />}
+              ></Route>
+              <Route
+                path="/CreateVote"
+                element={<LoginScreenCreateVote onLogin={setCredentials} />}
+              ></Route>
+            </Routes>
+          </div>
+        </Router>
+      </>
+    </ThemeProvider>
 
     //
   );

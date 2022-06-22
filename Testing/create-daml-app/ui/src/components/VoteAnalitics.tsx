@@ -26,13 +26,9 @@ import {
   useStreamFetchByKeys,
   useStreamQueries,
 } from "@daml/react";
-import {
-  Chart,
-  PieSeries,
-  Title,
-} from "@devexpress/dx-react-chart-material-ui";
+
 // import { PieChart } from "react-minimal-pie-chart";
-import { Pie, PieChart } from "recharts";
+import { Pie, PieChart, Tooltip, Bar, BarChart } from "recharts";
 
 const VoteAnalitics: React.FC = () => {
   const username = useParty();
@@ -46,44 +42,48 @@ const VoteAnalitics: React.FC = () => {
   const [radioStatus, setRadioStatus] = useState("");
   const data01 = [
     {
-      "name": "Group A",
-      "value": 400
+      name: "Person A",
+      value: 400,
     },
     {
-      "name": "Group B",
-      "value": 300
+      name: "Person B",
+      value: 300,
     },
     {
-      "name": "Group C",
-      "value": 300
+      name: "Person C",
+      value: 300,
     },
     {
-      "name": "Group D",
-      "value": 200
+      name: "Person D",
+      value: 200,
     },
     {
-      "name": "Group E",
-      "value": 278
+      name: "Person E",
+      value: 278,
     },
     {
-      "name": "Group F",
-      "value": 189
-    }
+      name: "Person F",
+      value: 189,
+    },
   ];
 
-  const map = assets.contracts[0]?.payload?.votes.reduce(
-    (acc, e) => acc.set(e, (acc.get(e) || 0) + 1),
-    new Map()
-  );
-  
-  
-  const target = Object.entries(map).map(v => ({
-    name: v[0],
-    value: v[1]
-  }));
-  console.log(target);
+  const votes = assets.contracts[0]?.payload?.votes || [];
+  // const votes = ["steve", "steve", "john"]
 
-  console.log(data01);
+  // convert votes list to frequency with format of {name: "", value: 0}
+  const votesFrequency = useMemo(() => {
+    const map = new Map<string, number>();
+    votes.forEach((vote) => {
+      if (map.has(vote)) {
+        map.set(vote, (map.get(vote) || 1) + 1);
+      } else {
+        map.set(vote, 1);
+      }
+    });
+    return [...map].map(([name, value]) => ({ name, value }));
+  }, [votes]);
+
+  console.log(votesFrequency);
   // console.log(data);
   const buttonHandler = async () => {
     if (assets.contracts[0]?.payload.voted.includes(username)) {
@@ -138,11 +138,35 @@ const VoteAnalitics: React.FC = () => {
                   <PieSeries valueField="key" argumentField="value" />
                   <Title text="Studies per day" />
                 </Chart> */}
+                <PieChart width={730} height={250}>
+                  <Pie
+                    data={votesFrequency}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={50}
+                    fill="#8884d8"
+                  />
+                  {/* <Pie
+                    data={votesFrequency}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#82ca9d"
+                    label
+                  /> */}
+                  <Tooltip />
+                </PieChart>
               </Paper>
-              {/* <PieChart width={730} height={250}>
-                <Pie data={target} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" /> */}
-                {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label /> */}
-              {/* </PieChart> */}
+
+              <BarChart width={150} height={40} data={votesFrequency}>
+                <Bar dataKey="value" fill="#8884d8" />
+                <Tooltip />
+              </BarChart>
               {/* <PieChart data={data} /> */}
             </Segment>
           </Grid.Column>
