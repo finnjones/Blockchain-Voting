@@ -23,7 +23,7 @@ export type Auth0 =  {
 export type Authentication = Insecure | DamlHub | Auth0;
 
 export const authConfig: Authentication = (() => {
-  if (window.location.hostname.endsWith('.projectdabl.com')) {
+  if (window.location.hostname.endsWith('.projectdabls.com')) {
     const auth: DamlHub = {
       provider: "daml-hub",
       ledgerId: process.env.REACT_APP_LEDGER_ID ?? window.location.hostname.split('.')[0]

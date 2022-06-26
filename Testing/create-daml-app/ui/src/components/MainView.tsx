@@ -56,13 +56,13 @@ const MainView: React.FC = () => {
 
   // const [test, tests] = React.useState<number>(10);
 
-  const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
-    username,
-  ]);
+  // const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
+  //   username,
+  // ]);
 
   const assets = useStreamQueries(Voting.Voting);
 
-  const myUser = myUserResult.contracts[0]?.payload;
+  // const myUser = myUserResult.contracts[0]?.payload;
 
   const allUsers = useStreamQueries(User.User).contracts;
   let sliderPosition = 2;
@@ -178,15 +178,6 @@ const MainView: React.FC = () => {
 
   return (
     <Container>
-      <Typography
-        variant="h3"
-        textAlign="center"
-        color="primary"
-        sx={{ padding: 3 }}
-      >
-        {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
-      </Typography>
-
       <Box sx={{ p: 1 }}>
         <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
           <div

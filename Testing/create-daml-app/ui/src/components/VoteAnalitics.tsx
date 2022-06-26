@@ -1,20 +1,23 @@
 import React, { useMemo, useCallback, useState } from "react";
-import { Grid, Header, Segment, Divider, Form, Icon } from "semantic-ui-react";
+import { Header, Segment, Form, Icon } from "semantic-ui-react";
 import {
   Button,
   List,
+  Divider,
   ListItem,
+  Grid,
   Container,
   Paper,
   FormLabel,
   FormControlLabel,
   ListItemText,
+  Typography,
   RadioGroup,
   FormControl,
   Radio,
   Box,
 } from "@mui/material";
-import { Key, Ballot } from "@mui/icons-material";
+import { Key, Ballot, Poll } from "@mui/icons-material";
 import { Party } from "@daml/types";
 import { User, Voting } from "@daml.js/create-daml-app";
 import Credentials from "../Credentials";
@@ -28,7 +31,7 @@ import {
 } from "@daml/react";
 
 // import { PieChart } from "react-minimal-pie-chart";
-import { Pie, PieChart, Tooltip, Bar, BarChart } from "recharts";
+import { Pie, PieChart, Tooltip, Bar, BarChart, Cell } from "recharts";
 
 const VoteAnalitics: React.FC = () => {
   const username = useParty();
@@ -66,6 +69,20 @@ const VoteAnalitics: React.FC = () => {
       value: 189,
     },
   ];
+  // generate list of colours based on length of data01
+  const colours = useMemo(() => {
+    const colours = [];
+    for (let i = 0; i < data01.length; i++) {
+      colours.push(
+        `rgb(${Math.floor(52)}, ${Math.floor(
+          Math.random() * 200
+        )}, ${Math.floor(255)})`
+      );
+    }
+    return colours;
+  }, [data01]);
+
+  // console.log(colours);
 
   const votes = assets.contracts[0]?.payload?.votes || [];
   // const votes = ["steve", "steve", "john"]
@@ -107,71 +124,73 @@ const VoteAnalitics: React.FC = () => {
   // }
   return (
     <Container>
-      <Grid centered columns={2}>
-        <Grid.Row stretched>
-          <Grid.Column>
-            <Header
-              as="h1"
-              size="huge"
-              color="blue"
-              textAlign="center"
-              style={{ padding: "1ex 0em 0ex 0em" }}
-            >
-              {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
-            </Header>
-            <Segment>
-              <Header as="h2">
-                <Ballot sx={{ fontSize: 45 }} color="primary" />
-                <Header.Content>
-                  Vote
-                  <Header.Subheader>
-                    Read the vote description carefully and choose an option
-                  </Header.Subheader>
-                </Header.Content>
-              </Header>
-              <Divider />
-              <Header as="h3">Vote Description</Header>
-              {assets.contracts[0]?.payload?.subject ?? "Loading..."}
-              <Divider />
-              <Paper>
-                {/* <Chart data={data}>
+      <Box sx={{ p: 1 }}>
+        <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
+          <Grid container spacing={0}>
+            <Grid item>
+              <Poll sx={{ fontSize: 50 }} color="primary" />
+            </Grid>
+            <Grid direction="column">
+              <Grid item>
+                <Typography variant="h5" display="block">
+                  Vote Analitics
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="subtitle1"
+                  color="secondary"
+                  display="block"
+                  style={{ lineHeight: "15px" }}
+                >
+                  View current vote results
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Divider />
+          <Typography variant="h5">Vote Progress</Typography>
+
+          {/* <Chart data={data}>
                   <PieSeries valueField="key" argumentField="value" />
                   <Title text="Studies per day" />
                 </Chart> */}
-                <PieChart width={730} height={250}>
-                  <Pie
-                    data={votesFrequency}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={50}
-                    fill="#8884d8"
-                  />
-                  {/* <Pie
-                    data={votesFrequency}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    fill="#82ca9d"
-                    label
-                  /> */}
-                  <Tooltip />
-                </PieChart>
-              </Paper>
+          {/* <ResponsiveContainer width="100%" height="100%"> */}
+          <BarChart width={400} height={100} data={data01}>
+            <Bar dataKey="value" fill="#8884d8" />
+            <Tooltip />
+          </BarChart>
 
-              <BarChart width={150} height={40} data={votesFrequency}>
-                <Bar dataKey="value" fill="#8884d8" />
-                <Tooltip />
-              </BarChart>
-              {/* <PieChart data={data} /> */}
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+          <PieChart width={400} height={400}>
+            <Pie
+              data={data01}
+              dataKey="value"
+              cx={200}
+              cy={200}
+              // outerRadius={60}
+              isAnimationActive={false}
+              fill="#8884d8"
+              label
+            ></Pie>
+          </PieChart>
+          {/* {data01.map((entry, index) => (
+                <Cell fill={colours[index % colours.length]} />
+              ))} */}
+          {/* </ResponsiveContainer> */}
+          {/* <PieChart width={400} height={400}>
+            <Pie
+              data={data01}
+              dataKey="value"
+              cx={200}
+              cy={200}
+              outerRadius={60}
+              fill="#8884d8"
+              label
+            />
+          </PieChart> */}
+        </Paper>
+      </Box>
     </Container>
   );
 };

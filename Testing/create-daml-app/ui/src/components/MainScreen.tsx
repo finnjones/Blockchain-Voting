@@ -29,10 +29,14 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import MuiDrawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Ballot, Poll, Logout } from "@mui/icons-material";
+import { useStreamFetchByKeys } from "@daml/react";
+import { User } from "@daml.js/create-daml-app";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import VoteAnalitics from "./VoteAnalitics";
 type Props = {
   onLogout: () => void;
 };
@@ -54,6 +58,10 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   console.log(username);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
+    username,
+  ]);
+  const myUser = myUserResult.contracts[0]?.payload;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -134,6 +142,14 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
             </Toolbar>
           </AppBar>
         </Box>
+        <Typography
+          variant="h3"
+          textAlign="center"
+          color="primary"
+          sx={{ padding: 3 }}
+        >
+          {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
+        </Typography>
         <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
           <Box p={2} width="250px" textAlign="center" role="presentation">
             <Typography variant="h6" component="div">
@@ -143,14 +159,15 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
               <ListItem
                 button
                 component={Link}
-                to="/"
+                to="/CreateVote"
                 className="test-select-list-item"
               >
                 <ListItemIcon>
                   <Ballot />
                 </ListItemIcon>
-                <ListItemText primary="Vote" />
+                <ListItemText primary="Create Vote" />
               </ListItem>
+
               <ListItem
                 button
                 component={Link}
@@ -165,8 +182,6 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
             </List>
           </Box>
         </Drawer>
-
-        <MainView />
       </>
     );
   }
