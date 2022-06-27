@@ -94,7 +94,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
             />
           </Menu.Menu>
         </Menu>
-        <VoteScreen />
+        {/* <VoteScreen /> */}
       </>
     );
   } else {

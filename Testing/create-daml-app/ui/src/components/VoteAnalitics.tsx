@@ -157,14 +157,14 @@ const VoteAnalitics: React.FC = () => {
                   <Title text="Studies per day" />
                 </Chart> */}
           {/* <ResponsiveContainer width="100%" height="100%"> */}
-          <BarChart width={400} height={100} data={data01}>
+          <BarChart width={400} height={100} data={votesFrequency}>
             <Bar dataKey="value" fill="#8884d8" />
             <Tooltip />
           </BarChart>
 
           <PieChart width={400} height={400}>
             <Pie
-              data={data01}
+              data={votesFrequency}
               dataKey="value"
               cx={200}
               cy={200}
@@ -172,7 +172,9 @@ const VoteAnalitics: React.FC = () => {
               isAnimationActive={false}
               fill="#8884d8"
               label
-            ></Pie>
+            >
+              <Tooltip />
+            </Pie>
           </PieChart>
           {/* {data01.map((entry, index) => (
                 <Cell fill={colours[index % colours.length]} />
