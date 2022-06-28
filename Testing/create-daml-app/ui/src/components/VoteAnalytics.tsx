@@ -33,7 +33,7 @@ import {
 // import { PieChart } from "react-minimal-pie-chart";
 import { Pie, PieChart, Tooltip, Bar, BarChart, Cell } from "recharts";
 
-const VoteAnalitics: React.FC = () => {
+const VoteAnalytics: React.FC = () => {
   const username = useParty();
   const ledger = useLedger();
 
@@ -133,7 +133,7 @@ const VoteAnalitics: React.FC = () => {
             <Grid direction="column">
               <Grid item>
                 <Typography variant="h5" display="block">
-                  Vote Analitics
+                  Vote Analytics
                 </Typography>
               </Grid>
               <Grid item>
@@ -197,4 +197,4 @@ const VoteAnalitics: React.FC = () => {
   );
 };
 
-export default VoteAnalitics;
+export default VoteAnalytics;

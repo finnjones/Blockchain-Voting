@@ -36,7 +36,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import VoteAnalitics from "./VoteAnalitics";
+import VoteAnalytics from "./VoteAnalytics";
 type Props = {
   onLogout: () => void;
 };
@@ -171,13 +171,13 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
               <ListItem
                 button
                 component={Link}
-                to="/VoteAnalitics"
+                to="/VoteAnalytics"
                 className="test-select-list-item"
               >
                 <ListItemIcon>
                   <Poll />
                 </ListItemIcon>
-                <ListItemText primary="Analitics" />
+                <ListItemText primary="Analytics" />
               </ListItem>
             </List>
           </Box>

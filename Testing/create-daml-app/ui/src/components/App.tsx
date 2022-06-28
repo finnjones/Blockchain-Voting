@@ -11,7 +11,7 @@ import { httpBaseUrl } from "../config";
 import { HashRouter as Router, Route, Link, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
-import VoteAnalitics from "./VoteAnalitics";
+import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blue, purple } from "@mui/material/colors";
@@ -64,7 +64,7 @@ const App: React.FC = () => {
               {/* <Route path="/" component={Home} /> */}
               <Route path="/" element={<VoteScreen />}></Route>
               <Route path="/CreateVote" element={<MainView />}></Route>
-              <Route path="/VoteAnalitics" element={<VoteAnalitics />}></Route>
+              <Route path="/VoteAnalytics" element={<VoteAnalytics />}></Route>
             </Routes>
           </div>
         </ThemeProvider>
