@@ -55,7 +55,7 @@ export const LoginScreen: React.FC<Props> = ({ onLogin }) => {
           size="huge"
           style={{ color: "#223668" }}
         >
-          <Header.Content>Block Cast</Header.Content>
+          <Header.Content>Votencrypt</Header.Content>
         </Header>
         <Header
           as="h2"
@@ -235,7 +235,7 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
           size="huge"
           style={{ color: "#223668" }}
         >
-          <Header.Content>Block Cast</Header.Content>
+          <Header.Content>Votencrypt</Header.Content>
         </Header>
         <Header
           as="h2"
