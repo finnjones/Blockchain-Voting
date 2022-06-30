@@ -21,16 +21,24 @@ import {
   Paper,
 } from "@mui/material";
 
-import { Key, Ballot, Delete, Close } from "@mui/icons-material";
+import {
+  Key,
+  Ballot,
+  Delete,
+  Close,
+  KeyboardReturn,
+} from "@mui/icons-material";
 
 import { Voting } from "@daml.js/create-daml-app";
 
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 
-let voteKeys: string[] = [];
+import { createHash } from "crypto";
 
+let voteKeys: string[] = [];
+let hashedVoteKeys: string[] = [];
 const MainView: React.FC = () => {
-  const username = useParty();
+  const hashUsername = useParty();
   const [candidateList, setCandidateList] = useState<string[]>([]);
 
   const [value, setValue] = React.useState<number>(10);
@@ -41,18 +49,18 @@ const MainView: React.FC = () => {
   const assets = useStreamQueries(Voting.Voting);
 
   const ledger = useLedger();
-
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name);
     if ((button.name == "Create Vote", assets.contracts.length === 0)) {
       setPopup({ text: "Vote Created", open: true });
-      const VoteKeys = generateVoteKeys(value);
+      const [voteKeys, hashedVoteKeys] = generateVoteKeys(value);
+
       console.log(candidateText);
       const voteDetails = {
-        username: username,
-        following: VoteKeys,
+        username: hashUsername,
+        following: hashedVoteKeys,
         votes: [],
         voted: [],
         candidates: candidateList,
@@ -65,19 +73,42 @@ const MainView: React.FC = () => {
     }
   };
 
+  function hash(input: string) {
+    return createHash("sha256").update(input).digest("hex");
+  }
+
   const generateVoteKeys = (voterCount: any) => {
     for (let i = 0; i < voterCount; i++) {
       var crypto = require("crypto");
       var key = crypto.randomBytes(20).toString("hex");
       voteKeys.push(`${key}`);
+      hashedVoteKeys.push(hash(key));
     }
-    return voteKeys;
+    return [voteKeys, hashedVoteKeys];
   };
 
   const addCandidate = () => {
-    console.log(candidateText);
-    setCandidateList([...candidateList, candidateText]);
-    console.log(candidateList);
+    setCandidateText("");
+    // append candidateText to the start of candidateList
+    setCandidateList([candidateText, ...candidateList]);
+  };
+
+  // copy voteKeys to clipboard
+  const copyVoteKeys = () => {
+    navigator.clipboard.writeText(voteKeys.join("\n"));
+    setPopup({ text: "Keys Copied To Clipboard", open: true });
+  };
+
+  // export voteKeys to csv
+  const exportVoteKeys = () => {
+    const csv = voteKeys.join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "voteKeys.csv";
+    link.click();
+    setPopup({ text: "Keys Exported", open: true });
   };
 
   const handleClose = (
@@ -172,9 +203,16 @@ const MainView: React.FC = () => {
               }}
               style={{ width: "95%" }}
               sx={{ m: 2 }}
+              InputProps={{
+                endAdornment: (
+                  <IconButton onClick={addCandidate}>
+                    <KeyboardReturn />
+                  </IconButton>
+                ),
+              }}
             />
 
-            <List>
+            <List style={{ width: "95%" }} sx={{ ml: 2 }}>
               {candidateList.map((item) => (
                 <ListItem
                   key={item}
@@ -197,13 +235,6 @@ const MainView: React.FC = () => {
                 </ListItem>
               ))}
             </List>
-
-            <ButtonGroup
-              variant="contained"
-              aria-label="outlined primary button group"
-            >
-              <Button onClick={addCandidate}>+</Button>
-            </ButtonGroup>
           </Box>
 
           <Box textAlign="center">
@@ -224,20 +255,16 @@ const MainView: React.FC = () => {
             message={Popup.text}
             action={action}
           />
-
-          {/* <Button variant="contained" onClick={buttonHandler} className="button" name="Vote Yes">
-                Vote Yes
-              </Button> */}
-          {/* </Segment> */}
         </Paper>
       </Box>
-      {/* <Segment> */}
+
       <Box sx={{ p: 1 }}>
         <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
           <Grid container spacing={0}>
             <Grid item>
               <Key sx={{ fontSize: 45 }} color="primary" />
             </Grid>
+
             <Grid direction="column">
               <Grid item>
                 <Typography variant="h5" display="block">
@@ -255,6 +282,18 @@ const MainView: React.FC = () => {
                 </Typography>
               </Grid>
             </Grid>
+            <Box textAlign="right" sx={{ flexGrow: 1 }}>
+              <Button
+                sx={{ margin: 1 }}
+                variant="contained"
+                onClick={exportVoteKeys}
+              >
+                Export CSV
+              </Button>
+              <Button variant="contained" onClick={copyVoteKeys}>
+                Copy To Clipboard
+              </Button>
+            </Box>
           </Grid>
 
           <Divider />
@@ -272,7 +311,7 @@ const MainView: React.FC = () => {
             {[0].map((sectionId) => (
               <li key={`section-${sectionId}`}>
                 <ul>
-                  {assets.contracts[0]?.observers.map((item) => (
+                  {voteKeys.map((item) => (
                     <ListItem key={`item-${sectionId}-${item}`}>
                       <ListItemText primary={`${item}`} />
                     </ListItem>

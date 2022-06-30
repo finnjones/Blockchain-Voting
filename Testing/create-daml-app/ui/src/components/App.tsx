@@ -99,25 +99,23 @@ const App: React.FC = () => {
       </Router>
     </DamlLedger>
   ) : (
-    <ThemeProvider theme={themeLight}>
-      <>
-        <Router>
-          <div>
-            <Routes>
-              {/* <Route path="/" component={Home} /> */}
-              <Route
-                path="/"
-                element={<LoginScreenVote onLogin={setCredentials} />}
-              ></Route>
-              <Route
-                path="/CreateVote"
-                element={<LoginScreenCreateVote onLogin={setCredentials} />}
-              ></Route>
-            </Routes>
-          </div>
-        </Router>
-      </>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={themeLight}>
+        <div>
+          <Routes>
+            {/* <Route path="/" component={Home} /> */}
+            <Route
+              path="/"
+              element={<LoginScreenVote onLogin={setCredentials} />}
+            ></Route>
+            <Route
+              path="/CreateVote"
+              element={<LoginScreenCreateVote onLogin={setCredentials} />}
+            ></Route>
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </Router>
 
     //
   );

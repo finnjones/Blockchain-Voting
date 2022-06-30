@@ -23,18 +23,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Ballot, Poll, Logout } from "@mui/icons-material";
 import { useStreamFetchByKeys, useParty } from "@daml/react";
 import { Voting } from "@daml.js/create-daml-app";
+import { usernameExport } from "./LoginScreen";
 
 type Props = {
   onLogout: () => void;
 };
 
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
-  const username = useParty();
-  console.log(username);
+  const hashUsername = useParty();
+  console.log(hashUsername);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const myUserResult = useStreamFetchByKeys(Voting.User, () => [username], [
-    username,
+  const myUserResult = useStreamFetchByKeys(Voting.User, () => [hashUsername], [
+    hashUsername,
   ]);
   const myUser = myUserResult.contracts[0]?.payload;
 
@@ -59,7 +60,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
           </Menu.Item>
           <Menu.Menu position="right" className="test-select-main-menu">
             <Menu.Item position="right">
-              Current vote key in use, {username}
+              Current vote key in use, {usernameExport}
             </Menu.Item>
             <Menu.Item
               position="right"
@@ -89,7 +90,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
               </IconButton>
 
               <Typography variant="h5" sx={{ flexGrow: 1 }} noWrap>
-                Blockvote
+                Votencrypt
               </Typography>
 
               <Button
@@ -109,7 +110,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
           color="primary"
           sx={{ padding: 3 }}
         >
-          {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
+          Welcome, {usernameExport}!
         </Typography>
         <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
           <Box p={2} width="250px" textAlign="center" role="presentation">

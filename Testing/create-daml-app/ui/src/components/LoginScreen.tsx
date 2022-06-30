@@ -8,12 +8,21 @@ import Credentials from "../Credentials";
 import Ledger from "@daml/ledger";
 import { Voting } from "@daml.js/create-daml-app";
 import { authConfig, httpBaseUrl } from "../config";
+import { createHash } from "crypto";
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
 };
 
+function hash(input: string) {
+  return createHash("sha256").update(input).digest("hex");
+}
+
+export let usernameExport: any;
+
 const wrap: (c: JSX.Element) => JSX.Element = (component) => (
+  // display VoteLogo.png
+
   <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
     <Grid.Column style={{ maxWidth: 450 }}>
       <Typography
@@ -70,7 +79,14 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    await login({ party: username, token: authConfig.makeToken(username) });
+    usernameExport = username;
+
+    const hashedUsername = hash(username);
+
+    await login({
+      party: hashedUsername,
+      token: authConfig.makeToken(hashedUsername),
+    });
   };
 
   return wrap(
@@ -131,9 +147,14 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    await login({ party: username, token: authConfig.makeToken(username) });
-  };
+    usernameExport = username;
+    const hashedUsername = hash(username);
 
+    await login({
+      party: hashedUsername,
+      token: authConfig.makeToken(hashedUsername),
+    });
+  };
   return wrap(
     <>
       {/* FORM_BEGIN */}

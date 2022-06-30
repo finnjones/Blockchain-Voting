@@ -1,28 +1,16 @@
-import React, { useMemo, useCallback, useState } from "react";
-import { Header, Segment, Form, Icon } from "semantic-ui-react";
+import React, { useMemo, useState } from "react";
 import {
-  Button,
-  List,
   Divider,
-  ListItem,
   Grid,
   Container,
   Paper,
-  FormLabel,
-  FormControlLabel,
-  ListItemText,
   Typography,
-  RadioGroup,
-  FormControl,
-  Radio,
   Box,
 } from "@mui/material";
-import { Key, Ballot, Poll } from "@mui/icons-material";
-import { Party } from "@daml/types";
+import { Poll } from "@mui/icons-material";
+
 import { Voting } from "@daml.js/create-daml-app";
-import Credentials from "../Credentials";
-import Ledger from "@daml/ledger";
-import { httpBaseUrl } from "../config";
+
 import {
   useParty,
   useLedger,
@@ -30,7 +18,6 @@ import {
   useStreamQueries,
 } from "@daml/react";
 
-// import { PieChart } from "react-minimal-pie-chart";
 import {
   Pie,
   PieChart,
