@@ -59,7 +59,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
           </Menu.Item>
           <Menu.Menu position="right" className="test-select-main-menu">
             <Menu.Item position="right">
-              You are logged in as {username}.
+              Current vote key in use, {username}
             </Menu.Item>
             <Menu.Item
               position="right"
@@ -88,12 +88,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
                 <MenuIcon />
               </IconButton>
 
-              <Typography
-                variant="h5"
-                sx={{ flexGrow: 1 }}
-                onClick={onLogout}
-                noWrap
-              >
+              <Typography variant="h5" sx={{ flexGrow: 1 }} noWrap>
                 Blockvote
               </Typography>
 

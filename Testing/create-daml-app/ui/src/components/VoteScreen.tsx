@@ -59,7 +59,7 @@ const VoteScreen: React.FC = () => {
               textAlign="center"
               style={{ padding: "1ex 0em 0ex 0em" }}
             >
-              {myUser ? `Welcome, ${myUser.username}!` : "Loading..."}
+              Welcome, Voter!
             </Header>
             <Segment>
               <Header as="h2">
