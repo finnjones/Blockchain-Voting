@@ -3,62 +3,37 @@
 
 import React from "react";
 import { Image, Menu } from "semantic-ui-react";
-import MainView from "./MainView";
-import VoteScreen from "./VoteScreen";
-import { useParty } from "@daml/react";
 import {
   Typography,
   Box,
   IconButton,
   Toolbar,
-  CssBaseline,
   Drawer,
-  Divider,
   Button,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   AppBar,
 } from "@mui/material";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import MuiDrawer from "@mui/material/Drawer";
+import { Link } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Ballot, Poll, Logout } from "@mui/icons-material";
-import { useStreamFetchByKeys } from "@daml/react";
-import { User } from "@daml.js/create-daml-app";
+import { useStreamFetchByKeys, useParty } from "@daml/react";
+import { Voting } from "@daml.js/create-daml-app";
 
-import { makeStyles } from "@material-ui/core/styles";
-
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import VoteAnalytics from "./VoteAnalytics";
 type Props = {
   onLogout: () => void;
 };
 
-/**
- * React component for the main screen of the `App`.
- */
-
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
-  // console.log(useParty)
-  // username.indexOf("VoteKey")
-  const drawerWidth = 240;
-
-  interface AppBarProps extends MuiAppBarProps {
-    open?: boolean;
-  }
-
   const username = useParty();
   console.log(username);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
+  const myUserResult = useStreamFetchByKeys(Voting.User, () => [username], [
     username,
   ]);
   const myUser = myUserResult.contracts[0]?.payload;
@@ -67,7 +42,8 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
     setOpen(true);
   };
 
-  if (username.includes("VoteKey")) {
+  // use the url to tell if user is voter or creating vote
+  if (window.location.pathname === "/") {
     return (
       <>
         <Menu icon borderless>
@@ -94,14 +70,10 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
             />
           </Menu.Menu>
         </Menu>
-        {/* <VoteScreen /> */}
       </>
     );
   } else {
     return (
-      // Create app bar with menu button
-      // Create ui drawer with menu button
-
       <>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
@@ -124,11 +96,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
               >
                 Blockvote
               </Typography>
-              {/* <Typography variant="h6">
-                You are logged in as {username}
-              </Typography> */}
 
-              {/* create a logout button */}
               <Button
                 variant="outlined"
                 color="inherit"
@@ -137,8 +105,6 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
               >
                 Log Out
               </Button>
-
-              {/* <Button color="inherit">Login</Button> */}
             </Toolbar>
           </AppBar>
         </Box>

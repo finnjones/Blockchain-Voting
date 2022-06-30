@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Key, Ballot, Poll } from "@mui/icons-material";
 import { Party } from "@daml/types";
-import { User, Voting } from "@daml.js/create-daml-app";
+import { Voting } from "@daml.js/create-daml-app";
 import Credentials from "../Credentials";
 import Ledger from "@daml/ledger";
 import { httpBaseUrl } from "../config";
@@ -31,63 +31,29 @@ import {
 } from "@daml/react";
 
 // import { PieChart } from "react-minimal-pie-chart";
-import { Pie, PieChart, Tooltip, Bar, BarChart, Cell } from "recharts";
+import {
+  Pie,
+  PieChart,
+  Tooltip,
+  Bar,
+  BarChart,
+  Cell,
+  XAxis,
+  LabelList,
+} from "recharts";
 
 const VoteAnalytics: React.FC = () => {
   const username = useParty();
   const ledger = useLedger();
 
-  const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
+  const myUserResult = useStreamFetchByKeys(Voting.User, () => [username], [
     username,
   ]);
   const assets = useStreamQueries(Voting.Voting);
-  const myUser = myUserResult.contracts[0]?.payload;
   const [radioStatus, setRadioStatus] = useState("");
-  const data01 = [
-    {
-      name: "Person A",
-      value: 400,
-    },
-    {
-      name: "Person B",
-      value: 300,
-    },
-    {
-      name: "Person C",
-      value: 300,
-    },
-    {
-      name: "Person D",
-      value: 200,
-    },
-    {
-      name: "Person E",
-      value: 278,
-    },
-    {
-      name: "Person F",
-      value: 189,
-    },
-  ];
-  // generate list of colours based on length of data01
-  const colours = useMemo(() => {
-    const colours = [];
-    for (let i = 0; i < data01.length; i++) {
-      colours.push(
-        `rgb(${Math.floor(52)}, ${Math.floor(
-          Math.random() * 200
-        )}, ${Math.floor(255)})`
-      );
-    }
-    return colours;
-  }, [data01]);
-
-  // console.log(colours);
 
   const votes = assets.contracts[0]?.payload?.votes || [];
-  // const votes = ["steve", "steve", "john"]
 
-  // convert votes list to frequency with format of {name: "", value: 0}
   const votesFrequency = useMemo(() => {
     const map = new Map<string, number>();
     votes.forEach((vote) => {
@@ -101,7 +67,15 @@ const VoteAnalytics: React.FC = () => {
   }, [votes]);
 
   console.log(votesFrequency);
-  // console.log(data);
+  // generate list of pastel colours based on length of data01
+  const colours = useMemo(() => {
+    const colours = [];
+    for (let i = 0; i < votesFrequency.length; i++) {
+      colours.push(`#${Math.random().toString(16).slice(2, 8)}`);
+    }
+    return colours;
+  }, [votesFrequency]);
+
   const buttonHandler = async () => {
     if (assets.contracts[0]?.payload.voted.includes(username)) {
       alert("You have already voted");
@@ -116,12 +90,7 @@ const VoteAnalytics: React.FC = () => {
     }
     console.log(assets.contracts[0]?.payload.voted);
   };
-  //   const handleRadioButton = (event: any) => {
-  //     console.log(event);
-  //   };
-  // for (const [key, value] of map) {
-  //     console.log(key, value)
-  // }
+
   return (
     <Container>
       <Box sx={{ p: 1 }}>
@@ -152,13 +121,14 @@ const VoteAnalytics: React.FC = () => {
           <Divider />
           <Typography variant="h5">Vote Progress</Typography>
 
-          {/* <Chart data={data}>
-                  <PieSeries valueField="key" argumentField="value" />
-                  <Title text="Studies per day" />
-                </Chart> */}
-          {/* <ResponsiveContainer width="100%" height="100%"> */}
           <BarChart width={400} height={100} data={votesFrequency}>
-            <Bar dataKey="value" fill="#8884d8" />
+            <XAxis dataKey="name" />
+            <Bar dataKey="value" fill="#8884d8">
+              {votesFrequency.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colours[index]} />
+              ))}
+            </Bar>
+
             <Tooltip />
           </BarChart>
 
@@ -166,31 +136,18 @@ const VoteAnalytics: React.FC = () => {
             <Pie
               data={votesFrequency}
               dataKey="value"
+              nameKey="name"
               cx={200}
               cy={200}
-              // outerRadius={60}
               isAnimationActive={false}
-              fill="#8884d8"
-              label
             >
-              <Tooltip />
+              {votesFrequency.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colours[index]} />
+              ))}
+              <LabelList dataKey="name" />
             </Pie>
+            <Tooltip />
           </PieChart>
-          {/* {data01.map((entry, index) => (
-                <Cell fill={colours[index % colours.length]} />
-              ))} */}
-          {/* </ResponsiveContainer> */}
-          {/* <PieChart width={400} height={400}>
-            <Pie
-              data={data01}
-              dataKey="value"
-              cx={200}
-              cy={200}
-              outerRadius={60}
-              fill="#8884d8"
-              label
-            />
-          </PieChart> */}
         </Paper>
       </Box>
     </Container>

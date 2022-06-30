@@ -1,5 +1,5 @@
-import React, { useMemo, useCallback, useState } from "react";
-import { Grid, Header, Segment, Divider, Form, Icon } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Grid, Header, Segment, Divider } from "semantic-ui-react";
 import {
   Button,
   List,
@@ -7,32 +7,25 @@ import {
   Container,
   FormLabel,
   FormControlLabel,
-  ListItemText,
   RadioGroup,
   FormControl,
   Radio,
   Box,
 } from "@mui/material";
-import { Key, Ballot } from "@mui/icons-material";
-import { Party } from "@daml/types";
-import { User, Voting } from "@daml.js/create-daml-app";
-import Credentials from "../Credentials";
-import Ledger from "@daml/ledger";
-import { httpBaseUrl } from "../config";
+import { Ballot } from "@mui/icons-material";
+import { Voting } from "@daml.js/create-daml-app";
 import {
   useParty,
   useLedger,
   useStreamFetchByKeys,
   useStreamQueries,
 } from "@daml/react";
-import UserList from "./UserList";
-import PartyListEdit from "./PartyListEdit";
 
 const VoteScreen: React.FC = () => {
   const username = useParty();
   const ledger = useLedger();
 
-  const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
+  const myUserResult = useStreamFetchByKeys(Voting.User, () => [username], [
     username,
   ]);
   const assets = useStreamQueries(Voting.Voting);
@@ -53,9 +46,6 @@ const VoteScreen: React.FC = () => {
     }
     console.log(assets.contracts[0]?.payload.voted);
   };
-  //   const handleRadioButton = (event: any) => {
-  //     console.log(event);
-  //   };
 
   return (
     <Container>
@@ -97,12 +87,7 @@ const VoteScreen: React.FC = () => {
                   >
                     <List>
                       {assets.contracts[0]?.payload?.candidates.map((item) => (
-                        <ListItem
-                          key={item}
-                          //   secondaryAction={
-
-                          //   }
-                        >
+                        <ListItem key={item}>
                           <FormControlLabel
                             value={item}
                             control={<Radio />}

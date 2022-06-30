@@ -16,7 +16,7 @@ code {
     monospace;
 }
 :root {
-  --background: white;
+  --background: black;
   --text-primary: black;
   --text-secondary: royalblue;
   --accent: purple;

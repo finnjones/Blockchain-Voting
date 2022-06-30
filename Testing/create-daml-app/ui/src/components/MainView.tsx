@@ -1,8 +1,8 @@
 // Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useMemo, useCallback, useState } from "react";
-import { Header, Segment, Form, Icon } from "semantic-ui-react";
+import React, { useState } from "react";
+
 import {
   Button,
   Container,
@@ -20,73 +20,34 @@ import {
   IconButton,
   Paper,
 } from "@mui/material";
-// import Icon from '@mui/icons-material';
+
 import { Key, Ballot, Delete, Close } from "@mui/icons-material";
-// import KeyIcon from '@mui/icons-material/Key';
 
-import { Party } from "@daml/types";
-import { User, Voting } from "@daml.js/create-daml-app";
-import Credentials from "../Credentials";
-import Ledger from "@daml/ledger";
-import { httpBaseUrl } from "../config";
+import { Voting } from "@daml.js/create-daml-app";
 
-import {
-  useParty,
-  useLedger,
-  useStreamFetchByKeys,
-  useStreamQueries,
-} from "@daml/react";
-import UserList from "./UserList";
-import PartyListEdit from "./PartyListEdit";
+import { useParty, useLedger, useStreamQueries } from "@daml/react";
 
 let voteKeys: string[] = [];
-// var candidateList: string[] = [];
 
-// USERS_BEGIN
 const MainView: React.FC = () => {
   const username = useParty();
-  // const test = insecure.makeToken(username);
-  const initialList = [""];
   const [candidateList, setCandidateList] = useState<string[]>([]);
 
   const [value, setValue] = React.useState<number>(10);
   const [subjectText, setSubjectText] = useState("");
   const [candidateText, setCandidateText] = useState("");
-  const [open, setOpen] = React.useState(false);
-
-  // const [test, tests] = React.useState<number>(10);
-
-  // const myUserResult = useStreamFetchByKeys(User.User, () => [username], [
-  //   username,
-  // ]);
+  const [Popup, setPopup] = React.useState({ text: "", open: false });
 
   const assets = useStreamQueries(Voting.Voting);
 
-  // const myUser = myUserResult.contracts[0]?.payload;
-
-  const allUsers = useStreamQueries(User.User).contracts;
-  let sliderPosition = 2;
-
-  const followers = useMemo(
-    () =>
-      allUsers
-        .map((user) => user.payload)
-        .filter((user) => user.username !== username)
-        .sort((x, y) => x.username.localeCompare(y.username)),
-    [allUsers, username]
-  );
-
-  // FOLLOW_BEGIN
   const ledger = useLedger();
-
-  const [clickedButton] = useState("");
 
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name);
-    if (button.name == "Create Vote") {
-      setOpen(true);
+    if ((button.name == "Create Vote", assets.contracts.length === 0)) {
+      setPopup({ text: "Vote Created", open: true });
       const VoteKeys = generateVoteKeys(value);
       console.log(candidateText);
       const voteDetails = {
@@ -99,42 +60,18 @@ const MainView: React.FC = () => {
       };
       const createVote = ledger.create(Voting.Voting, voteDetails);
       console.log(assets);
+    } else {
+      setPopup({ text: "Vote In Progress", open: true });
     }
-
-    // if (button.name == "Vote Yes") {
-    //   if (assets.contracts[0]?.payload.voted.includes(username)) {
-    //     alert("You have already voted");
-    //   } else {
-    //     await ledger
-    //       .exerciseByKey(
-    //         Voting.Voting.Vote,
-    //         assets.contracts[0]?.signatories[0],
-    //         { voter: username, vote: true }
-    //       )
-    //       .catch(console.error);
-    //   }
-    //   console.log(assets.contracts[0]?.payload.voted);
-    // }
   };
 
   const generateVoteKeys = (voterCount: any) => {
     for (let i = 0; i < voterCount; i++) {
       var crypto = require("crypto");
       var key = crypto.randomBytes(20).toString("hex");
-      voteKeys.push(`${"VoteKey"}-${key}`);
+      voteKeys.push(`${key}`);
     }
     return voteKeys;
-  };
-
-  const follow = async (userToFollow: Party): Promise<boolean> => {
-    try {
-      generateVoteKeys(sliderPosition);
-
-      return true;
-    } catch (error) {
-      alert(`Unknown error:\n${JSON.stringify(error)}`);
-      return false;
-    }
   };
 
   const addCandidate = () => {
@@ -142,16 +79,6 @@ const MainView: React.FC = () => {
     setCandidateList([...candidateList, candidateText]);
     console.log(candidateList);
   };
-
-  // >>>>>>>>>>>>Was working here before<<<<<<<<<
-
-  // candidateList.splice(
-  //   candidateList.indexOf(item),
-  //   1
-  // );
-  // setCandidateList(candidateList);
-
-  // console.log(item);
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -161,7 +88,7 @@ const MainView: React.FC = () => {
       return;
     }
 
-    setOpen(false);
+    setPopup({ text: "Vote Created", open: false });
   };
   const action = (
     <React.Fragment>
@@ -226,7 +153,6 @@ const MainView: React.FC = () => {
           <Typography variant="h6">
             Candidates: {candidateList.length}
           </Typography>
-          {/* <Header as="h3">Who are the candidates?</Header> */}
 
           <Box textAlign="center">
             <TextField
@@ -242,7 +168,6 @@ const MainView: React.FC = () => {
                 if (event.key === "Enter") {
                   event.preventDefault();
                   addCandidate();
-                  // console.log(ev.target.value);
                 }
               }}
               style={{ width: "95%" }}
@@ -258,7 +183,6 @@ const MainView: React.FC = () => {
                       edge="end"
                       aria-label="delete"
                       onClick={(e) => {
-                        // const found = candidateList.find(element => element > item);
                         setCandidateList((candidateList) =>
                           candidateList.filter((i) => i !== item)
                         );
@@ -278,12 +202,10 @@ const MainView: React.FC = () => {
               variant="contained"
               aria-label="outlined primary button group"
             >
-              {/* <Button onClick={removeCandidate}>-</Button> */}
               <Button onClick={addCandidate}>+</Button>
             </ButtonGroup>
           </Box>
 
-          {/* {candidateList} */}
           <Box textAlign="center">
             <Button
               variant="contained"
@@ -296,10 +218,10 @@ const MainView: React.FC = () => {
             </Button>
           </Box>
           <Snackbar
-            open={open}
+            open={Popup.open}
             autoHideDuration={2000}
             onClose={handleClose}
-            message="Vote Created"
+            message={Popup.text}
             action={action}
           />
 
@@ -359,17 +281,8 @@ const MainView: React.FC = () => {
               </li>
             ))}
           </List>
-          {/* USERLIST_BEGIN */}
-          <UserList users={followers} onFollow={follow} />
-          {/* USERLIST_END */}
         </Paper>
       </Box>
-      {/* </Segment> */}
-      {/* </Grid.Column>
-          </Grid.Row>
-        </Grid> */}
-
-      {/* <Form></Form> */}
     </Container>
   );
 };

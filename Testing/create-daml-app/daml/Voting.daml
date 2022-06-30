@@ -1,5 +1,16 @@
 module Voting where
 
+
+template User with
+    username: Party
+
+  where
+    signatory username
+
+    key username: Party
+    maintainer key
+
+
 template Voting with
     username: Party
     following: [Party]
@@ -25,10 +36,3 @@ template Voting with
         archive self
         create this with voted = voter :: voted; votes = vote :: votes
  
-
-    -- nonconsuming choice CreateVote: ContractId Voting with
-    --     inputSubject: Text
-    --   controller username
-    --   do
-    --     archive self
-    --     create this with subject = inputSubject

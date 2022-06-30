@@ -1,42 +1,63 @@
 // Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useEffect } from "react";
-import { Form, Grid, Header, Image, Segment } from "semantic-ui-react";
-import { Button, TextField } from "@mui/material";
+import React, { useCallback } from "react";
+import { Form, Grid, Header, Segment } from "semantic-ui-react";
+import { Button, TextField, Paper, Typography } from "@mui/material";
 import Credentials from "../Credentials";
 import Ledger from "@daml/ledger";
-import { User, Voting } from "@daml.js/create-daml-app";
-import { authConfig, httpBaseUrl, Insecure, DamlHub } from "../config";
-import { useAuth0 } from "@auth0/auth0-react";
-import * as damlTypes from "@daml/types";
+import { Voting } from "@daml.js/create-daml-app";
+import { authConfig, httpBaseUrl } from "../config";
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
 };
-/**
- * React component for the login screen of the `App`.
- */
-export const LoginScreen: React.FC<Props> = ({ onLogin }) => {
+
+const wrap: (c: JSX.Element) => JSX.Element = (component) => (
+  <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Typography
+        variant="h3"
+        color="#0d47a1"
+        textAlign="center"
+        sx={{ pt: 2 }}
+      >
+        Votencrypt
+      </Typography>
+      <Typography
+        variant="h6"
+        fontWeight="600"
+        color="#0d47a1"
+        textAlign="center"
+        sx={{ pt: 2 }}
+      >
+        Secure Voting On The Blockchain
+      </Typography>
+
+      <Form size="huge" className="test-select-login-screen">
+        <Paper sx={{ p: 2, borderRadius: "16px" }} elevation={2}>
+          {component}
+        </Paper>
+      </Form>
+    </Grid.Column>
+  </Grid>
+);
+
+export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
   const login = useCallback(
     async (credentials: Credentials) => {
       try {
         const ledger = new Ledger({ token: credentials.token, httpBaseUrl });
         let userContract = await ledger.fetchByKey(
-          User.User,
+          Voting.User,
           credentials.party
         );
 
         if (userContract === null) {
-          // const voteBob = useQuery()
-
           const user = {
             username: credentials.party,
-            following: [],
-            votes: [],
-            subject: "",
           };
-          userContract = await ledger.create(User.User, user);
+          userContract = await ledger.create(Voting.User, user);
         }
         onLogin(credentials);
       } catch (error) {
@@ -45,157 +66,41 @@ export const LoginScreen: React.FC<Props> = ({ onLogin }) => {
     },
     [onLogin]
   );
+  const [username, setUsername] = React.useState("");
 
-  const wrap: (c: JSX.Element) => JSX.Element = (component) => (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header
-          as="h1"
-          textAlign="center"
-          size="huge"
-          style={{ color: "#223668" }}
-        >
-          <Header.Content>Votencrypt</Header.Content>
-        </Header>
-        <Header
-          as="h2"
-          textAlign="center"
-          size="small"
-          style={{ color: "#223668" }}
-        >
-          Secure Voting On The Blockchain
-        </Header>
-
-        <Form size="huge" className="test-select-login-screen">
-          <Segment>{component}</Segment>
-        </Form>
-      </Grid.Column>
-    </Grid>
-  );
-
-  const InsecureLogin: React.FC<{ auth: Insecure }> = ({ auth }) => {
-    const [username, setUsername] = React.useState("");
-
-    const handleLogin = async (event: React.FormEvent) => {
-      event.preventDefault();
-      await login({ party: username, token: auth.makeToken(username) });
-    };
-
-    return wrap(
-      <>
-        {/* FORM_BEGIN */}
-        <TextField
-          placeholder="Vote Key"
-          value={username}
-          className="test-select-username-field"
-          sx={{ paddingBottom: 2 }}
-          style={{ width: "100%" }}
-          onChange={(e) => setUsername(e.currentTarget.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleLogin(e);
-              // console.log(ev.target.value);
-            }
-          }}
-        />
-
-        <Button
-          variant="contained"
-          className="test-select-login-button"
-          onClick={handleLogin}
-          style={{ width: "100%" }}
-        >
-          Log in
-        </Button>
-
-        {/* FORM_END */}
-      </>
-    );
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    await login({ party: username, token: authConfig.makeToken(username) });
   };
 
-  const DamlHubLogin: React.FC<{ auth: DamlHub }> = ({ auth }) => {
-    const handleDamlHubLogin = () => {
-      window.location.assign(
-        `https://login.projectdabl.com/auth/login?ledgerId=${auth.ledgerId}`
-      );
-    };
-    const getCookieValue = (name: string): string =>
-      document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() ||
-      "";
-    useEffect(() => {
-      const url = new URL(window.location.toString());
-      const party = url.searchParams.get("party");
-      if (party === null) {
-        return;
-      }
-      url.search = "";
-      window.history.replaceState(window.history.state, "", url.toString());
-      const token = getCookieValue("DAMLHUB_LEDGER_ACCESS_TOKEN");
-      login({ token, party });
-    }, []);
+  return wrap(
+    <>
+      <TextField
+        placeholder="Enter Vote Key"
+        value={username}
+        className="test-select-username-field"
+        sx={{ paddingBottom: 2 }}
+        style={{ width: "100%" }}
+        onChange={(e) => setUsername(e.currentTarget.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleLogin(e);
+          }
+        }}
+      />
 
-    return wrap(
-      <Button variant="contained" onClick={handleDamlHubLogin}>
-        Log in with Daml Hub
-      </Button>
-    );
-  };
-
-  const Auth0Login: React.FC = () => {
-    const {
-      user,
-      isAuthenticated,
-      isLoading,
-      loginWithRedirect,
-      getAccessTokenSilently,
-    } = useAuth0();
-    (async function () {
-      if (isLoading === false && isAuthenticated === true) {
-        if (user !== undefined) {
-          const creds: Credentials = {
-            party: user["https://daml.com/ledger-api"],
-            token: await getAccessTokenSilently({
-              audience: "https://daml.com/ledger-api",
-            }),
-          };
-          login(creds);
-        }
-      }
-    })();
-    return wrap(
       <Button
-      // primary
-      // fluid
-      // className='test-select-login-button'
-      // disabled={isLoading || isAuthenticated}
-      // loading={isLoading || isAuthenticated}
-      // onClick={loginWithRedirect}
+        variant="contained"
+        className="test-select-login-button"
+        onClick={handleLogin}
+        style={{ width: "100%" }}
       >
-        Log in
+        Vote
       </Button>
-    );
-  };
-
-  if (authConfig.provider === "none") {
-  } else if (authConfig.provider === "daml-hub") {
-  } else if (authConfig.provider === "auth0") {
-  }
-  return authConfig.provider === "none" ? (
-    <InsecureLogin auth={authConfig} />
-  ) : authConfig.provider === "daml-hub" ? (
-    <DamlHubLogin auth={authConfig} />
-  ) : authConfig.provider === "auth0" ? (
-    <Auth0Login />
-  ) : (
-    <div>Invalid configuation.</div>
+    </>
   );
 };
-
-// export default LoginScreen;
-// function token(token: any) {
-//   throw new Error("Function not implemented.");
-// }
 
 export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
   const login = useCallback(
@@ -203,7 +108,7 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
       try {
         const ledger = new Ledger({ token: credentials.token, httpBaseUrl });
         let userContract = await ledger.fetchByKey(
-          User.User,
+          Voting.User,
           credentials.party
         );
 
@@ -212,11 +117,8 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
 
           const user = {
             username: credentials.party,
-            following: [],
-            votes: [],
-            subject: "",
           };
-          userContract = await ledger.create(User.User, user);
+          userContract = await ledger.create(Voting.User, user);
         }
         onLogin(credentials);
       } catch (error) {
@@ -225,154 +127,39 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
     },
     [onLogin]
   );
+  const [username, setUsername] = React.useState("");
 
-  const wrap: (c: JSX.Element) => JSX.Element = (component) => (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header
-          as="h1"
-          textAlign="center"
-          size="huge"
-          style={{ color: "#223668" }}
-        >
-          <Header.Content>Votencrypt</Header.Content>
-        </Header>
-        <Header
-          as="h2"
-          textAlign="center"
-          size="small"
-          style={{ color: "#223668" }}
-        >
-          Secure Voting On The Blockchain
-        </Header>
-
-        <Form size="huge" className="test-select-login-screen">
-          <Segment>{component}</Segment>
-        </Form>
-      </Grid.Column>
-    </Grid>
-  );
-
-  const InsecureLogin: React.FC<{ auth: Insecure }> = ({ auth }) => {
-    const [username, setUsername] = React.useState("");
-
-    const handleLogin = async (event: React.FormEvent) => {
-      event.preventDefault();
-      await login({ party: username, token: auth.makeToken(username) });
-    };
-
-    return wrap(
-      <>
-        {/* FORM_BEGIN */}
-        <TextField
-          placeholder="Username"
-          value={username}
-          className="test-select-username-field"
-          sx={{ paddingBottom: 2 }}
-          style={{ width: "100%" }}
-          onChange={(e) => setUsername(e.currentTarget.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              handleLogin(e);
-              // console.log(ev.target.value);
-            }
-          }}
-        />
-
-        <Button
-          variant="contained"
-          className="test-select-login-button"
-          onClick={handleLogin}
-          style={{ width: "100%" }}
-        >
-          Log in
-        </Button>
-
-        {/* FORM_END */}
-      </>
-    );
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    await login({ party: username, token: authConfig.makeToken(username) });
   };
 
-  const DamlHubLogin: React.FC<{ auth: DamlHub }> = ({ auth }) => {
-    const handleDamlHubLogin = () => {
-      window.location.assign(
-        `https://login.projectdabl.com/auth/login?ledgerId=${auth.ledgerId}`
-      );
-    };
-    const getCookieValue = (name: string): string =>
-      document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() ||
-      "";
-    useEffect(() => {
-      const url = new URL(window.location.toString());
-      const party = url.searchParams.get("party");
-      if (party === null) {
-        return;
-      }
-      url.search = "";
-      window.history.replaceState(window.history.state, "", url.toString());
-      const token = getCookieValue("DAMLHUB_LEDGER_ACCESS_TOKEN");
-      login({ token, party });
-    }, []);
+  return wrap(
+    <>
+      {/* FORM_BEGIN */}
+      <TextField
+        placeholder="Username"
+        value={username}
+        className="test-select-username-field"
+        sx={{ paddingBottom: 2 }}
+        style={{ width: "100%" }}
+        onChange={(e) => setUsername(e.currentTarget.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleLogin(e);
+          }
+        }}
+      />
 
-    return wrap(
-      <Button variant="contained" onClick={handleDamlHubLogin}>
-        Log in with Daml Hub
-      </Button>
-    );
-  };
-
-  const Auth0Login: React.FC = () => {
-    const {
-      user,
-      isAuthenticated,
-      isLoading,
-      loginWithRedirect,
-      getAccessTokenSilently,
-    } = useAuth0();
-    (async function () {
-      if (isLoading === false && isAuthenticated === true) {
-        if (user !== undefined) {
-          const creds: Credentials = {
-            party: user["https://daml.com/ledger-api"],
-            token: await getAccessTokenSilently({
-              audience: "https://daml.com/ledger-api",
-            }),
-          };
-          login(creds);
-        }
-      }
-    })();
-    return wrap(
       <Button
-      // primary
-      // fluid
-      // className='test-select-login-button'
-      // disabled={isLoading || isAuthenticated}
-      // loading={isLoading || isAuthenticated}
-      // onClick={loginWithRedirect}
+        variant="contained"
+        className="test-select-login-button"
+        onClick={handleLogin}
+        style={{ width: "100%" }}
       >
-        Log in
+        Create A Vote
       </Button>
-    );
-  };
-
-  if (authConfig.provider === "none") {
-  } else if (authConfig.provider === "daml-hub") {
-  } else if (authConfig.provider === "auth0") {
-  }
-  return authConfig.provider === "none" ? (
-    <InsecureLogin auth={authConfig} />
-  ) : authConfig.provider === "daml-hub" ? (
-    <DamlHubLogin auth={authConfig} />
-  ) : authConfig.provider === "auth0" ? (
-    <Auth0Login />
-  ) : (
-    <div>Invalid configuation.</div>
+    </>
   );
 };
-
-// export default LoginScreenCreateVote;
-// function token(token: any) {
-//   throw new Error("Function not implemented.");
-// }

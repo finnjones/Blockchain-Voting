@@ -2,26 +2,54 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react";
-import { LoginScreen, LoginScreenCreateVote } from "./LoginScreen";
+import { LoginScreenVote, LoginScreenCreateVote } from "./LoginScreen";
 import MainScreen from "./MainScreen";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
-import { HashRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
 import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { blue, purple } from "@mui/material/colors";
 /**
  * React component for the entry point into the application.
  */
 // APP_BEGIN
 
-const theme = createTheme({
+const themeLight = createTheme({
   palette: {
+    background: {
+      default: "#e4f0e2",
+    },
+    primary: {
+      main: "#387DF6",
+    },
+    secondary: {
+      main: "#666666",
+    },
+  },
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+    subtitle1: {
+      fontSize: 16,
+    },
+    h5: {
+      fontWeight: 700,
+      fontSize: 24,
+    },
+    h6: {
+      fontWeight: 500,
+    },
+  },
+});
+const themeDark = createTheme({
+  palette: {
+    background: {
+      default: "#000000",
+    },
     primary: {
       main: "#387DF6",
     },
@@ -56,7 +84,7 @@ const App: React.FC = () => {
       httpBaseUrl={httpBaseUrl}
     >
       <Router>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeLight}>
           <div>
             <MainScreen onLogout={() => setCredentials(undefined)} />
 
@@ -71,7 +99,7 @@ const App: React.FC = () => {
       </Router>
     </DamlLedger>
   ) : (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeLight}>
       <>
         <Router>
           <div>
@@ -79,7 +107,7 @@ const App: React.FC = () => {
               {/* <Route path="/" component={Home} /> */}
               <Route
                 path="/"
-                element={<LoginScreen onLogin={setCredentials} />}
+                element={<LoginScreenVote onLogin={setCredentials} />}
               ></Route>
               <Route
                 path="/CreateVote"
