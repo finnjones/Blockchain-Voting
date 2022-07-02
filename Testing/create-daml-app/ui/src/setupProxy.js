@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
-
+const compression = require('compression')
 const httpJsonDevUrl =
   process.env.REACT_APP_HTTP_JSON ? process.env.REACT_APP_HTTP_JSON : "http://localhost:7575";
 
@@ -24,6 +24,12 @@ const filter = function (pathname, req) {
 
 module.exports = function (app) {
   app.use(
+    compression({
+      level: 6,
+      threshold: 100 * 100,
+    }
+      
+    ),
     createProxyMiddleware(filter, {
       target: httpJsonDevUrl,
       ws: true, //Proxy websockets

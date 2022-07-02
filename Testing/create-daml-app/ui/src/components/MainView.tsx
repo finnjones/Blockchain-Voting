@@ -16,7 +16,6 @@ import {
   Snackbar,
   Grid,
   Divider,
-  ButtonGroup,
   IconButton,
   Paper,
 } from "@mui/material";
@@ -53,7 +52,7 @@ const MainView: React.FC = () => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
     console.log(button.name);
-    if ((button.name == "Create Vote", assets.contracts.length === 0)) {
+    if ((button.name === "Create Vote", assets.contracts.length === 0)) {
       setPopup({ text: "Vote Created", open: true });
       const [voteKeys, hashedVoteKeys] = generateVoteKeys(value);
 

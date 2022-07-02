@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 
 import { Link } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Ballot, Poll, Logout } from "@mui/icons-material";
 import { useStreamFetchByKeys, useParty } from "@daml/react";
@@ -32,12 +31,10 @@ type Props = {
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
   const hashUsername = useParty();
   console.log(hashUsername);
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const myUserResult = useStreamFetchByKeys(Voting.User, () => [hashUsername], [
     hashUsername,
   ]);
-  const myUser = myUserResult.contracts[0]?.payload;
 
   const handleDrawerOpen = () => {
     setOpen(true);

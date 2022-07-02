@@ -17,14 +17,9 @@ import {
   IconButton,
   Paper,
 } from "@mui/material";
-import { Ballot, Close, HowToVote } from "@mui/icons-material";
+import { Close, HowToVote } from "@mui/icons-material";
 import { Voting } from "@daml.js/create-daml-app";
-import {
-  useParty,
-  useLedger,
-  useStreamFetchByKeys,
-  useStreamQueries,
-} from "@daml/react";
+import { useParty, useLedger, useStreamQueries } from "@daml/react";
 
 const VoteScreen: React.FC = () => {
   const hashUsername = useParty();
@@ -157,35 +152,6 @@ const VoteScreen: React.FC = () => {
           />
         </Paper>
       </Box>
-      {/* <Grid centered columns={2}>
-        <Grid.Row stretched>
-          <Grid.Column>
-            <Header
-              as="h1"
-              size="huge"
-              color="blue"
-              textAlign="center"
-              style={{ padding: "1ex 0em 0ex 0em" }}
-            >
-              Welcome, Voter!
-            </Header>
-            <Segment>
-              <Header as="h2">
-                <Ballot sx={{ fontSize: 45 }} color="primary" />
-                <Header.Content>
-                  Vote
-                  <Header.Subheader>
-                    Read the vote description carefully and choose an option
-                  </Header.Subheader>
-                </Header.Content>
-              </Header>
-              <Divider />
-              <Header as="h3">Vote Description</Header>
-              {assets.contracts[0]?.payload?.subject ?? "Loading..."}
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid> */}
     </Container>
   );
 };

@@ -7,13 +7,16 @@ import MainScreen from "./MainScreen";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
-import { httpBaseUrl } from "../config";
+import { httpBaseUrl, wsBaseUrl } from "../config";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
 import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";
 import { createTheme, ThemeProvider } from "@mui/material";
+var compression = require("compression");
+
+// const app = express()
 /**
  * React component for the entry point into the application.
  */
