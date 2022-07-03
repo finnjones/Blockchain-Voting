@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react";
-import { Image, Menu } from "semantic-ui-react";
 import {
   Typography,
   Box,
@@ -41,36 +40,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   };
 
   // use the url to tell if user is voter or creating vote
-  if (window.location.pathname === "/") {
-    return (
-      <>
-        <Menu icon borderless>
-          <Menu.Item>
-            <Image
-              as="a"
-              href="https://www.daml.com/"
-              target="_blank"
-              src="/daml.svg"
-              alt="Daml Logo"
-              size="mini"
-            />
-          </Menu.Item>
-          <Menu.Menu position="right" className="test-select-main-menu">
-            <Menu.Item position="right">
-              Current vote key in use, {usernameExport}
-            </Menu.Item>
-            <Menu.Item
-              position="right"
-              active={false}
-              className="test-select-log-out"
-              onClick={onLogout}
-              icon="log out"
-            />
-          </Menu.Menu>
-        </Menu>
-      </>
-    );
-  } else {
+  if (window.location.pathname !== "/") {
     return (
       <>
         <Box sx={{ flexGrow: 1 }}>
@@ -143,7 +113,39 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
         </Drawer>
       </>
     );
+  } else {
+    return <></>;
   }
+
+  // return (
+  //   <>
+  {
+    /* <Button
+          variant="outlined"
+          color="primary"
+          startIcon={<Logout />}
+          onClick={onLogout}
+        >
+          Log Out
+        </Button>
+        <Menu icon borderless>
+          <Menu.Item></Menu.Item>
+          <Menu.Menu position="right" className="test-select-main-menu">
+            <Menu.Item position="right">
+              Current vote key in use, {usernameExport}
+            </Menu.Item>
+            <Menu.Item
+              position="right"
+              active={false}
+              className="test-select-log-out"
+              onClick={onLogout}
+              icon="log out"
+            />
+          </Menu.Menu>
+        </Menu> */
+  }
+  //   </>
+  // );
 };
 
 export default MainScreen;

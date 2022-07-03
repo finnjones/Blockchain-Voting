@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useCallback } from "react";
-import { Form, Grid, Header, Segment } from "semantic-ui-react";
-import { Button, TextField, Paper, Typography } from "@mui/material";
+import { Button, TextField, Paper, Typography, Grid } from "@mui/material";
 import Credentials from "../Credentials";
 import Ledger from "@daml/ledger";
 import { Voting } from "@daml.js/create-daml-app";
@@ -19,37 +18,55 @@ function hash(input: string) {
 }
 
 export let usernameExport: any;
-
 const wrap: (c: JSX.Element) => JSX.Element = (component) => (
   // display VoteLogo.png
-
-  <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Typography
-        variant="h3"
-        color="#0d47a1"
-        textAlign="center"
-        sx={{ pt: 2 }}
-      >
-        Votencrypt
-      </Typography>
-      <Typography
-        variant="h6"
-        fontWeight="600"
-        color="#0d47a1"
-        textAlign="center"
-        sx={{ pt: 2 }}
-      >
-        Secure Voting On The Blockchain
-      </Typography>
-
-      <Form size="huge" className="test-select-login-screen">
+  <>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      style={{ height: "100vh" }}
+    >
+      <Grid item>
+        <Typography
+          variant="h3"
+          color="#0d47a1"
+          textAlign="center"
+          // sx={{ pt: 2 }}
+        >
+          Votencrypt
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography
+          variant="h6"
+          fontWeight="600"
+          color="#0d47a1"
+          textAlign="center"
+          // sx={{ pt: 2 }}
+        >
+          Secure Voting On The Blockchain
+        </Typography>
+      </Grid>
+      <Grid item>
         <Paper sx={{ p: 2, borderRadius: "16px" }} elevation={2}>
           {component}
         </Paper>
-      </Form>
-    </Grid.Column>
-  </Grid>
+      </Grid>
+    </Grid>
+  </>
+
+  // <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
+  //   <Grid.Column style={{ maxWidth: 450 }}>
+
+  //     <Form size="huge" className="test-select-login-screen">
+  //       <Paper sx={{ p: 2, borderRadius: "16px" }} elevation={2}>
+  //         {component}
+  //       </Paper>
+  //     </Form>
+  //   </Grid.Column>
+  // </Grid>
 );
 
 export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
@@ -91,29 +108,35 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
 
   return wrap(
     <>
-      <TextField
-        placeholder="Enter Vote Key"
-        value={username}
-        className="test-select-username-field"
-        sx={{ paddingBottom: 2 }}
-        style={{ width: "100%" }}
-        onChange={(e) => setUsername(e.currentTarget.value)}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            handleLogin(e);
-          }
-        }}
-      />
+      <Grid container direction="column" style={{ width: "400px" }}>
+        <Grid item>
+          <TextField
+            placeholder="Enter Vote Key"
+            value={username}
+            className="test-select-username-field"
+            sx={{ paddingBottom: 2 }}
+            style={{ width: "100%" }}
+            onChange={(e) => setUsername(e.currentTarget.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleLogin(e);
+              }
+            }}
+          />
+        </Grid>
 
-      <Button
-        variant="contained"
-        className="test-select-login-button"
-        onClick={handleLogin}
-        style={{ width: "100%" }}
-      >
-        Vote
-      </Button>
+        <Grid item>
+          <Button
+            variant="contained"
+            className="test-select-login-button"
+            onClick={handleLogin}
+            style={{ width: "100%" }}
+          >
+            Vote
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 };
@@ -158,29 +181,34 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
   return wrap(
     <>
       {/* FORM_BEGIN */}
-      <TextField
-        placeholder="Username"
-        value={username}
-        className="test-select-username-field"
-        sx={{ paddingBottom: 2 }}
-        style={{ width: "100%" }}
-        onChange={(e) => setUsername(e.currentTarget.value)}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            handleLogin(e);
-          }
-        }}
-      />
-
-      <Button
-        variant="contained"
-        className="test-select-login-button"
-        onClick={handleLogin}
-        style={{ width: "100%" }}
-      >
-        Create A Vote
-      </Button>
+      <Grid container direction="column" style={{ width: "400px" }}>
+        <Grid item>
+          <TextField
+            placeholder="Username"
+            value={username}
+            className="test-select-username-field"
+            sx={{ paddingBottom: 2 }}
+            style={{ width: "100%" }}
+            onChange={(e) => setUsername(e.currentTarget.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleLogin(e);
+              }
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            className="test-select-login-button"
+            onClick={handleLogin}
+            style={{ width: "100%" }}
+          >
+            Create A Vote
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 };

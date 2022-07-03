@@ -21,11 +21,19 @@ import { Close, HowToVote } from "@mui/icons-material";
 import { Voting } from "@daml.js/create-daml-app";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 
-const VoteScreen: React.FC = () => {
+type Props = {
+  onLogout: () => void;
+};
+
+const VoteScreen: React.FC<Props> = ({ onLogout }) => {
   const hashUsername = useParty();
   const ledger = useLedger();
 
   const [Popup, setPopup] = React.useState({ text: "", open: false });
+
+  // const async delay(ms: number) {
+  //   await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  // }
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -34,8 +42,6 @@ const VoteScreen: React.FC = () => {
     if (reason === "clickaway") {
       return;
     }
-
-    setPopup({ text: "Vote Created", open: false });
   };
   const action = (
     <React.Fragment>
@@ -57,7 +63,18 @@ const VoteScreen: React.FC = () => {
     if (assets.contracts[0]?.payload.voted.includes(hashUsername)) {
       setPopup({ text: "You have already voted", open: true });
     } else {
-      setPopup({ text: "Vote cast", open: true });
+      // setPopup({ text: "Vote cast", open: true });
+      // timeFunction(async () => {
+      //   console.log("Vote cast");
+      // }, 5000);
+      setPopup({
+        text: "Your vote has been cast you will now be logged out",
+        open: true,
+      });
+
+      // setTimeout(() => {
+      //   onLogout();
+      // }, 5000);
 
       await ledger
         .exerciseByKey(

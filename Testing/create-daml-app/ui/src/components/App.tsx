@@ -7,7 +7,7 @@ import MainScreen from "./MainScreen";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
-import { httpBaseUrl, wsBaseUrl } from "../config";
+import { httpBaseUrl } from "../config";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
@@ -93,7 +93,12 @@ const App: React.FC = () => {
 
             <Routes>
               {/* <Route path="/" component={Home} /> */}
-              <Route path="/" element={<VoteScreen />}></Route>
+              <Route
+                path="/"
+                element={
+                  <VoteScreen onLogout={() => setCredentials(undefined)} />
+                }
+              ></Route>
               <Route path="/CreateVote" element={<MainView />}></Route>
               <Route path="/VoteAnalytics" element={<VoteAnalytics />}></Route>
             </Routes>

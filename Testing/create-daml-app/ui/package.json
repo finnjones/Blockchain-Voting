@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@auth0/auth0-react": "^1.6.0",
     "@daml.js/create-daml-app": "file:daml.js/create-daml-app-0.1.0",
     "@daml/ledger": "1.18.0",
     "@daml/react": "1.18.0",
@@ -20,8 +19,6 @@
     "react-dom": "^17.0.0",
     "react-router-dom": "^6.3.0",
     "recharts": "^2.1.10",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.0",
     "use-local-storage": "^2.3.6"
   },
   "scripts": {
