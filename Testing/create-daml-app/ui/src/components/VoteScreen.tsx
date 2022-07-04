@@ -29,8 +29,8 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
   const hashUsername = useParty();
   const ledger = useLedger();
 
-  const [Popup, setPopup] = React.useState({ text: "", open: false });
-
+  const [Popup, setPopup] = React.useState(false);
+  const [popupText, setPopupText] = React.useState("");
   // const async delay(ms: number) {
   //   await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   // }
@@ -42,6 +42,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
     if (reason === "clickaway") {
       return;
     }
+    setPopup(false);
   };
   const action = (
     <React.Fragment>
@@ -61,20 +62,19 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
   const buttonHandler = async () => {
     if (assets.contracts[0]?.payload.voted.includes(hashUsername)) {
-      setPopup({ text: "You have already voted", open: true });
-    } else {
-      // setPopup({ text: "Vote cast", open: true });
-      // timeFunction(async () => {
-      //   console.log("Vote cast");
-      // }, 5000);
-      setPopup({
-        text: "Your vote has been cast you will now be logged out",
-        open: true,
-      });
+      setPopupText("You have already voted");
 
-      // setTimeout(() => {
-      //   onLogout();
-      // }, 5000);
+      setPopup(true);
+    } else {
+      setPopupText(
+        "Your vote has been cast you will now be logged out in 3 seconds."
+      );
+
+      setPopup(true);
+
+      setTimeout(() => {
+        onLogout();
+      }, 3000);
 
       await ledger
         .exerciseByKey(
@@ -89,8 +89,14 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
   return (
     <Container>
-      <Box sx={{ p: 1 }}>
-        <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        style={{ height: "75vh" }}
+      >
+        <Paper sx={{ p: 3, borderRadius: "16px", width: "90%" }} elevation={2}>
           <Grid container spacing={0}>
             <Grid item>
               <HowToVote sx={{ fontSize: 50 }} color="primary" />
@@ -122,7 +128,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
           </Typography>
           {assets.contracts[0]?.payload?.subject ?? "Loading..."}
 
-          <Divider />
+          <Divider sx={{ pb: 2 }} />
           <Box textAlign="center">
             <FormControl>
               <FormLabel id="demo-radio-buttons-group-label">Options</FormLabel>
@@ -161,14 +167,14 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
             </Button>
           </Box>
           <Snackbar
-            open={Popup.open}
+            open={Popup}
             autoHideDuration={2000}
             onClose={handleClose}
-            message={Popup.text}
+            message={popupText}
             action={action}
           />
         </Paper>
-      </Box>
+      </Grid>
     </Container>
   );
 };

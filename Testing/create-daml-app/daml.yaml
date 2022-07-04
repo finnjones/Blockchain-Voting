@@ -1,18 +1,18 @@
-sdk-version: 1.18.0
+sdk-version: 1.18.2
 name: create-daml-app
 version: 0.1.0
 source: daml
 parties:
-- Alice
-- Bob
-- Charlie
+  - Alice
+  - Bob
+  - Charlie
 dependencies:
-- daml-prim
-- daml-stdlib
-- daml-trigger
+  - daml-prim
+  - daml-stdlib
+  - daml-trigger
 sandbox-options:
-- --wall-clock-time
-- --ledgerid=create-daml-app-sandbox
+  - --wall-clock-time
+  - --ledgerid=create-daml-app-sandbox
 start-navigator: false
 codegen:
   js:

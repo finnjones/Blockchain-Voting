@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@daml.js/create-daml-app": "file:daml.js/create-daml-app-0.1.0",
-    "@daml/ledger": "1.18.0",
-    "@daml/react": "1.18.0",
-    "@daml/types": "1.18.0",
+    "@daml/ledger": "1.18.2",
+    "@daml/react": "1.18.2",
+    "@daml/types": "1.18.2",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.2",
@@ -43,6 +43,8 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:7575",
+
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/jwt-simple": "^0.5.33",

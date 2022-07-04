@@ -33,6 +33,7 @@ module.exports = function (app) {
     createProxyMiddleware(filter, {
       target: httpJsonDevUrl,
       ws: true, //Proxy websockets
+      changeOrigin: true, // needed for virtual hosted sites
     })
   );
 };
