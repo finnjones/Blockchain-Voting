@@ -82,18 +82,37 @@ const App: React.FC = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <div>
-            <MainScreen onLogout={() => setCredentials(undefined)} />
+            {/* <MainScreen onLogout={() => setCredentials(undefined)} /> */}
 
             <Routes>
               {/* <Route path="/" component={Home} /> */}
               <Route
                 path="/Vote"
                 element={
-                  <VoteScreen onLogout={() => setCredentials(undefined)} />
+                  <>
+                    <MainScreen onLogout={() => setCredentials(undefined)} />
+                    <VoteScreen onLogout={() => setCredentials(undefined)} />
+                  </>
                 }
               ></Route>
-              <Route path="/CreateVote" element={<MainView />}></Route>
-              <Route path="/VoteAnalytics" element={<VoteAnalytics />}></Route>
+              <Route
+                path="/CreateVote"
+                element={
+                  <>
+                    <MainScreen onLogout={() => setCredentials(undefined)} />
+                    <MainView />
+                  </>
+                }
+              ></Route>
+              <Route
+                path="/VoteAnalytics"
+                element={
+                  <>
+                    <MainScreen onLogout={() => setCredentials(undefined)} />
+                    <VoteAnalytics />
+                  </>
+                }
+              ></Route>
               <Route
                 path="*"
                 element={
