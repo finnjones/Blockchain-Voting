@@ -66,6 +66,13 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
       setPopup(true);
     } else {
+      await ledger
+        .exerciseByKey(
+          Voting.Voting.Vote,
+          assets.contracts[0]?.signatories[0],
+          { voter: hashUsername, vote: radioStatus }
+        )
+        .catch(console.error);
       setPopupText(
         "Your vote has been cast you will now be logged out in 3 seconds."
       );
@@ -75,14 +82,6 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
       setTimeout(() => {
         onLogout();
       }, 3000);
-
-      await ledger
-        .exerciseByKey(
-          Voting.Voting.Vote,
-          assets.contracts[0]?.signatories[0],
-          { voter: hashUsername, vote: radioStatus }
-        )
-        .catch(console.error);
     }
     console.log(assets.contracts[0]?.payload.voted);
   };
@@ -102,7 +101,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
               <HowToVote sx={{ fontSize: 50 }} color="primary" />
             </Grid>
 
-            <Grid direction="column">
+            <Grid item>
               <Grid item>
                 <Typography variant="h5" display="block">
                   Vote

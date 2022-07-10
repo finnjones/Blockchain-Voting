@@ -8,6 +8,7 @@ import Ledger from "@daml/ledger";
 import { Voting } from "@daml.js/create-daml-app";
 import { authConfig, httpBaseUrl } from "../config";
 import { createHash } from "crypto";
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -31,9 +32,9 @@ const wrap: (c: JSX.Element) => JSX.Element = (component) => (
       <Grid item>
         <Typography
           variant="h3"
-          color="#0d47a1"
+          color="primary"
           textAlign="center"
-          // sx={{ pt: 2 }}
+          // sx={{ pt: 2 }}#0d47a1
         >
           Votencrypt
         </Typography>
@@ -42,7 +43,7 @@ const wrap: (c: JSX.Element) => JSX.Element = (component) => (
         <Typography
           variant="h6"
           fontWeight="600"
-          color="#0d47a1"
+          color="primary"
           textAlign="center"
           // sx={{ pt: 2 }}
         >
@@ -69,7 +70,40 @@ const wrap: (c: JSX.Element) => JSX.Element = (component) => (
   // </Grid>
 );
 
+export const LandingScreen = () => {
+  return wrap(
+    <Grid container direction="column" style={{ width: "400px" }} spacing={2}>
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          className="test-select-login-button"
+          component={Link}
+          to="/CreateVote"
+          style={{ width: "100%" }}
+        >
+          Create A Vote
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          className="test-select-login-button"
+          component={Link}
+          to="/VoteLogin"
+          style={{ width: "100%" }}
+        >
+          Vote
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};
+
 export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
+  const navigate = useNavigate();
+
   const login = useCallback(
     async (credentials: Credentials) => {
       try {
@@ -85,6 +119,8 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
           };
           userContract = await ledger.create(Voting.User, user);
         }
+        navigate("/Vote");
+
         onLogin(credentials);
       } catch (error) {
         alert(`Unknown error:\n${JSON.stringify(error)}`);
@@ -129,7 +165,10 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
         <Grid item>
           <Button
             variant="contained"
+            color="primary"
             className="test-select-login-button"
+            component={Link}
+            to="/Vote"
             onClick={handleLogin}
             style={{ width: "100%" }}
           >

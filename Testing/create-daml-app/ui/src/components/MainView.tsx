@@ -259,12 +259,12 @@ const MainView: React.FC = () => {
 
       <Box sx={{ p: 1 }}>
         <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
-          <Grid container spacing={0}>
+          <Grid container>
             <Grid item>
               <Key sx={{ fontSize: 45 }} color="primary" />
             </Grid>
 
-            <Grid direction="column">
+            <Grid item>
               <Grid item>
                 <Typography variant="h5" display="block">
                   Vote Keys

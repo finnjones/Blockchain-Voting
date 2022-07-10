@@ -40,7 +40,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   };
 
   // use the url to tell if user is voter or creating vote
-  if (window.location.pathname !== "/") {
+  if (window.location.pathname !== "/Vote") {
     return (
       <>
         <Box sx={{ flexGrow: 1 }}>
@@ -65,6 +65,8 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
                 color="inherit"
                 startIcon={<Logout />}
                 onClick={onLogout}
+                component={Link}
+                to="/CreateVote"
               >
                 Log Out
               </Button>

@@ -5,12 +5,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const compression = require('compression')
 const httpJsonDevUrl =
   process.env.REACT_APP_HTTP_JSON ? process.env.REACT_APP_HTTP_JSON : "http://localhost:7575";
-const cors = require('cors')
-const corsOptions ={
-  origin:'http://localhost:3000', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
-}
+
 /**
  * @return {Boolean}
  */
@@ -29,7 +24,6 @@ const filter = function (pathname, req) {
 
 module.exports = function (app) {
   app.use(
-    cors(corsOptions),
     compression({
       level: 6,
       threshold: 100 * 100,

@@ -33,4 +33,4 @@ export const authConfig: Authentication = (() => {
   }
 )();
 
-export const httpBaseUrl = "http://localhost:7575/";
+export const httpBaseUrl = undefined;

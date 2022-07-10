@@ -86,7 +86,7 @@ const VoteAnalytics: React.FC = () => {
             <Grid item>
               <Poll sx={{ fontSize: 50 }} color="primary" />
             </Grid>
-            <Grid direction="column">
+            <Grid item>
               <Grid item>
                 <Typography variant="h5" display="block">
                   Vote Analytics
