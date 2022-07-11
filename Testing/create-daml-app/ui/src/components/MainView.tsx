@@ -59,9 +59,10 @@ const MainView: React.FC = () => {
       console.log(candidateText);
       const voteDetails = {
         username: hashUsername,
-        following: hashedVoteKeys,
+        voters: hashedVoteKeys,
         votes: [],
         voted: [],
+        voteTimes: [],
         candidates: candidateList,
         subject: subjectText,
       };

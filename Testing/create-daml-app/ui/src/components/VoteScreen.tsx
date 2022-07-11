@@ -20,6 +20,8 @@ import {
 import { Close, HowToVote } from "@mui/icons-material";
 import { Voting } from "@daml.js/create-daml-app";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
 
 type Props = {
   onLogout: () => void;
@@ -59,7 +61,10 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
   const assets = useStreamQueries(Voting.Voting);
   const [radioStatus, setRadioStatus] = useState("");
+  // get current unix time stamp
+  const now = new Date().getTime();
 
+  // console.log(now);
   const buttonHandler = async () => {
     if (assets.contracts[0]?.payload.voted.includes(hashUsername)) {
       setPopupText("You have already voted");
@@ -70,7 +75,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
         .exerciseByKey(
           Voting.Voting.Vote,
           assets.contracts[0]?.signatories[0],
-          { voter: hashUsername, vote: radioStatus }
+          { voter: hashUsername, vote: radioStatus, unixTime: now }
         )
         .catch(console.error);
       setPopupText(
@@ -81,8 +86,10 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
       setTimeout(() => {
         onLogout();
+        navigate("/");
       }, 3000);
     }
+    console.log(assets);
     console.log(assets.contracts[0]?.payload.voted);
   };
 
