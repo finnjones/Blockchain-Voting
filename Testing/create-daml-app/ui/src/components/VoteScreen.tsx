@@ -21,13 +21,14 @@ import { Close, HowToVote } from "@mui/icons-material";
 import { Voting } from "@daml.js/create-daml-app";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 import { useNavigate } from "react-router-dom";
-const navigate = useNavigate();
 
 type Props = {
   onLogout: () => void;
 };
 
 const VoteScreen: React.FC<Props> = ({ onLogout }) => {
+  const navigate = useNavigate();
+
   const hashUsername = useParty();
   const ledger = useLedger();
 
