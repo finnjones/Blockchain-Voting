@@ -156,7 +156,7 @@ const VoteAnalytics: React.FC = () => {
           <Typography variant="h5" textAlign="center">
             Votes Over Time
           </Typography>
-          <Box style={{ width: "100%" }} textAlign="center">
+          <Box style={{ width: "100%", height: "20vh" }} textAlign="center">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 width={500}
