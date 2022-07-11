@@ -34,4 +34,3 @@ export const authConfig: Authentication = (() => {
 )();
 
 export const httpBaseUrl = undefined;
-export const wsBaseUrl = "ws://localhost:7575/";

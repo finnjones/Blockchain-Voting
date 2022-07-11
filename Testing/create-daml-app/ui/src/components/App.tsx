@@ -12,7 +12,7 @@ import MainScreen from "./MainScreen";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
-import { httpBaseUrl, wsBaseUrl } from "../config";
+import { httpBaseUrl } from "../config";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
@@ -77,7 +77,6 @@ const App: React.FC = () => {
       token={credentials.token}
       party={credentials.party}
       httpBaseUrl={httpBaseUrl}
-      wsBaseUrl={wsBaseUrl}
     >
       <Router>
         <ThemeProvider theme={theme}>
