@@ -66,7 +66,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
                 startIcon={<Logout />}
                 onClick={onLogout}
                 component={Link}
-                to="/CreateVote"
+                to="/"
               >
                 Log Out
               </Button>

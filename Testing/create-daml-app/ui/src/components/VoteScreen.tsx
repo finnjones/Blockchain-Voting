@@ -17,10 +17,10 @@ import {
   IconButton,
   Paper,
 } from "@mui/material";
-import { Close, HowToVote } from "@mui/icons-material";
+import { Close, HowToVote, Logout } from "@mui/icons-material";
 import { Voting } from "@daml.js/create-daml-app";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 type Props = {
   onLogout: () => void;
@@ -79,110 +79,120 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
           { voter: hashUsername, vote: radioStatus, unixTime: now }
         )
         .catch(console.error);
-      setPopupText(
-        "Your vote has been cast you will now be logged out in 3 seconds."
-      );
+      setPopupText("Your vote has been cast. Please or close the browser tab");
 
       setPopup(true);
-
-      setTimeout(() => {
-        onLogout();
-        navigate("/");
-      }, 3000);
     }
-    console.log(assets);
-    console.log(assets.contracts[0]?.payload.voted);
   };
 
   return (
-    <Container>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        style={{ height: "75vh" }}
-      >
-        <Paper sx={{ p: 3, borderRadius: "16px", width: "90%" }} elevation={2}>
-          <Grid container spacing={0}>
-            <Grid item>
-              <HowToVote sx={{ fontSize: 50 }} color="primary" />
+    <>
+      <Box textAlign={"right"} sx={{ p: 1 }}>
+        <Button
+          variant="outlined"
+          color="inherit"
+          startIcon={<Logout />}
+          onClick={onLogout}
+          component={Link}
+          to="/"
+        >
+          Log Out
+        </Button>
+      </Box>
+      <Container>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: "75vh" }}
+        >
+          <Paper
+            sx={{ p: 3, borderRadius: "16px", width: "90%" }}
+            elevation={2}
+          >
+            <Grid container spacing={0}>
+              <Grid item>
+                <HowToVote sx={{ fontSize: 50 }} color="primary" />
+              </Grid>
+
+              <Grid item>
+                <Grid item>
+                  <Typography variant="h5" display="block">
+                    Vote
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="subtitle1"
+                    color="secondary"
+                    display="block"
+                    style={{ lineHeight: "15px" }}
+                  >
+                    Read the vote description carefully and choose an option
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
 
-            <Grid item>
-              <Grid item>
-                <Typography variant="h5" display="block">
-                  Vote
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography
-                  variant="subtitle1"
-                  color="secondary"
-                  display="block"
-                  style={{ lineHeight: "15px" }}
+            <Divider />
+
+            <Typography variant="h6" sx={{ pt: 2 }}>
+              Vote Description
+            </Typography>
+            {assets.contracts[0]?.payload?.subject ?? "Loading..."}
+
+            <Divider sx={{ pb: 2 }} />
+            <Box textAlign="center">
+              <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label">
+                  Options
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
                 >
-                  Read the vote description carefully and choose an option
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Divider />
-
-          <Typography variant="h6" sx={{ pt: 2 }}>
-            Vote Description
-          </Typography>
-          {assets.contracts[0]?.payload?.subject ?? "Loading..."}
-
-          <Divider sx={{ pb: 2 }} />
-          <Box textAlign="center">
-            <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">Options</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="female"
-                name="radio-buttons-group"
+                  <List>
+                    {assets.contracts[0]?.payload?.candidates.map((item) => (
+                      <ListItem key={item}>
+                        <FormControlLabel
+                          value={item}
+                          control={<Radio />}
+                          label={item}
+                          onChange={(event) => {
+                            console.log(item);
+                            setRadioStatus(item);
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </RadioGroup>
+              </FormControl>
+            </Box>
+            <Box textAlign="center">
+              <Button
+                variant="contained"
+                onClick={buttonHandler}
+                className="button"
+                name="Create Vote"
+                sx={{ m: 2, alignItems: "center" }}
               >
-                <List>
-                  {assets.contracts[0]?.payload?.candidates.map((item) => (
-                    <ListItem key={item}>
-                      <FormControlLabel
-                        value={item}
-                        control={<Radio />}
-                        label={item}
-                        onChange={(event) => {
-                          console.log(item);
-                          setRadioStatus(item);
-                        }}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </RadioGroup>
-            </FormControl>
-          </Box>
-          <Box textAlign="center">
-            <Button
-              variant="contained"
-              onClick={buttonHandler}
-              className="button"
-              name="Create Vote"
-              sx={{ m: 2, alignItems: "center" }}
-            >
-              Vote
-            </Button>
-          </Box>
-          <Snackbar
-            open={Popup}
-            autoHideDuration={2000}
-            onClose={handleClose}
-            message={popupText}
-            action={action}
-          />
-        </Paper>
-      </Grid>
-    </Container>
+                Vote
+              </Button>
+            </Box>
+            <Snackbar
+              open={Popup}
+              autoHideDuration={4000}
+              onClose={handleClose}
+              message={popupText}
+              action={action}
+            />
+          </Paper>
+        </Grid>
+      </Container>
+    </>
   );
 };
 

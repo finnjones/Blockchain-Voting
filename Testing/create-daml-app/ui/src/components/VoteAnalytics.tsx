@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
   Box,
+  LinearProgress,
 } from "@mui/material";
 import { Poll } from "@mui/icons-material";
 
@@ -49,8 +50,9 @@ const VoteAnalytics: React.FC = () => {
   const [radioStatus, setRadioStatus] = useState("");
 
   const votes = assets.contracts[0]?.payload?.votes || [];
+  const voters = assets.contracts[0]?.payload?.voters || [];
   const voteTimes = assets.contracts[0]?.payload?.voteTimes || [];
-
+  const voteProgress = (votes.length / voters.length) * 100 || "Loading...";
   const votesFrequency = useMemo(() => {
     const map = new Map<string, number>();
     votes.forEach((vote) => {
@@ -63,7 +65,6 @@ const VoteAnalytics: React.FC = () => {
     return [...map].map(([name, value]) => ({ name, value }));
   }, [votes]);
 
-  console.log(votesFrequency);
   // generate list of pastel colours based on length of data01
   const colours = useMemo(() => {
     const colours = [];
@@ -78,7 +79,6 @@ const VoteAnalytics: React.FC = () => {
     const map = new Map<number, number>();
     voteTimes.forEach((voteTime) => {
       var ajustedTime = voteTime.slice(0, -5) + "00000";
-      console.log(voteTime.slice(0, -5));
       if (map.has(parseInt(ajustedTime))) {
         map.set(
           parseInt(ajustedTime),
@@ -88,9 +88,8 @@ const VoteAnalytics: React.FC = () => {
         map.set(parseInt(ajustedTime), 1);
       }
     });
-    return [...map].map(([time, value]) => ({ time, value }));
+    return [...map].map(([time, value]) => ({ time, value })).reverse();
   }, [voteTimes]);
-  console.log(votesFrequencyByTime, "here");
 
   return (
     <Container>
@@ -120,7 +119,9 @@ const VoteAnalytics: React.FC = () => {
           </Grid>
 
           <Divider />
-          <Typography variant="h5">Vote Progress</Typography>
+          <Typography variant="h5">Vote Progress: {voteProgress}%</Typography>
+          <LinearProgress variant="determinate" value={voteProgress} />
+
           <Grid container justifyContent="center" alignItems="center">
             <Grid item>
               <BarChart width={400} height={100} data={votesFrequency}>
@@ -140,14 +141,14 @@ const VoteAnalytics: React.FC = () => {
                   data={votesFrequency}
                   dataKey="value"
                   nameKey="name"
-                  cx={200}
-                  cy={200}
-                  isAnimationActive={false}
+                  // cx={200}
+                  // cy={200}
                 >
                   {votesFrequency.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={colours[index]} />
                   ))}
-                  <LabelList dataKey="name" />
+
+                  <LabelList dataKey="name" fill="white" />
                 </Pie>
                 <Tooltip />
               </PieChart>

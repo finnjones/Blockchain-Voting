@@ -13,7 +13,12 @@ import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -138,7 +143,7 @@ const App: React.FC = () => {
               element={<LoginScreenVote onLogin={setCredentials} />}
             ></Route>
             <Route
-              path="/CreateVote"
+              path="/CreateVoteLogin"
               element={<LoginScreenCreateVote onLogin={setCredentials} />}
             ></Route>
             <Route path="*" element={<PageNotFound />}></Route>

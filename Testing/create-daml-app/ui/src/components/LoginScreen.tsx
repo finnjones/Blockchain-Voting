@@ -79,7 +79,7 @@ export const LandingScreen = () => {
           color="primary"
           className="test-select-login-button"
           component={Link}
-          to="/CreateVote"
+          to="/CreateVoteLogin"
           style={{ width: "100%" }}
         >
           Create A Vote
@@ -167,8 +167,6 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
             variant="contained"
             color="primary"
             className="test-select-login-button"
-            component={Link}
-            to="/Vote"
             onClick={handleLogin}
             style={{ width: "100%" }}
           >
@@ -181,6 +179,8 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
 };
 
 export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
+  const navigate = useNavigate();
+
   const login = useCallback(
     async (credentials: Credentials) => {
       try {
@@ -198,6 +198,8 @@ export const LoginScreenCreateVote: React.FC<Props> = ({ onLogin }) => {
           };
           userContract = await ledger.create(Voting.User, user);
         }
+        navigate("/CreateVote");
+
         onLogin(credentials);
       } catch (error) {
         alert(`Unknown error:\n${JSON.stringify(error)}`);
