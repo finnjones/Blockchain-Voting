@@ -27,16 +27,11 @@ type Props = {
 };
 
 const VoteScreen: React.FC<Props> = ({ onLogout }) => {
-  const navigate = useNavigate();
-
   const hashUsername = useParty();
   const ledger = useLedger();
 
   const [Popup, setPopup] = React.useState(false);
   const [popupText, setPopupText] = React.useState("");
-  // const async delay(ms: number) {
-  //   await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-  // }
 
   const handleClose = (
     event: React.SyntheticEvent | Event,

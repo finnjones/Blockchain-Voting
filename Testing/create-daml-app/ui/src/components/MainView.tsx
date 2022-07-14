@@ -66,7 +66,7 @@ const MainView: React.FC = () => {
         candidates: candidateList,
         subject: subjectText,
       };
-      const createVote = ledger.create(Voting.Voting, voteDetails);
+      ledger.create(Voting.Voting, voteDetails);
       console.log(assets);
     } else {
       setPopup({ text: "Vote In Progress", open: true });

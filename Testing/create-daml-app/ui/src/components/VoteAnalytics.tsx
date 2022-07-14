@@ -40,15 +40,7 @@ import {
 import moment from "moment";
 
 const VoteAnalytics: React.FC = () => {
-  const username = useParty();
-  const ledger = useLedger();
-
-  const myUserResult = useStreamFetchByKeys(Voting.User, () => [username], [
-    username,
-  ]);
   const assets = useStreamQueries(Voting.Voting);
-  const [radioStatus, setRadioStatus] = useState("");
-
   const votes = assets.contracts[0]?.payload?.votes || [];
   const voters = assets.contracts[0]?.payload?.voters || [];
   const voteTimes = assets.contracts[0]?.payload?.voteTimes || [];

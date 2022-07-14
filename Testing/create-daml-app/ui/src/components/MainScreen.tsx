@@ -31,9 +31,6 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   const hashUsername = useParty();
   console.log(hashUsername);
   const [open, setOpen] = React.useState(false);
-  const myUserResult = useStreamFetchByKeys(Voting.User, () => [hashUsername], [
-    hashUsername,
-  ]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -118,36 +115,6 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   } else {
     return <></>;
   }
-
-  // return (
-  //   <>
-  {
-    /* <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<Logout />}
-          onClick={onLogout}
-        >
-          Log Out
-        </Button>
-        <Menu icon borderless>
-          <Menu.Item></Menu.Item>
-          <Menu.Menu position="right" className="test-select-main-menu">
-            <Menu.Item position="right">
-              Current vote key in use, {usernameExport}
-            </Menu.Item>
-            <Menu.Item
-              position="right"
-              active={false}
-              className="test-select-log-out"
-              onClick={onLogout}
-              icon="log out"
-            />
-          </Menu.Menu>
-        </Menu> */
-  }
-  //   </>
-  // );
 };
 
 export default MainScreen;

@@ -13,12 +13,7 @@ import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import Home from "./Home";
 // import { Home, Foo, Bar } from "./Topics";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -42,7 +37,6 @@ const App: React.FC = () => {
     Credentials | undefined
   >();
   // create a dark theme light theme switcher
-  const [mode, setMode] = React.useState<"light" | "dark">("dark");
   const preferedScheme = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = React.useMemo(
