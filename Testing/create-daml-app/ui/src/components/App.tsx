@@ -9,26 +9,16 @@ import {
 } from "./LoginScreen";
 import { LogoutConfirm, PageNotFound } from "./CatchNotFound";
 import MainScreen from "./MainScreen";
+import VoteManagement from "./VoteManagement";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import Home from "./Home";
-// import { Home, Foo, Bar } from "./Topics";
 import CssBaseline from "@mui/material/CssBaseline";
 import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
-// const compression = require("compression");
-// const express = require("express");
-// const app = express();
-
-// const app = express()
-/**
- * React component for the entry point into the application.
- */
-// APP_BEGIN
 
 export function themeSwitcher() {}
 
@@ -51,6 +41,7 @@ const App: React.FC = () => {
             main: "#666666",
           },
         },
+
         typography: {
           fontFamily: "Roboto, sans-serif",
           subtitle1: {
@@ -71,80 +62,89 @@ const App: React.FC = () => {
   //   res.header("Access-Control-Allow-Origin", "*");
   //   next();
   // });
+
   return credentials ? (
     <DamlLedger
       token={credentials.token}
       party={credentials.party}
       httpBaseUrl={httpBaseUrl}
     >
-      <Router>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <div>
-            {/* <MainScreen onLogout={() => setCredentials(undefined)} /> */}
-
-            <Routes>
-              {/* <Route path="/" component={Home} /> */}
-              <Route
-                path="/Vote"
-                element={
-                  <>
-                    <MainScreen onLogout={() => setCredentials(undefined)} />
-                    <VoteScreen onLogout={() => setCredentials(undefined)} />
-                  </>
-                }
-              ></Route>
-              <Route
-                path="/CreateVote"
-                element={
-                  <>
-                    <MainScreen onLogout={() => setCredentials(undefined)} />
-                    <MainView />
-                  </>
-                }
-              ></Route>
-              <Route
-                path="/VoteAnalytics"
-                element={
-                  <>
-                    <MainScreen onLogout={() => setCredentials(undefined)} />
-                    <VoteAnalytics />
-                  </>
-                }
-              ></Route>
-              <Route
-                path="*"
-                element={
-                  <LogoutConfirm onLogout={() => setCredentials(undefined)} />
-                }
-              ></Route>
-            </Routes>
-          </div>
-        </ThemeProvider>
-      </Router>
-    </DamlLedger>
-  ) : (
-    <Router>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div>
+          {/* <MainScreen onLogout={() => setCredentials(undefined)} /> */}
+
           <Routes>
             {/* <Route path="/" component={Home} /> */}
+            <Route
+              path="/Vote"
+              element={
+                <>
+                  <VoteScreen onLogout={() => setCredentials(undefined)} />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/CreateVote"
+              element={
+                <>
+                  <MainScreen onLogout={() => setCredentials(undefined)} />
+                  <MainView />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/VoteAnalytics"
+              element={
+                <>
+                  <MainScreen onLogout={() => setCredentials(undefined)} />
+                  <VoteAnalytics />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/VoteManagement"
+              element={
+                <>
+                  <MainScreen onLogout={() => setCredentials(undefined)} />
+                  <VoteManagement />
+                </>
+              }
+            ></Route>
 
-            <Route path="/" element={<LandingScreen />}></Route>
             <Route
-              path="/VoteLogin"
-              element={<LoginScreenVote onLogin={setCredentials} />}
+              path="*"
+              element={
+                <LogoutConfirm onLogout={() => setCredentials(undefined)} />
+              }
             ></Route>
-            <Route
-              path="/CreateVoteLogin"
-              element={<LoginScreenCreateVote onLogin={setCredentials} />}
-            ></Route>
-            <Route path="*" element={<PageNotFound />}></Route>
           </Routes>
         </div>
       </ThemeProvider>
-    </Router>
+    </DamlLedger>
+  ) : (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div>
+        <Routes>
+          {/* <Route path="/" component={Home} /> */}
+
+          <Route
+            path="/"
+            element={<LandingScreen onLogin={setCredentials} />}
+          ></Route>
+          <Route
+            path="/VoteLogin"
+            element={<LoginScreenVote onLogin={setCredentials} />}
+          ></Route>
+          <Route
+            path="/CreateVoteLogin"
+            element={<LoginScreenCreateVote onLogin={setCredentials} />}
+          ></Route>
+          <Route path="*" element={<PageNotFound />}></Route>
+        </Routes>
+      </div>
+    </ThemeProvider>
 
     //
   );

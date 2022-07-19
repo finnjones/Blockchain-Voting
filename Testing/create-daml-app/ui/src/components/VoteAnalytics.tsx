@@ -12,12 +12,7 @@ import { Poll } from "@mui/icons-material";
 
 import { Voting } from "@daml.js/create-daml-app";
 
-import {
-  useParty,
-  useLedger,
-  useStreamFetchByKeys,
-  useStreamQueries,
-} from "@daml/react";
+import { useStreamQueries } from "@daml/react";
 
 import {
   Pie,
@@ -46,15 +41,24 @@ const VoteAnalytics: React.FC = () => {
   const voteTimes = assets.contracts[0]?.payload?.voteTimes || [];
   const voteProgress = (votes.length / voters.length) * 100 || "Loading...";
   const votesFrequency = useMemo(() => {
-    const map = new Map<string, number>();
-    votes.forEach((vote) => {
-      if (map.has(vote)) {
-        map.set(vote, (map.get(vote) || 1) + 1);
-      } else {
-        map.set(vote, 1);
-      }
-    });
-    return [...map].map(([name, value]) => ({ name, value }));
+    if (votes.length !== 0) {
+      const map = new Map<string, number>();
+      votes.forEach((vote) => {
+        if (map.has(vote)) {
+          map.set(vote, (map.get(vote) || 1) + 1);
+        } else {
+          map.set(vote, 1);
+        }
+      });
+      return [...map].map(([name, value]) => ({ name, value }));
+    } else {
+      return [
+        {
+          name: "No Data",
+          value: 0,
+        },
+      ];
+    }
   }, [votes]);
 
   // generate list of pastel colours based on length of data01
@@ -68,21 +72,29 @@ const VoteAnalytics: React.FC = () => {
 
   // create a an array of objects with frequency in relationship with time
   const votesFrequencyByTime = useMemo(() => {
-    const map = new Map<number, number>();
-    voteTimes.forEach((voteTime) => {
-      var ajustedTime = voteTime.slice(0, -5) + "00000";
-      if (map.has(parseInt(ajustedTime))) {
-        map.set(
-          parseInt(ajustedTime),
-          (map.get(parseInt(ajustedTime)) || 1) + 1
-        );
-      } else {
-        map.set(parseInt(ajustedTime), 1);
-      }
-    });
-    return [...map].map(([time, value]) => ({ time, value })).reverse();
+    if (votes.length !== 0) {
+      const map = new Map<number, number>();
+      voteTimes.forEach((voteTime) => {
+        var ajustedTime = voteTime.slice(0, -5) + "00000";
+        if (map.has(parseInt(ajustedTime))) {
+          map.set(
+            parseInt(ajustedTime),
+            (map.get(parseInt(ajustedTime)) || 1) + 1
+          );
+        } else {
+          map.set(parseInt(ajustedTime), 1);
+        }
+      });
+      return [...map].map(([time, value]) => ({ time, value })).reverse();
+    } else {
+      return [
+        {
+          time: 1,
+          value: 0,
+        },
+      ];
+    }
   }, [voteTimes]);
-
   return (
     <Container>
       <Box sx={{ p: 1 }}>
@@ -159,7 +171,7 @@ const VoteAnalytics: React.FC = () => {
                   top: 5,
                   right: 30,
                   left: 20,
-                  bottom: 5,
+                  bottom: 20,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -169,13 +181,12 @@ const VoteAnalytics: React.FC = () => {
                     moment(unixTime).format("HH:mm Do")
                   }
                 >
-                  <Label value="Time" fill="#8884d8" position="insideBottom" />
+                  <Label value="Time" fill="#8884d8" position="bottom" />
                 </XAxis>
                 <YAxis allowDecimals={false}>
-                  <Label value="Votes" fill="#8884d8" angle="-90" />
+                  <Label value="Votes" fill="#8884d8" angle={-90} />
                 </YAxis>
                 <Tooltip />
-                <Legend position="bottom" />
                 <Line
                   type="monotone"
                   name="Votes"

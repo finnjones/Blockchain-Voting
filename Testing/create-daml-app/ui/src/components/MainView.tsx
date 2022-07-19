@@ -26,6 +26,7 @@ import {
   Delete,
   Close,
   KeyboardReturn,
+  QuestionMark,
 } from "@mui/icons-material";
 
 import { Voting } from "@daml.js/create-daml-app";
@@ -33,6 +34,8 @@ import { Voting } from "@daml.js/create-daml-app";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 
 import { createHash } from "crypto";
+
+import HelpPopup from "./HelpPopup";
 
 let voteKeys: string[] = [];
 let hashedVoteKeys: string[] = [];
@@ -43,7 +46,8 @@ const MainView: React.FC = () => {
   const [value, setValue] = React.useState<number>(10);
   const [subjectText, setSubjectText] = useState("");
   const [candidateText, setCandidateText] = useState("");
-  const [Popup, setPopup] = React.useState({ text: "", open: false });
+  const [Popup, setPopup] = React.useState(false);
+  const [popupText, setPopupText] = React.useState("");
 
   const assets = useStreamQueries(Voting.Voting);
 
@@ -51,12 +55,11 @@ const MainView: React.FC = () => {
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
-    console.log(button.name);
     if ((button.name === "Create Vote", assets.contracts.length === 0)) {
-      setPopup({ text: "Vote Created", open: true });
+      setPopupText("Vote Created");
+      setPopup(true);
       const [voteKeys, hashedVoteKeys] = generateVoteKeys(value);
 
-      console.log(candidateText);
       const voteDetails = {
         username: hashUsername,
         voters: hashedVoteKeys,
@@ -67,9 +70,9 @@ const MainView: React.FC = () => {
         subject: subjectText,
       };
       ledger.create(Voting.Voting, voteDetails);
-      console.log(assets);
     } else {
-      setPopup({ text: "Vote In Progress", open: true });
+      setPopupText("Vote In Progress");
+      setPopup(true);
     }
   };
 
@@ -88,15 +91,21 @@ const MainView: React.FC = () => {
   };
 
   const addCandidate = () => {
-    setCandidateText("");
-    // append candidateText to the start of candidateList
-    setCandidateList([candidateText, ...candidateList]);
+    if (candidateList.includes(candidateText)) {
+      setPopupText("Candidate already exists");
+      setPopup(true);
+    } else {
+      setCandidateText("");
+      // append candidateText to the start of candidateList
+      setCandidateList([candidateText, ...candidateList]);
+    }
   };
 
   // copy voteKeys to clipboard
   const copyVoteKeys = () => {
     navigator.clipboard.writeText(voteKeys.join("\n"));
-    setPopup({ text: "Keys Copied To Clipboard", open: true });
+    setPopupText("Keys Copied To Clipboard");
+    setPopup(true);
   };
 
   // export voteKeys to csv
@@ -108,7 +117,8 @@ const MainView: React.FC = () => {
     link.href = url;
     link.download = "voteKeys.csv";
     link.click();
-    setPopup({ text: "Keys Exported", open: true });
+    setPopupText("Keys Exported");
+    setPopup(true);
   };
 
   const handleClose = (
@@ -119,7 +129,7 @@ const MainView: React.FC = () => {
       return;
     }
 
-    setPopup({ text: "Vote Created", open: false });
+    setPopup(false);
   };
   const action = (
     <React.Fragment>
@@ -249,10 +259,10 @@ const MainView: React.FC = () => {
             </Button>
           </Box>
           <Snackbar
-            open={Popup.open}
+            open={Popup}
             autoHideDuration={2000}
             onClose={handleClose}
-            message={Popup.text}
+            message={popupText}
             action={action}
           />
         </Paper>
@@ -296,11 +306,11 @@ const MainView: React.FC = () => {
             </Box>
           </Grid>
 
-          <Divider />
           <List
             sx={{
               width: "100%",
               bgcolor: "background.paper",
+              borderRadius: "16px",
               position: "relative",
               overflow: "auto",
               maxHeight: 300,
@@ -322,6 +332,22 @@ const MainView: React.FC = () => {
           </List>
         </Paper>
       </Box>
+
+      {/* <Button variant="contained" sx={{ borderColor: "primary" }}>
+        <QuestionMark />
+      </Button>
+      <IconButton
+        aria-label="delete"
+        size="large"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+      >
+        <QuestionMark fontSize="inherit" />
+      </IconButton> */}
+      <HelpPopup
+        heading="Help Heading"
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+"
+      ></HelpPopup>
     </Container>
   );
 };

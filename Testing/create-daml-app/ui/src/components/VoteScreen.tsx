@@ -156,7 +156,6 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
                           control={<Radio />}
                           label={item}
                           onChange={(event) => {
-                            console.log(item);
                             setRadioStatus(item);
                           }}
                         />

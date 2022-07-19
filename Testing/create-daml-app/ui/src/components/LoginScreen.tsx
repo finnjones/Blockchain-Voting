@@ -9,6 +9,7 @@ import { Voting } from "@daml.js/create-daml-app";
 import { authConfig, httpBaseUrl } from "../config";
 import { createHash } from "crypto";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -57,48 +58,109 @@ const wrap: (c: JSX.Element) => JSX.Element = (component) => (
       </Grid>
     </Grid>
   </>
-
-  // <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-  //   <Grid.Column style={{ maxWidth: 450 }}>
-
-  //     <Form size="huge" className="test-select-login-screen">
-  //       <Paper sx={{ p: 2, borderRadius: "16px" }} elevation={2}>
-  //         {component}
-  //       </Paper>
-  //     </Form>
-  //   </Grid.Column>
-  // </Grid>
 );
 
-export const LandingScreen = () => {
-  return wrap(
-    <Grid container direction="column" style={{ width: "400px" }} spacing={2}>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          className="test-select-login-button"
-          component={Link}
-          to="/CreateVoteLogin"
-          style={{ width: "100%" }}
-        >
-          Create A Vote
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          className="test-select-login-button"
-          component={Link}
-          to="/VoteLogin"
-          style={{ width: "100%" }}
-        >
-          Vote
-        </Button>
-      </Grid>
-    </Grid>
+export const LandingScreen: React.FC<Props> = ({ onLogin }) => {
+  const { loginWithPopup } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
+  const [buttonPress, setButtonPress] = React.useState(false);
+  const navigate = useNavigate();
+
+  const login = useCallback(
+    async (credentials: Credentials) => {
+      try {
+        const ledger = new Ledger({ token: credentials.token, httpBaseUrl });
+        let userContract = await ledger.fetchByKey(
+          Voting.User,
+          credentials.party
+        );
+
+        if (userContract === null) {
+          // const voteBob = useQuery()
+
+          const userCreds = {
+            username: credentials.party,
+          };
+          userContract = await ledger.create(Voting.User, userCreds);
+        }
+        navigate("/CreateVote");
+
+        onLogin(credentials);
+      } catch (error) {
+        alert(`Unknown error:\n${JSON.stringify(error)}`);
+      }
+    },
+    [onLogin]
   );
+  const [username, setUsername] = React.useState("");
+
+  const handleLogin = async () => {
+    // if user is not undefined then run
+
+    if (user !== undefined) {
+      const { name, picture, email } = user || {
+        name: "",
+        picture: "",
+        email: "",
+      };
+
+      // event.preventDefault();
+      usernameExport = name;
+      const hashedUsername = hash(email);
+      await login({
+        party: hashedUsername,
+        token: authConfig.makeToken(hashedUsername),
+      });
+    }
+  };
+  const handleLoginButton = async () => {
+    setButtonPress(true);
+    if (isAuthenticated === false) {
+      loginWithPopup({
+        screen_hint: "signup",
+      });
+    }
+  };
+  console.log(isAuthenticated);
+  if (isAuthenticated === true && buttonPress === true) {
+    handleLogin();
+    return <></>;
+  } else {
+    return wrap(
+      <>
+        <Grid
+          container
+          direction="column"
+          style={{ width: "400px" }}
+          spacing={2}
+        >
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              className="test-select-login-button"
+              onClick={handleLoginButton}
+              style={{ width: "100%" }}
+            >
+              Create A Vote
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              className="test-select-login-button"
+              component={Link}
+              to="/VoteLogin"
+              style={{ width: "100%" }}
+            >
+              Vote
+            </Button>
+          </Grid>
+        </Grid>
+      </>
+    );
+  }
 };
 
 export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {

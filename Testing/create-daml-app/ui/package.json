@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.10.2",
     "@daml.js/create-daml-app": "file:daml.js/create-daml-app-0.1.0",
     "@daml/ledger": "2.2.0",
     "@daml/react": "2.2.0",
