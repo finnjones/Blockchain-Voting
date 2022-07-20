@@ -13,7 +13,7 @@ import VoteManagement from "./VoteManagement";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
-import { httpBaseUrl } from "../config";
+import { httpBaseUrl, wsBaseUrl } from "../config";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import VoteAnalytics from "./VoteAnalytics";
@@ -68,6 +68,7 @@ const App: React.FC = () => {
       token={credentials.token}
       party={credentials.party}
       httpBaseUrl={httpBaseUrl}
+      wsBaseUrl={wsBaseUrl}
     >
       <ThemeProvider theme={theme}>
         <CssBaseline />

@@ -10,7 +10,8 @@ export type Insecure = {
 };
 
 
-
+export const isLocalDev = process.env.NODE_ENV === 'development';
+console.log(isLocalDev);
 export type Authentication = Insecure;
 
 export const authConfig: Authentication = (() => {
@@ -34,3 +35,4 @@ export const authConfig: Authentication = (() => {
 )();
 
 export const httpBaseUrl = undefined;
+export const wsBaseUrl = isLocalDev ? 'ws://localhost:7575/' : undefined;
