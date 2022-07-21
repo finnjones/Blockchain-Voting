@@ -56,6 +56,10 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
   );
 
   const assets = useStreamQueries(Voting.Voting);
+  let userContract = ledger.fetchByKey(Voting.Voting, hashUsername);
+  console.log(userContract);
+  console.log(assets);
+
   const [radioStatus, setRadioStatus] = useState("");
   // get current unix time stamp
   const now = new Date().getTime();
