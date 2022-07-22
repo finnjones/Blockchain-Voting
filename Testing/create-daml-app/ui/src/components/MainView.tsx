@@ -26,7 +26,6 @@ import {
   Delete,
   Close,
   KeyboardReturn,
-  QuestionMark,
 } from "@mui/icons-material";
 
 import { Voting } from "@daml.js/create-daml-app";
@@ -55,7 +54,7 @@ const MainView: React.FC = () => {
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const button: HTMLButtonElement = event.currentTarget;
-    if ((button.name === "Create Vote", assets.contracts.length === 0)) {
+    if ((button.name === "Create Vote" && assets.contracts.length === 0)) {
       setPopupText("Vote Created");
       setPopup(true);
       const [voteKeys, hashedVoteKeys] = generateVoteKeys(value);
@@ -234,7 +233,6 @@ const MainView: React.FC = () => {
                         setCandidateList((candidateList) =>
                           candidateList.filter((i) => i !== item)
                         );
-                        console.log(candidateList);
                       }}
                     >
                       <Delete />

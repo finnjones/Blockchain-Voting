@@ -9,3 +9,5 @@ node_modules
 ui/daml.js
 
 ui/.env
+
+.idea
