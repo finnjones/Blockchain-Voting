@@ -24,7 +24,7 @@ const HelpPopup = ({
     console.log(reason);
     setHelpOpen(false);
   };
-
+  console.log(content.split("\\n"));
   return (
     <div>
       <SpeedDial
@@ -39,7 +39,12 @@ const HelpPopup = ({
         </Typography>
 
         <Box sx={{ p: 4 }}>
-          <Typography variant="h6">{content}</Typography>
+          <Typography variant="h6" style={{ whiteSpace: "pre-line" }}>
+            {content.split("\\n").map((i, key) => {
+              console.log(key);
+              return <div key={key}>{i}</div>;
+            })}
+          </Typography>
         </Box>
       </Dialog>
     </div>

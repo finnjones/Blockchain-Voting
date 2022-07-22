@@ -333,20 +333,16 @@ const MainView: React.FC = () => {
         </Paper>
       </Box>
 
-      {/* <Button variant="contained" sx={{ borderColor: "primary" }}>
-        <QuestionMark />
-      </Button>
-      <IconButton
-        aria-label="delete"
-        size="large"
-        sx={{ position: "fixed", bottom: 16, right: 16 }}
-      >
-        <QuestionMark fontSize="inherit" />
-      </IconButton> */}
       <HelpPopup
-        heading="Help Heading"
-        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-"
+        heading="How To Create A Vote"
+        content="
+          1. Enter the subject of the vote.\n
+          2. Enter the number of voters.\n
+          3. Enter the number of candidates.\n
+          4. Enter the candidates.\n
+          5. Click on the create vote button.\n
+          6. The vote will be created.\n
+        "
       ></HelpPopup>
     </Container>
   );

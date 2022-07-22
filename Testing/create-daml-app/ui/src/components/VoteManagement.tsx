@@ -18,12 +18,12 @@ import { useLedger, useStreamQueries } from "@daml/react";
 import { Voting } from "@daml.js/create-daml-app";
 
 import { PublishedWithChanges } from "@mui/icons-material";
+import HelpPopup from "./HelpPopup";
 
 const VoteManagement: React.FC = () => {
   const ledger = useLedger();
 
   const assets = useStreamQueries(Voting.Voting);
-  console.log(assets);
   const buttonHandler = async () => {
     await ledger.archiveByKey(
       Voting.Voting,
@@ -96,6 +96,15 @@ const VoteManagement: React.FC = () => {
           </Box>
         </Paper>
       </Box>
+      <HelpPopup
+        heading="Vote Management Help"
+        content="
+          This page allows you to view the details of the current active vote. 
+          You can archive the vote by clicking the button at the bottom of the page. 
+          By archiving a vote, users will no longer be able to cast any more votes.
+          Once vote is archived you will be able to create a new vote.
+        "
+      ></HelpPopup>
     </Container>
   );
 };

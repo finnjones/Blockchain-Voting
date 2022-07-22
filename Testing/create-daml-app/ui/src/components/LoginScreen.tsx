@@ -98,15 +98,16 @@ export const LandingScreen: React.FC<Props> = ({ onLogin }) => {
     // if user is not undefined then run
 
     if (user !== undefined) {
-      const { name, picture, email } = user || {
+      const { name, picture, email, sub } = user || {
         name: "",
         picture: "",
         email: "",
+        sub: "",
       };
 
       // event.preventDefault();
       usernameExport = name;
-      const hashedUsername = hash(email);
+      const hashedUsername = hash(sub);
       await login({
         party: hashedUsername,
         token: authConfig.makeToken(hashedUsername),
@@ -121,7 +122,6 @@ export const LandingScreen: React.FC<Props> = ({ onLogin }) => {
       });
     }
   };
-  console.log(isAuthenticated);
   if (isAuthenticated === true && buttonPress === true) {
     handleLogin();
     return <></>;

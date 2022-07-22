@@ -33,6 +33,7 @@ import {
 } from "recharts";
 
 import moment from "moment";
+import HelpPopup from "./HelpPopup";
 
 const VoteAnalytics: React.FC = () => {
   const assets = useStreamQueries(Voting.Voting);
@@ -200,6 +201,14 @@ const VoteAnalytics: React.FC = () => {
           </Box>
         </Paper>
       </Box>
+      <HelpPopup
+        heading="Vote Analytics Help"
+        content="
+          - This page shows the current vote results and the vote progress. \n
+          - The vote progress is the percentage of votes casted out of the total number of voters. \n
+          - The votes over time chart shows the number of votes that have been cast in relationship to time \n
+        "
+      ></HelpPopup>
     </Container>
   );
 };
