@@ -16,7 +16,7 @@ template Voting with
     votes: [Text]
     voted: [Party]
     voteTimes: [Int]
-    candidates: [Text]
+    options: [Text]
     subject: Text
     
   where

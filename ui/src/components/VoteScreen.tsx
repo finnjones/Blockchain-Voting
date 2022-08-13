@@ -18,7 +18,7 @@ import {
   Paper,
 } from "@mui/material";
 import { Close, HowToVote, Logout } from "@mui/icons-material";
-import { Voting } from "@daml.js/create-daml-app";
+import { Voting } from "@daml.js/votencrypt";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 import { Link } from "react-router-dom";
 import { InvalidVoteKey } from "./CatchNotFound";
@@ -149,7 +149,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
                   name="radio-buttons-group"
                 >
                   <List>
-                    {assets.contracts[0]?.payload?.candidates.map((item) => (
+                    {assets.contracts[0]?.payload?.options.map((item) => (
                       <ListItem key={item}>
                         <FormControlLabel
                           value={item}

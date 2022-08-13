@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Button, TextField, Paper, Typography, Grid, Box } from "@mui/material";
 import Credentials from "../Credentials";
 import Ledger from "@daml/ledger";
-import { Voting } from "@daml.js/create-daml-app";
+import { Voting } from "@daml.js/votencrypt";
 import { authConfig, httpBaseUrl } from "../config";
 import { createHash } from "crypto";
 import { Link, useNavigate } from "react-router-dom";

@@ -15,7 +15,7 @@ import {
 
 import { useLedger, useStreamQueries } from "@daml/react";
 
-import { Voting } from "@daml.js/create-daml-app";
+import { Voting } from "@daml.js/votencrypt";
 
 import { PublishedWithChanges } from "@mui/icons-material";
 import HelpPopup from "./HelpPopup";
@@ -64,10 +64,10 @@ const VoteManagement: React.FC = () => {
             {assets.contracts[0]?.payload?.subject ?? "No Active Vote"}
             <Divider sx={{ pt: 2 }} />
             <Typography variant="h6" sx={{ pt: 2 }}>
-              Vote Candidates
+              Vote Options
             </Typography>
             <List>
-              {assets.contracts[0]?.payload?.candidates.map(
+              {assets.contracts[0]?.payload?.options.map(
                 (item, currentItem) => (
                   <ListItem key={item}>
                     <ListItemText primary={currentItem + 1 + ". " + item} />

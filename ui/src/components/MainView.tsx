@@ -28,7 +28,7 @@ import {
   KeyboardReturn,
 } from "@mui/icons-material";
 
-import { Voting } from "@daml.js/create-daml-app";
+import { Voting } from "@daml.js/votencrypt";
 
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 
@@ -41,11 +41,11 @@ import emailjs from "@emailjs/browser";
 let hashedVoteKeys: string[] = [];
 const MainView: React.FC = () => {
   const hashUsername = useParty();
-  const [candidateList, setCandidateList] = useState<string[]>([]);
+  const [optionList, setOptionList] = useState<string[]>([]);
   const [voteKeys, setVoteKeys] = useState<string[]>([]);
   const [value, setValue] = React.useState<number>(10);
   const [subjectText, setSubjectText] = useState("");
-  const [candidateText, setCandidateText] = useState("");
+  const [optionText, setOptionText] = useState("");
   const [Popup, setPopup] = React.useState(false);
   const [popupText, setPopupText] = React.useState("");
 
@@ -74,7 +74,7 @@ const MainView: React.FC = () => {
         votes: [],
         voted: [],
         voteTimes: [],
-        candidates: candidateList,
+        options: optionList,
         subject: subjectText,
       };
       ledger.create(Voting.Voting, voteDetails);
@@ -129,14 +129,14 @@ const MainView: React.FC = () => {
     return [voteKeys, hashedVoteKeys];
   };
 
-  const addCandidate = () => {
-    if (candidateList.includes(candidateText)) {
-      setPopupText("Candidate already exists");
+  const addOption = () => {
+    if (optionList.includes(optionText)) {
+      setPopupText("Option already exists");
       setPopup(true);
     } else {
-      setCandidateText("");
-      // append candidateText to the start of candidateList
-      setCandidateList([candidateText, ...candidateList]);
+      setOptionText("");
+      // append optionText to the start of optionList
+      setOptionList([optionText, ...optionList]);
     }
   };
 
@@ -230,30 +230,28 @@ const MainView: React.FC = () => {
               }}
             />
           </Box>
-          <Typography variant="h6">
-            Candidates: {candidateList.length}
-          </Typography>
+          <Typography variant="h6">Options: {optionList.length}</Typography>
 
           <Box textAlign="center">
             <TextField
               id="outlined-basic"
-              label="Candidate"
+              label="Option"
               variant="outlined"
-              value={candidateText}
+              value={optionText}
               onChange={(event) => {
-                setCandidateText(event.target.value);
+                setOptionText(event.target.value);
               }}
               onKeyPress={(event) => {
                 if (event.key === "Enter") {
                   event.preventDefault();
-                  addCandidate();
+                  addOption();
                 }
               }}
               style={{ width: "95%" }}
               sx={{ m: 2 }}
               InputProps={{
                 endAdornment: (
-                  <IconButton onClick={addCandidate}>
+                  <IconButton onClick={addOption}>
                     <KeyboardReturn />
                   </IconButton>
                 ),
@@ -261,7 +259,7 @@ const MainView: React.FC = () => {
             />
 
             <List style={{ width: "95%" }} sx={{ ml: 2 }}>
-              {candidateList.map((item) => (
+              {optionList.map((item) => (
                 <ListItem
                   key={item}
                   secondaryAction={
@@ -269,8 +267,8 @@ const MainView: React.FC = () => {
                       edge="end"
                       aria-label="delete"
                       onClick={(e) => {
-                        setCandidateList((candidateList) =>
-                          candidateList.filter((i) => i !== item)
+                        setOptionList((optionList) =>
+                          optionList.filter((i) => i !== item)
                         );
                       }}
                     >
@@ -378,10 +376,9 @@ const MainView: React.FC = () => {
         content="
           1. Enter the subject of the vote.\n
           2. Enter the number of voters.\n
-          3. Enter the number of candidates.\n
-          4. Enter the candidates.\n
-          5. Click on the create vote button.\n
-          6. The vote will be created.\n
+          3. Enter the options.\n
+          4. Click on the create vote button.\n
+          5. The vote will be created.\n
         "
       ></HelpPopup>
     </Container>

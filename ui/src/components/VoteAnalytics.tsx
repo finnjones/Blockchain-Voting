@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Poll } from "@mui/icons-material";
 
-import { Voting } from "@daml.js/create-daml-app";
+import { Voting } from "@daml.js/votencrypt";
 
 import { useStreamQueries } from "@daml/react";
 
@@ -40,7 +40,8 @@ const VoteAnalytics: React.FC = () => {
   const votes = assets.contracts[0]?.payload?.votes || [];
   const voters = assets.contracts[0]?.payload?.voters || [];
   const voteTimes = assets.contracts[0]?.payload?.voteTimes || [];
-  const voteProgress = (votes.length / voters.length) * 100 || "Loading...";
+  const voteProgress = Math.round((votes.length / voters.length) * 100) || 0;
+  console.log(voteProgress);
   const votesFrequency = useMemo(() => {
     if (votes.length !== 0) {
       const map = new Map<string, number>();
@@ -96,6 +97,7 @@ const VoteAnalytics: React.FC = () => {
       ];
     }
   }, [voteTimes]);
+
   return (
     <Container>
       <Box sx={{ p: 1 }}>

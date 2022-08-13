@@ -14,7 +14,7 @@ export const isLocalDev = process.env.NODE_ENV === 'development';
 export type Authentication = Insecure;
 
 export const authConfig: Authentication = (() => {
-    const ledgerId: string = process.env.REACT_APP_LEDGER_ID ?? "create-daml-app-sandbox"
+    const ledgerId: string = process.env.REACT_APP_LEDGER_ID ?? "votencrypt-sandbox"
     const auth: Insecure = {
       provider: "none",
       ledgerId: ledgerId,
@@ -22,7 +22,7 @@ export const authConfig: Authentication = (() => {
         const payload = {
           "https://daml.com/ledger-api": {
             "ledgerId": ledgerId,
-            "applicationId": 'create-daml-app',
+            "applicationId": 'votencrypt',
             "actAs": [party]
           }
         }
