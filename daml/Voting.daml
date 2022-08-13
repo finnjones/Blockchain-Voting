@@ -1,0 +1,39 @@
+module Voting where
+
+template User with
+    username: Party
+
+  where
+    signatory username
+
+    key username: Party
+    maintainer key
+
+
+template Voting with
+    username: Party
+    voters: [Party]
+    votes: [Text]
+    voted: [Party]
+    voteTimes: [Int]
+    candidates: [Text]
+    subject: Text
+    
+  where
+    signatory username
+    observer voters
+
+    key username: Party
+    maintainer key
+
+ 
+    nonconsuming choice Vote: ContractId Voting with
+        voter: Party
+        vote: Text
+        unixTime: Int
+        
+      controller voter
+      do
+        archive self
+        create this with voted = voter :: voted; votes = vote :: votes; voteTimes = unixTime :: voteTimes
+ 

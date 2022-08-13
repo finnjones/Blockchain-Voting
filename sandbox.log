@@ -1,0 +1,254 @@
+23:00:12.533 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+23:00:20.971 [program-resource-pool-6] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+23:00:21.014 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+09:21:51.465 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+09:21:59.746 [program-resource-pool-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+09:21:59.780 [program-resource-pool-5] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:00:17.050 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:00:25.120 [program-resource-pool-2] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:00:25.144 [program-resource-pool-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+11:30:35.426 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:30:43.128 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:30:43.249 [program-resource-pool-6] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+15:08:32.491 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+15:08:36.664 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+15:08:36.678 [program-resource-pool-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = 49239fba-b913-4579-8442-f22c586a032d, port = 6865, dar file = List(), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceJWT, contract ids seeding = strong 
+23:52:09.854 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+23:52:18.786 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+23:52:18.854 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+17:44:58.667 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+17:45:07.895 [program-resource-pool-6] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+17:45:07.920 [program-resource-pool-5] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+17:56:37.491 [sandbox-akka.actor.default-dispatcher-11] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,90929754): DuplicateKeys: at least one contract key is not unique 
+17:56:37.532 [sandbox-akka.actor.default-dispatcher-11] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,fac1805c): DuplicateKeys: at least one contract key is not unique 
+17:56:37.536 [sandbox-akka.actor.default-dispatcher-11] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,4f70dc69): DuplicateKeys: at least one contract key is not unique 
+17:56:37.538 [sandbox-akka.actor.default-dispatcher-11] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,18b87abc): DuplicateKeys: at least one contract key is not unique 
+17:56:37.557 [sandbox-akka.actor.default-dispatcher-11] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,d39be0ae): DuplicateKeys: at least one contract key is not unique 
+17:57:14.914 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+17:57:25.341 [program-resource-pool-2] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+17:57:25.420 [program-resource-pool-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+10:32:18.125 [sandbox-akka.actor.default-dispatcher-6] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+10:32:27.735 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+10:32:27.780 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.0 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+17:15:01.885 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+17:15:10.154 [program-resource-pool-2] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+17:15:10.188 [program-resource-pool-6] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+11:03:01.652 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:03:11.354 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:03:11.389 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+11:12:19.611 [pool-2-thread-1] ERROR c.d.l.validator.SubmissionValidator - Unexpected failure during submission validation. 
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: ledger_state)
+	at org.sqlite.core.DB.newSQLException(DB.java:1012)
+	at org.sqlite.core.DB.newSQLException(DB.java:1024)
+	at org.sqlite.core.DB.throwex(DB.java:989)
+	at org.sqlite.core.NativeDB.prepare_utf8(Native Method)
+	at org.sqlite.core.NativeDB.prepare(NativeDB.java:134)
+	at org.sqlite.core.DB.prepare(DB.java:257)
+	at org.sqlite.core.CorePreparedStatement.<init>(CorePreparedStatement.java:45)
+	at org.sqlite.jdbc3.JDBC3PreparedStatement.<init>(JDBC3PreparedStatement.java:30)
+	at org.sqlite.jdbc4.JDBC4PreparedStatement.<init>(JDBC4PreparedStatement.java:25)
+	at org.sqlite.jdbc4.JDBC4Connection.prepareStatement(JDBC4Connection.java:35)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:241)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:205)
+	at com.zaxxer.hikari.pool.ProxyConnection.prepareStatement(ProxyConnection.java:311)
+	at com.zaxxer.hikari.pool.HikariProxyConnection.prepareStatement(HikariProxyConnection.java)
+	at anorm.SimpleSql.$anonfun$prepareNoGeneratedKeys$1(SimpleSql.scala:55)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:79)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:68)
+	at anorm.Sql.$anonfun$preparedStatement$1(Anorm.scala:64)
+	at resource.DefaultManagedResource.open(AbstractManagedResource.scala:107)
+	at resource.AbstractManagedResource.acquireFor(AbstractManagedResource.scala:84)
+	at resource.ManagedResourceOperations$$anon$1.acquireFor(ManagedResourceOperations.scala:47)
+	at resource.DeferredExtractableManagedResource.acquireFor(AbstractManagedResource.scala:25)
+	at anorm.WithResult.withResult(SqlResult.scala:172)
+	at anorm.WithResult.withResult$(SqlResult.scala:172)
+	at anorm.SimpleSql.withResult(SimpleSql.scala:6)
+	at anorm.WithResult.fold(SqlResult.scala:82)
+	at anorm.WithResult.fold$(SqlResult.scala:75)
+	at anorm.SimpleSql.fold(SimpleSql.scala:6)
+	at com.daml.ledger.on.sql.queries.CommonQueries.$anonfun$selectStateValuesByKeys$1(CommonQueries.scala:45)
+	at scala.util.Try$.apply(Try.scala:210)
+	at com.daml.ledger.on.sql.queries.CommonQueries.selectStateValuesByKeys(CommonQueries.scala:41)
+	at com.daml.ledger.on.sql.queries.TimedQueries.$anonfun$selectStateValuesByKeys$1(TimedQueries.scala:34)
+	at com.daml.metrics.Timed$.$anonfun$value$1(Timed.scala:19)
+	at com.codahale.metrics.Timer.time(Timer.java:118)
+	at com.daml.metrics.Timed$.value(Timed.scala:19)
+	at com.daml.ledger.on.sql.queries.TimedQueries.selectStateValuesByKeys(TimedQueries.scala:34)
+	at com.daml.ledger.on.sql.SqlLedgerReaderWriter$SqlLedgerStateOperations.readState(SqlLedgerReaderWriter.scala:212)
+	at com.daml.ledger.validator.TimedLedgerStateOperations.$anonfun$readState$5(LedgerStateAccess.scala:157)
+	at com.daml.metrics.Timed$.future(Timed.scala:58)
+	at com.daml.ledger.validator.TimedLedgerStateOperations.readState(LedgerStateAccess.scala:157)
+	at com.daml.ledger.validator.SubmissionValidator.$anonfun$runValidation$5(SubmissionValidator.scala:199)
+	at com.daml.metrics.Timed$.future(Timed.scala:58)
+	at com.daml.ledger.validator.SubmissionValidator.$anonfun$runValidation$4(SubmissionValidator.scala:199)
+	at com.daml.ledger.validator.SubmissionValidator$TimedLedgerStateAccess.$anonfun$inTransaction$1(SubmissionValidator.scala:290)
+	at com.daml.ledger.on.sql.SqlLedgerReaderWriter$SqlLedgerStateAccess.$anonfun$inTransaction$1(SqlLedgerReaderWriter.scala:199)
+	at com.daml.ledger.on.sql.Database.$anonfun$inTransaction$3(Database.scala:59)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:672)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:431)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+11:12:19.691 [ForkJoinPool-4-worker-6] ERROR c.d.p.a.s.ApiSubmissionService - Unhandled internal error 
+io.grpc.StatusRuntimeException: INTERNAL: [SQLITE_ERROR] SQL error or missing database (no such table: ledger_state)
+	at io.grpc.Status.asRuntimeException(Status.java:535)
+	at io.grpc.protobuf.StatusProto.toStatusRuntimeException(StatusProto.java:52)
+	at com.daml.ledger.participant.state.v2.SubmissionResult$SynchronousError.exception(SubmissionResult.scala:31)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.handleSubmissionResult(ApiSubmissionService.scala:204)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.$anonfun$submit$5(ApiSubmissionService.scala:146)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:439)
+	at java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+11:12:19.697 [sandbox-akka.actor.default-dispatcher-7] WARN  c.d.l.c.s.c.tracker.CommandTracker - Service responded with error for submitting command with context (Future(<not completed>),TrackedCommandKey(6c219f0d-3353-4601-8af1-c268a39ad2ed,eb9e98ae-1ffe-4deb-a947-55a3b06c1356)). Status of command is unknown. watching for completion... 
+io.grpc.StatusRuntimeException: INTERNAL: [SQLITE_ERROR] SQL error or missing database (no such table: ledger_state)
+	at io.grpc.Status.asRuntimeException(Status.java:535)
+	at io.grpc.protobuf.StatusProto.toStatusRuntimeException(StatusProto.java:52)
+	at com.daml.ledger.participant.state.v2.SubmissionResult$SynchronousError.exception(SubmissionResult.scala:31)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.handleSubmissionResult(ApiSubmissionService.scala:204)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.$anonfun$submit$5(ApiSubmissionService.scala:146)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:439)
+	at java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+11:12:46.635 [pool-2-thread-1] ERROR c.d.l.validator.SubmissionValidator - Unexpected failure during submission validation. 
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: ledger_state)
+	at org.sqlite.core.DB.newSQLException(DB.java:1012)
+	at org.sqlite.core.DB.newSQLException(DB.java:1024)
+	at org.sqlite.core.DB.throwex(DB.java:989)
+	at org.sqlite.core.NativeDB.prepare_utf8(Native Method)
+	at org.sqlite.core.NativeDB.prepare(NativeDB.java:134)
+	at org.sqlite.core.DB.prepare(DB.java:257)
+	at org.sqlite.core.CorePreparedStatement.<init>(CorePreparedStatement.java:45)
+	at org.sqlite.jdbc3.JDBC3PreparedStatement.<init>(JDBC3PreparedStatement.java:30)
+	at org.sqlite.jdbc4.JDBC4PreparedStatement.<init>(JDBC4PreparedStatement.java:25)
+	at org.sqlite.jdbc4.JDBC4Connection.prepareStatement(JDBC4Connection.java:35)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:241)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:205)
+	at com.zaxxer.hikari.pool.ProxyConnection.prepareStatement(ProxyConnection.java:311)
+	at com.zaxxer.hikari.pool.HikariProxyConnection.prepareStatement(HikariProxyConnection.java)
+	at anorm.SimpleSql.$anonfun$prepareNoGeneratedKeys$1(SimpleSql.scala:55)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:79)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:68)
+	at anorm.Sql.$anonfun$preparedStatement$1(Anorm.scala:64)
+	at resource.DefaultManagedResource.open(AbstractManagedResource.scala:107)
+	at resource.AbstractManagedResource.acquireFor(AbstractManagedResource.scala:84)
+	at resource.ManagedResourceOperations$$anon$1.acquireFor(ManagedResourceOperations.scala:47)
+	at resource.DeferredExtractableManagedResource.acquireFor(AbstractManagedResource.scala:25)
+	at anorm.WithResult.withResult(SqlResult.scala:172)
+	at anorm.WithResult.withResult$(SqlResult.scala:172)
+	at anorm.SimpleSql.withResult(SimpleSql.scala:6)
+	at anorm.WithResult.fold(SqlResult.scala:82)
+	at anorm.WithResult.fold$(SqlResult.scala:75)
+	at anorm.SimpleSql.fold(SimpleSql.scala:6)
+	at com.daml.ledger.on.sql.queries.CommonQueries.$anonfun$selectStateValuesByKeys$1(CommonQueries.scala:45)
+	at scala.util.Try$.apply(Try.scala:210)
+	at com.daml.ledger.on.sql.queries.CommonQueries.selectStateValuesByKeys(CommonQueries.scala:41)
+	at com.daml.ledger.on.sql.queries.TimedQueries.$anonfun$selectStateValuesByKeys$1(TimedQueries.scala:34)
+	at com.daml.metrics.Timed$.$anonfun$value$1(Timed.scala:19)
+	at com.codahale.metrics.Timer.time(Timer.java:118)
+	at com.daml.metrics.Timed$.value(Timed.scala:19)
+	at com.daml.ledger.on.sql.queries.TimedQueries.selectStateValuesByKeys(TimedQueries.scala:34)
+	at com.daml.ledger.on.sql.SqlLedgerReaderWriter$SqlLedgerStateOperations.readState(SqlLedgerReaderWriter.scala:212)
+	at com.daml.ledger.validator.TimedLedgerStateOperations.$anonfun$readState$5(LedgerStateAccess.scala:157)
+	at com.daml.metrics.Timed$.future(Timed.scala:58)
+	at com.daml.ledger.validator.TimedLedgerStateOperations.readState(LedgerStateAccess.scala:157)
+	at com.daml.ledger.validator.SubmissionValidator.$anonfun$runValidation$5(SubmissionValidator.scala:199)
+	at com.daml.metrics.Timed$.future(Timed.scala:58)
+	at com.daml.ledger.validator.SubmissionValidator.$anonfun$runValidation$4(SubmissionValidator.scala:199)
+	at com.daml.ledger.validator.SubmissionValidator$TimedLedgerStateAccess.$anonfun$inTransaction$1(SubmissionValidator.scala:290)
+	at com.daml.ledger.on.sql.SqlLedgerReaderWriter$SqlLedgerStateAccess.$anonfun$inTransaction$1(SqlLedgerReaderWriter.scala:199)
+	at com.daml.ledger.on.sql.Database.$anonfun$inTransaction$3(Database.scala:59)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:672)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:431)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+11:12:46.639 [ForkJoinPool-4-worker-5] ERROR c.d.p.a.s.ApiSubmissionService - Unhandled internal error 
+io.grpc.StatusRuntimeException: INTERNAL: [SQLITE_ERROR] SQL error or missing database (no such table: ledger_state)
+	at io.grpc.Status.asRuntimeException(Status.java:535)
+	at io.grpc.protobuf.StatusProto.toStatusRuntimeException(StatusProto.java:52)
+	at com.daml.ledger.participant.state.v2.SubmissionResult$SynchronousError.exception(SubmissionResult.scala:31)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.handleSubmissionResult(ApiSubmissionService.scala:204)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.$anonfun$submit$5(ApiSubmissionService.scala:146)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:439)
+	at java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+11:12:46.641 [sandbox-akka.actor.default-dispatcher-4] WARN  c.d.l.c.s.c.tracker.CommandTracker - Service responded with error for submitting command with context (Future(<not completed>),TrackedCommandKey(22d34bb8-af49-43d0-be4c-06bbd136cf7b,efecc1c3-ed0d-41df-8b96-e237fc344827)). Status of command is unknown. watching for completion... 
+io.grpc.StatusRuntimeException: INTERNAL: [SQLITE_ERROR] SQL error or missing database (no such table: ledger_state)
+	at io.grpc.Status.asRuntimeException(Status.java:535)
+	at io.grpc.protobuf.StatusProto.toStatusRuntimeException(StatusProto.java:52)
+	at com.daml.ledger.participant.state.v2.SubmissionResult$SynchronousError.exception(SubmissionResult.scala:31)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.handleSubmissionResult(ApiSubmissionService.scala:204)
+	at com.daml.platform.apiserver.services.ApiSubmissionService.$anonfun$submit$5(ApiSubmissionService.scala:146)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:439)
+	at java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+11:13:08.209 [Thread-1] ERROR com.daml.resources.ProgramResource - Failed to stop successfully. 
+java.util.concurrent.TimeoutException: Future timed out after [10 seconds]
+	at scala.concurrent.impl.Promise$DefaultPromise.tryAwait0(Promise.scala:212)
+	at scala.concurrent.impl.Promise$DefaultPromise.result(Promise.scala:225)
+	at scala.concurrent.Await$.$anonfun$result$1(package.scala:201)
+	at scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:62)
+	at scala.concurrent.Await$.result(package.scala:124)
+	at com.daml.resources.ProgramResource.stop$1(ProgramResource.scala:47)
+	at com.daml.resources.ProgramResource.$anonfun$run$8(ProgramResource.scala:55)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+11:13:20.817 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:13:28.652 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:13:28.683 [program-resource-pool-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+13:06:16.114 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+13:06:23.724 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+13:06:23.760 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+19:47:50.616 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+19:47:59.532 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+19:47:59.596 [program-resource-pool-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+11:00:38.479 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:00:49.855 [program-resource-pool-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:00:49.893 [program-resource-pool-2] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+17:04:38.708 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+17:04:50.140 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+17:04:50.188 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+21:35:22.749 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+21:35:30.750 [program-resource-pool-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+21:35:30.782 [program-resource-pool-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+21:36:00.002 [sandbox-akka.actor.default-dispatcher-5] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,2e1a6dd3): DuplicateKeys: at least one contract key is not unique 
+11:15:02.039 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:15:09.985 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:15:10.016 [program-resource-pool-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:47:50.861 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:47:58.554 [program-resource-pool-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:47:58.579 [program-resource-pool-5] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+12:59:06.868 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+12:59:14.475 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+12:59:14.507 [program-resource-pool-2] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+16:03:15.675 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+16:03:23.615 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+16:03:23.645 [program-resource-pool-2] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+16:12:14.155 [sandbox-akka.actor.default-dispatcher-6] INFO  c.d.l.p.s.k.KeyValueConsumption - DUPLICATE_CONTRACT_KEY(10,e9223b31): DuplicateKeys: at least one contract key is not unique 
+18:28:49.842 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+18:29:01.015 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+18:29:01.062 [program-resource-pool-2] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+19:19:54.256 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+19:20:05.962 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+19:20:05.997 [program-resource-pool-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+11:24:54.627 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:25:05.742 [program-resource-pool-1] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:25:05.798 [program-resource-pool-5] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+11:38:07.646 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+11:38:15.474 [program-resource-pool-5] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+11:38:15.504 [program-resource-pool-3] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = create-daml-app-sandbox, port = 6865, dar file = List(.daml/dist/create-daml-app-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
