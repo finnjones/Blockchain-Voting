@@ -1,6 +1,3 @@
-// Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import React from "react";
 import { LoginScreenVote, LandingScreen } from "./LoginScreen";
 import { LogoutConfirm, PageNotFound } from "./CatchNotFound";
@@ -14,12 +11,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";
-import {
-  createTheme,
-  ThemeProvider,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 
 export function themeSwitcher() {}
 
@@ -30,6 +22,7 @@ const App: React.FC = () => {
   // create a dark theme light theme switcher
   const preferedScheme = useMediaQuery("(prefers-color-scheme: dark)");
 
+  /* Creating a theme for the app. */
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -59,10 +52,6 @@ const App: React.FC = () => {
       }),
     [preferedScheme]
   );
-  // app.use((req: any, res: any, next: any) => {
-  //   res.header("Access-Control-Allow-Origin", "*");
-  //   next();
-  // });
 
   return credentials ? (
     <DamlLedger
@@ -74,10 +63,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div>
-          {/* <MainScreen onLogout={() => setCredentials(undefined)} /> */}
-
           <Routes>
-            {/* <Route path="/" component={Home} /> */}
             <Route
               path="/Vote"
               element={
@@ -130,8 +116,6 @@ const App: React.FC = () => {
       <CssBaseline />
       <div>
         <Routes>
-          {/* <Route path="/" component={Home} /> */}
-
           <Route
             path="/"
             element={<LandingScreen onLogin={setCredentials} />}

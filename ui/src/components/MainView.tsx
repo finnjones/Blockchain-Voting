@@ -1,6 +1,3 @@
-// Copyright (c) 2021 Digital Asset (Switzerland) GmbH and/or its affiliates. All rights reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import React, { useState } from "react";
 
 import {
@@ -39,6 +36,10 @@ import HelpPopup from "./HelpPopup";
 import emailjs from "@emailjs/browser";
 
 let hashedVoteKeys: string[] = [];
+
+/**
+ * This function contains the main create vote screen.
+ */
 const MainView: React.FC = () => {
   const hashUsername = useParty();
   const [optionList, setOptionList] = useState<string[]>([]);
@@ -60,6 +61,11 @@ const MainView: React.FC = () => {
   }
 
   const ledger = useLedger();
+
+  /**
+   * The buttonHandler function is called when the user clicks the "Create Vote" button. It generates a
+   * set of vote keys, stores them in local storage, and then creates a new vote contract on the ledger
+   */
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (assets.contracts.length === 0) {
@@ -115,10 +121,15 @@ const MainView: React.FC = () => {
       email: "jefflolshort@gmail.com",
       message: "test",
     };
-
-    // console.log(usernameE);
   };
 
+  /**
+   * It takes a number as an argument and returns an array of two arrays, the first of which contains a
+   * number of random strings equal to the number passed in, and the second of which contains the SHA256
+   * hashes of those strings
+   * @param {any} voterCount - The number of voters in the election.
+   * @returns An array of voteKeys and hashedVoteKeys
+   */
   const generateVoteKeys = (voterCount: any) => {
     for (let i = 0; i < voterCount; i++) {
       var crypto = require("crypto");
@@ -129,6 +140,9 @@ const MainView: React.FC = () => {
     return [voteKeys, hashedVoteKeys];
   };
 
+  /**
+   * If the optionText is not in the optionList, then add it to the start of the optionList
+   */
   const addOption = () => {
     if (optionList.includes(optionText)) {
       setPopupText("Option already exists");
@@ -305,7 +319,6 @@ const MainView: React.FC = () => {
           />
         </Paper>
       </Box>
-
       <Box sx={{ p: 1 }}>
         <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
           <Grid container>
@@ -370,7 +383,6 @@ const MainView: React.FC = () => {
           </List>
         </Paper>
       </Box>
-
       <HelpPopup
         heading="How To Create A Vote"
         content="

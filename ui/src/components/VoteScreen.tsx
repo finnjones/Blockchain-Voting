@@ -21,7 +21,6 @@ import { Close, HowToVote, Logout } from "@mui/icons-material";
 import { Voting } from "@daml.js/votencrypt";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 import { Link } from "react-router-dom";
-import { InvalidVoteKey } from "./CatchNotFound";
 
 type Props = {
   onLogout: () => void;
@@ -74,7 +73,9 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
           { voter: hashUsername, vote: radioStatus, unixTime: now.toString() }
         )
         .catch(console.error);
-      setPopupText("Your vote has been cast. Please or close the browser tab");
+      setPopupText(
+        "Your vote has been cast. Please logout or close the browser tab"
+      );
 
       setPopup(true);
     }

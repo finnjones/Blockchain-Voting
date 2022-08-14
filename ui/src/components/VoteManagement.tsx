@@ -23,7 +23,13 @@ import HelpPopup from "./HelpPopup";
 const VoteManagement: React.FC = () => {
   const ledger = useLedger();
 
+  /* A react hook that is used to query the ledger for all contracts of type Voting.Voting. */
   const assets = useStreamQueries(Voting.Voting);
+
+  /**
+   * It archives the contract with the key `Voting.Voting` and the signatory
+   * `assets.contracts[0]?.signatories[0]`
+   */
   const buttonHandler = async () => {
     await ledger.archiveByKey(
       Voting.Voting,
@@ -91,7 +97,7 @@ const VoteManagement: React.FC = () => {
               name="Arcive Vote"
               sx={{ m: 2, alignItems: "center" }}
             >
-              Archive Vote
+              End Vote
             </Button>
           </Box>
         </Paper>
@@ -100,9 +106,9 @@ const VoteManagement: React.FC = () => {
         heading="Vote Management Help"
         content="
           This page allows you to view the details of the current active vote. 
-          You can archive the vote by clicking the button at the bottom of the page. 
-          By archiving a vote, users will no longer be able to cast any more votes.
-          Once vote is archived you will be able to create a new vote.
+          You can end the vote by clicking the button at the bottom of the page. 
+          By ending a vote, users will no longer be able to cast any more votes.
+          Once vote has been ended you will be able to create a new vote.
         "
       ></HelpPopup>
     </Container>

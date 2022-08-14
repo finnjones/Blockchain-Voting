@@ -27,7 +27,6 @@ import {
   YAxis,
   Line,
   LineChart,
-  Legend,
   Label,
   ResponsiveContainer,
 } from "recharts";
@@ -36,12 +35,14 @@ import moment from "moment";
 import HelpPopup from "./HelpPopup";
 
 const VoteAnalytics: React.FC = () => {
+  /* This is getting the data from the ledger. */
   const assets = useStreamQueries(Voting.Voting);
   const votes = assets.contracts[0]?.payload?.votes || [];
   const voters = assets.contracts[0]?.payload?.voters || [];
   const voteTimes = assets.contracts[0]?.payload?.voteTimes || [];
   const voteProgress = Math.round((votes.length / voters.length) * 100) || 0;
-  console.log(voteProgress);
+
+  /* Creating a map of the votes and the frequency of the votes. */
   const votesFrequency = useMemo(() => {
     if (votes.length !== 0) {
       const map = new Map<string, number>();
@@ -144,13 +145,7 @@ const VoteAnalytics: React.FC = () => {
             </Grid>
             <Grid item>
               <PieChart width={400} height={400}>
-                <Pie
-                  data={votesFrequency}
-                  dataKey="value"
-                  nameKey="name"
-                  // cx={200}
-                  // cy={200}
-                >
+                <Pie data={votesFrequency} dataKey="value" nameKey="name">
                   {votesFrequency.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={colours[index]} />
                   ))}
@@ -197,7 +192,6 @@ const VoteAnalytics: React.FC = () => {
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
                 />
-                {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
               </LineChart>
             </ResponsiveContainer>
           </Box>

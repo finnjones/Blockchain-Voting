@@ -10,7 +10,7 @@ export const LogoutConfirm: React.FC<Props> = ({ onLogout }) => {
   const navigate = useNavigate();
 
   return (
-    // are you sure you want to logout?
+    // are you sure you want to logout screen
     <>
       <Box
         display="flex"
