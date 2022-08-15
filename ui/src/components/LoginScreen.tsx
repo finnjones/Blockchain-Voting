@@ -244,6 +244,10 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
   } else {
     // assign characters in url path after  "/VoteLogin/" to username
     if (username === "") {
+      console.log(window.location.pathname.substring(
+        "/VoteLogin/".length,
+        window.location.pathname.length
+      ))
       setUsername(
         window.location.pathname.substring(
           "/VoteLogin/".length,

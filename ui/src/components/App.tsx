@@ -22,7 +22,6 @@ const App: React.FC = () => {
   // create a dark theme light theme switcher
   const preferedScheme = useMediaQuery("(prefers-color-scheme: dark)");
 
-  /* Creating a theme for the app. */
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -133,7 +132,6 @@ const App: React.FC = () => {
       </div>
     </ThemeProvider>
 
-    //
   );
 };
 // APP_END

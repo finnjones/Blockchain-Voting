@@ -6,4 +6,4 @@ ui/build
 .daml
 build
 ui/node_modules
-ui/*.log
+*.log

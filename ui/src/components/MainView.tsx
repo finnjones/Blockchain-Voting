@@ -35,6 +35,13 @@ import HelpPopup from "./HelpPopup";
 
 import emailjs from "@emailjs/browser";
 
+import DateTime from "./DateTime";
+// import dateTimeVal from "./DateTime";
+
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+
 let hashedVoteKeys: string[] = [];
 
 /**
@@ -49,16 +56,17 @@ const MainView: React.FC = () => {
   const [optionText, setOptionText] = useState("");
   const [Popup, setPopup] = React.useState(false);
   const [popupText, setPopupText] = React.useState("");
+  const [dateTimeVal, setDateTimeVal] = React.useState<Date | null>(new Date());
 
   const assets = useStreamQueries(Voting.Voting);
 
-  if (
-    JSON.parse(localStorage.getItem("voteKeys") || "test").toString() !==
-      voteKeys.toString() &&
-    assets.contracts[0]?.payload?.voters !== undefined
-  ) {
-    setVoteKeys(JSON.parse(localStorage.getItem("voteKeys") || "test"));
-  }
+  // if (
+  //   JSON.parse(localStorage.getItem("voteKeys") || "test").toString() !==
+  //     voteKeys.toString() &&
+  //   assets.contracts[0]?.payload?.voters !== undefined
+  // ) {
+  //   setVoteKeys(JSON.parse(localStorage.getItem("voteKeys") || "test"));
+  // }
 
   const ledger = useLedger();
 
@@ -76,6 +84,7 @@ const MainView: React.FC = () => {
 
       const voteDetails = {
         username: hashUsername,
+        deadLine: "dateTimeVal",
         voters: hashedVoteKeys,
         votes: [],
         voted: [],
@@ -91,6 +100,7 @@ const MainView: React.FC = () => {
       setPopup(true);
     }
   };
+  console.log(dateTimeVal);
 
   function hash(input: string) {
     return createHash("sha256").update(input).digest("hex");
@@ -245,7 +255,6 @@ const MainView: React.FC = () => {
             />
           </Box>
           <Typography variant="h6">Options: {optionList.length}</Typography>
-
           <Box textAlign="center">
             <TextField
               id="outlined-basic"
@@ -296,6 +305,20 @@ const MainView: React.FC = () => {
             </List>
           </Box>
 
+          {/* <Typography variant="h6">Select deadline for vote</Typography> */}
+          <Box textAlign="center">
+            {/* <DateTime /> */}
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                renderInput={(props) => <TextField {...props} />}
+                label="Choose End Date"
+                value={dateTimeVal}
+                onChange={(newValue) => {
+                  setDateTimeVal(newValue);
+                }}
+              />
+            </LocalizationProvider>
+          </Box>
           <Box textAlign="center">
             <Button
               variant="contained"
@@ -306,9 +329,9 @@ const MainView: React.FC = () => {
             >
               Create Vote
             </Button>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            {/* <Button variant="contained" color="primary" onClick={handleSubmit}>
               Send Email
-            </Button>
+            </Button> */}
           </Box>
           <Snackbar
             open={Popup}

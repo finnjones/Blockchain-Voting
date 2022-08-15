@@ -12,6 +12,7 @@ template User with
 
 template Voting with
     username: Party
+    deadLine: Text
     voters: [Party]
     votes: [Text]
     voted: [Party]
