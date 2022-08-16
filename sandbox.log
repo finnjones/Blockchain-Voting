@@ -287,3 +287,9 @@ java.util.concurrent.TimeoutException: Future timed out after [10 seconds]
 17:20:12.999 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
 17:20:17.229 [program-resource-pool-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
 17:20:17.246 [program-resource-pool-1] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = votencrypt-sandbox, port = 6865, dar file = List(.daml\dist\votencrypt-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+13:42:59.960 [sandbox-akka.actor.default-dispatcher-5] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+13:43:08.129 [program-resource-pool-4] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+13:43:08.180 [program-resource-pool-5] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = votencrypt-sandbox, port = 6865, dar file = List(.daml/dist/votencrypt-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 
+16:08:55.572 [sandbox-akka.actor.default-dispatcher-4] INFO  akka.event.slf4j.Slf4jLogger - Slf4jLogger started 
+16:09:08.881 [program-resource-pool-3] INFO  c.d.p.apiserver.LedgerApiServer - Listening on localhost:6865 over plain text. 
+16:09:08.937 [program-resource-pool-4] INFO  com.daml.platform.sandboxnext.Runner - Initialized sandbox version 1.18.2 with ledger-id = votencrypt-sandbox, port = 6865, dar file = List(.daml/dist/votencrypt-0.1.0.dar), time mode = wall-clock time, ledger = in-memory, auth-service = AuthServiceWildcard$, contract ids seeding = strong 

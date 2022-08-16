@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Divider,
   Grid,
@@ -33,6 +33,7 @@ import {
 
 import moment from "moment";
 import HelpPopup from "./HelpPopup";
+import DeadLineCountDown from "./DeadLineCountDown";
 
 const VoteAnalytics: React.FC = () => {
   /* This is getting the data from the ledger. */
@@ -40,6 +41,7 @@ const VoteAnalytics: React.FC = () => {
   const votes = assets.contracts[0]?.payload?.votes || [];
   const voters = assets.contracts[0]?.payload?.voters || [];
   const voteTimes = assets.contracts[0]?.payload?.voteTimes || [];
+
   const voteProgress = Math.round((votes.length / voters.length) * 100) || 0;
 
   /* Creating a map of the votes and the frequency of the votes. */
@@ -127,7 +129,10 @@ const VoteAnalytics: React.FC = () => {
           </Grid>
 
           <Divider />
+          <DeadLineCountDown />
+
           <Typography variant="h5">Vote Progress: {voteProgress}%</Typography>
+
           <LinearProgress variant="determinate" value={voteProgress} />
 
           <Grid container justifyContent="center" alignItems="center">

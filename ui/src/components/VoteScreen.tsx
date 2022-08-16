@@ -21,6 +21,7 @@ import { Close, HowToVote, Logout } from "@mui/icons-material";
 import { Voting } from "@daml.js/votencrypt";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 import { Link } from "react-router-dom";
+import DeadLineCountDown from "./DeadLineCountDown";
 
 type Props = {
   onLogout: () => void;
@@ -132,6 +133,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
             </Grid>
 
             <Divider />
+            <DeadLineCountDown />
 
             <Typography variant="h6" sx={{ pt: 2 }}>
               Vote Description

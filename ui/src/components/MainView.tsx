@@ -78,13 +78,19 @@ const MainView: React.FC = () => {
     event.preventDefault();
     if (assets.contracts.length === 0) {
       const keys = generateVoteKeys(value);
-
       setVoteKeys(keys[0]);
       localStorage.setItem("voteKeys", JSON.stringify(keys[0]));
+      console.log(dateTimeVal + "test");
+      if (dateTimeVal !== null) {
+        var stringDate = Math.floor(dateTimeVal.getTime() / 1000);
+      } else {
+        var stringDate = 0;
+      }
+      console.log(stringDate);
 
       const voteDetails = {
         username: hashUsername,
-        deadLine: "dateTimeVal",
+        deadLine: stringDate.toString(),
         voters: hashedVoteKeys,
         votes: [],
         voted: [],
@@ -94,13 +100,13 @@ const MainView: React.FC = () => {
       };
       ledger.create(Voting.Voting, voteDetails);
       setPopupText("Vote Created");
+      console.log(assets);
       setPopup(true);
     } else {
       setPopupText("Vote In Progress");
       setPopup(true);
     }
   };
-  console.log(dateTimeVal);
 
   function hash(input: string) {
     return createHash("sha256").update(input).digest("hex");
@@ -305,15 +311,14 @@ const MainView: React.FC = () => {
             </List>
           </Box>
 
-          {/* <Typography variant="h6">Select deadline for vote</Typography> */}
           <Box textAlign="center">
-            {/* <DateTime /> */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DateTimePicker
                 renderInput={(props) => <TextField {...props} />}
                 label="Choose End Date"
                 value={dateTimeVal}
                 onChange={(newValue) => {
+                  console.log(newValue);
                   setDateTimeVal(newValue);
                 }}
               />
