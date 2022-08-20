@@ -3,6 +3,6 @@ ui/.env.development
 ui/.env.production
 .vscode
 .daml
-build
+
 ui/node_modules
 *.log
