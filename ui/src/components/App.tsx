@@ -36,7 +36,7 @@ const App: React.FC = () => {
         },
 
         typography: {
-          fontFamily: "Roboto, sans-serif",
+          fontFamily: "'Roboto', sans-serif",
           subtitle1: {
             fontSize: 16,
           },
@@ -131,7 +131,6 @@ const App: React.FC = () => {
         </Routes>
       </div>
     </ThemeProvider>
-
   );
 };
 // APP_END

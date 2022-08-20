@@ -1,0 +1,110 @@
+bb527a85c,finnjones,Tue Aug 16 22:24:09 2022 +1000,Count Down For Vote,
+29eb1be81,Finn-Jones1,Mon Aug 15 21:52:56 2022 +1000,working on some ui tweaks,
+e079cd80a,finnjones,Sun Aug 14 12:06:24 2022 +1000,code comments,
+4e734777b,finnjones,Sat Aug 13 15:52:06 2022 +1000,fix .gitignore,
+52a7fd918,finnjones,Sat Aug 13 15:11:31 2022 +1000,Merge branch 'main' of https://github.com/finnjones/Blockchain-Voting,
+0b8f233b3,finnjones,Sat Aug 13 15:11:05 2022 +1000,Screwed up the gitignore,
+255319df4,Finn Jones,Sat Aug 13 14:59:37 2022 +1000,Delete sshKey,
+ff6c2394e,finnjones,Sat Aug 13 11:43:01 2022 +1000,loads of cleanup,
+d99ca72bd,Finn Jones,Sun Aug 7 21:32:47 2022 +1000,Merge pull request #1 from finnjones/dependabot/npm_and_yarn/Testing/create-daml-app/ui/terser-4.8.1,Bump terser from 4.8.0 to 4.8.1 in /Testing/create-daml-app/ui
+2a18aa4ea,dependabot[bot],Sun Aug 7 10:37:32 2022 +0000,Bump terser from 4.8.0 to 4.8.1 in /Testing/create-daml-app/ui,Bumps [terser](https://github.com/terser/terser) from 4.8.0 to 4.8.1.
+- [Release notes](https://github.com/terser/terser/releases)
+- [Changelog](https://github.com/terser/terser/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/terser/terser/compare/v4.8.0...v4.8.1)
+
+---
+updated-dependencies:
+- dependency-name: terser
+  dependency-type: indirect
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+b664f932a,Finn Jones,Sun Aug 7 20:33:41 2022 +1000,Create codeql-analysis.yml,testing code analysis
+2c5ecf2c7,finnjones,Fri Jul 22 21:55:13 2022 +1000,Cleanup,
+672587ee0,finnjones,Fri Jul 22 17:15:16 2022 +1000,Left in a bunch debug stuff,
+eb23cdae5,finnjones,Fri Jul 22 12:34:01 2022 +1000,help screen and preloader,
+ad15507ff,Finn-Jones1,Thu Jul 21 22:10:26 2022 +1000,working on the preloader for the site,
+0f226088e,finnjones,Wed Jul 20 13:15:20 2022 +1000,websockets,
+2bf041c65,Finn-Jones1,Tue Jul 19 11:02:54 2022 +1000,Really Cool Auth0,auth0 partially implemented and help button implemented also some new options in the menu to archive an active vote. Some ui adjustments too
+
+f3a8c4abc,Finn-Jones1,Thu Jul 14 17:13:19 2022 +1000,Code cleanup and new icon,
+b21521261,Finn-Jones1,Thu Jul 14 13:09:54 2022 +1000,new version daml,
+0549c5ecb,finnjones,Wed Jul 13 21:31:53 2022 +1000,Update README.md,
+ee8879367,finnjones,Wed Jul 13 21:31:32 2022 +1000,New readme,
+621db1cc6,Finn-Jones1,Tue Jul 12 16:41:17 2022 +1000,Better analytics,
+3b66a78c0,Finn-Jones1,Mon Jul 11 21:37:16 2022 +1000,formatting,
+a9d4550c1,Finn-Jones1,Mon Jul 11 19:54:59 2022 +1000,another error,
+a6f2c7ac9,Finn-Jones1,Mon Jul 11 17:54:07 2022 +1000,small error,
+c3d8cd1e1,Finn-Jones1,Mon Jul 11 17:48:43 2022 +1000,votes over time graph in analytics,
+21a5b1921,Finn-Jones1,Sun Jul 10 21:48:57 2022 +1000,Small mistake where create vote logout check would still show main screen ui elements,
+4650b0f55,Finn-Jones1,Sun Jul 10 21:29:17 2022 +1000,Improving ui forgiveness also dark theme controlled by system default!!!,User is given page not found if they attempt to go to a page route that does not exist. Also if they attempt to go back out of a page the ui will confirm the user would like to logout.
+
+b9d52148f,Finn-Jones1,Mon Jul 4 14:45:15 2022 +1000,small changes,
+a652084da,finnjones,Mon Jul 4 12:00:04 2022 +1000,time to setup nginx,
+d59012b8b,finnjones,Sun Jul 3 17:14:13 2022 +1000,VoteScreen Stuff,
+c77083654,finnjones,Sun Jul 3 10:59:03 2022 +1000,weird error fixed,
+6e655f7a1,Finn-Jones1,Sat Jul 2 21:31:04 2022 +1000,npm compression and loading screen,optimisation stuff
+
+000cec92a,Finn-Jones1,Thu Jun 30 22:14:41 2022 +1000,UI stuff,I have almost purged all of the ui library and have created the copy to clipboard button for the vote keys as well as a csv export button. I also implemented hashing on the the vote keys and the user login details
+
+87df0c47a,Finn-Jones1,Thu Jun 30 14:06:28 2022 +1000,small mistake in app bar,
+e8c444464,Finn-Jones1,Thu Jun 30 13:51:56 2022 +1000,Tons of cleanup done and configured the graphs to work better,created an algorithm to generate colours for the graph although i am not very happy with the colours it selects. I also removed any dependencies that were not required and cleaned up all the files. Might work on dark theme next or polish off the analytics.
+
+bdfa94abf,Finn-Jones1,Tue Jun 28 15:23:19 2022 +1000,I can't spell,
+1b7cbb235,Finn-Jones1,Tue Jun 28 13:00:00 2022 +1000,Small Changes,
+41d7bd784,finnjones,Tue Jun 28 00:07:15 2022 +1000,push to server,
+132f51e31,Finn-Jones1,Mon Jun 27 13:43:39 2022 +1000,auth0 testing,
+27c843a73,finnjones,Sun Jun 26 17:28:09 2022 +1000,Graph and daml 2.0,I am working on the analytics page and creating graphs and pie charts. I also realised that I need to upgrade the daml version i am using to ensure compatibility with daml hub which is going to be a pain.
+
+bec66164e,finnjones,Wed Jun 22 22:01:12 2022 +1000,Major updates to ui,I have added proper navigation for vote creators and improved the aesthetics of the ui while also transitioning from semantic ui to mui
+
+e369b6870,Finn-Jones1,Wed Jun 8 21:03:58 2022 +1000,minor,
+523eecb89,finnjones,Wed Jun 8 20:08:23 2022 +1000,Working on charts,
+471be96ac,Finn-Jones1,Tue Jun 7 21:52:33 2022 +1000,Nothing major,
+375108d98,finnjones,Tue Jun 7 17:06:17 2022 +1000,React routing,
+3456f2f3b,finnjones,Sat Jun 4 15:54:52 2022 +1000,npm audit,
+d5612de6c,finnjones,Sat Jun 4 15:50:17 2022 +1000,Sorta functioning,Voting platform now can have users create a vote and vote on a topic. Verdict still being worked on.
+
+8d6d4da90,finnjones,Sat May 28 17:54:49 2022 +1000,Unfinished,I can now add candidates on the create vote list although the delete button attached to each candidate in the list is not functioning yet.
+
+a995c1954,finnjones,Tue May 3 10:17:06 2022 +1000,Update README.md,
+b66d75eb6,Finn-Jones1,Thu Apr 28 21:49:05 2022 +1000,Partially Functional Vote Screen,
+8a73187c4,finnjones,Thu Apr 28 18:18:56 2022 +1000,Updates,Subject section is functioning starting to work on the vote screen
+
+07f436925,Finn-Jones1,Fri Apr 22 15:26:23 2022 +1000,voters can only vote once now,
+d8f4ce6ad,finnjones,Thu Apr 21 11:31:09 2022 +1000,edits,
+134b28397,Finn-Jones1,Thu Apr 14 22:30:30 2022 +1000,vote keys display in list,
+82bb73826,Finn-Jones1,Wed Apr 13 23:13:00 2022 +1000,vote keys,Voters created depending on what slider is set to. Currently working on output list for vote keys.
+
+681dc804b,Finn-Jones1,Wed Apr 13 15:41:14 2022 +1000,generates vote keys,I am now using this branch for commits that are a work in progress and are not to be considered full versions
+
+eab305be5,Finn-Jones1,Fri Apr 8 22:42:53 2022 +1000,All Users Can Vote!!!,
+512a94659,finnjones,Mon Apr 4 19:35:24 2022 +1000,other stuff,
+ecde71d49,finnjones,Tue Mar 15 15:16:02 2022 +1100,minimal,
+155c30b80,Finn-Jones1,Sun Feb 27 17:25:12 2022 +1100,Follow Stuff,When you press the follow and put something in the feild that user creates a vote. There are issues currently with the voters being able to vote I get the error "Uncaught (in promise) EncodeError"
+
+fe489d702,finnjones,Sun Feb 27 15:12:06 2022 +1100,changes,
+c8f5dddfb,Finn-Jones1,Thu Feb 24 22:25:49 2022 +1100,yess finally worked out how to fix issues,
+032220d7b,Finn-Jones1,Sun Feb 20 21:52:25 2022 +1100,not functioning currently,
+6ef2794b5,Finn-Jones1,Fri Feb 18 18:00:16 2022 +1100,-,
+88e723a7c,Finn-Jones1,Wed Feb 16 22:39:05 2022 +1100,testing react,
+258a2cd59,Finn-Jones1,Wed Feb 16 20:04:29 2022 +1100,react,
+63a0d2604,Finn-Jones1,Mon Feb 14 08:59:31 2022 +1100,move,
+647b77ab6,Finn-Jones1,Mon Feb 14 08:42:22 2022 +1100,nothing,
+e0a9e9723,Finn-Jones1,Sun Feb 13 23:10:20 2022 +1100,Nothing,
+a49297efe,Finn-Jones1,Sun Feb 13 23:09:56 2022 +1100,Merge branch 'main' of https://github.com/finnjones/Blockchain-Voting,
+75577743f,finnjones,Sun Feb 13 23:03:11 2022 +1100,Delete latest directory,
+be3ec21f3,finnjones,Sun Feb 13 23:03:11 2022 +1100,Delete latest directory,
+1232044f8,finnjones,Sun Feb 13 10:28:10 2022 +1100,Update README.md,
+97a119dd2,Finn-Jones1,Fri Feb 11 15:00:57 2022 +1100,You can create a vote now,
+5a3c25264,Finn-Jones1,Wed Feb 9 22:30:23 2022 +1100,messing with daml navigator,
+130242ab1,Finn-Jones1,Wed Feb 9 20:11:40 2022 +1100,latest,
+a18a1339c,Finn-Jones1,Mon Jan 31 15:13:36 2022 +1100,still learning how daml works,testing some things
+
+7197adfa7,Finn-Jones1,Sat Jan 22 16:23:05 2022 +1100,messing with UI,
+126a4c806,Finn-Jones1,Sun Jan 16 18:09:20 2022 +1100,front end changes,
+1f767744c,finnjones,Sun Jan 9 16:53:50 2022 +1100,Create LICENSE,
+faac52651,Finn-Jones1,Sun Jan 9 16:43:57 2022 +1100,Initial commit,
+6c4ea95b8,Finn-Jones1,Thu Dec 9 12:31:59 2021 +1100,start,
+333832b66,Finn-Jones1,Thu Dec 9 12:11:49 2021 +1100,initalise,
+9456eadab,Finn-Jones1,Wed Dec 8 16:47:54 2021 +1100,Initial commit,

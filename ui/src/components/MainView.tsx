@@ -15,6 +15,7 @@ import {
   Divider,
   IconButton,
   Paper,
+  Stack,
 } from "@mui/material";
 
 import {
@@ -35,12 +36,11 @@ import HelpPopup from "./HelpPopup";
 
 import emailjs from "@emailjs/browser";
 
-import DateTime from "./DateTime";
-// import dateTimeVal from "./DateTime";
-
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
 let hashedVoteKeys: string[] = [];
 
@@ -57,16 +57,13 @@ const MainView: React.FC = () => {
   const [Popup, setPopup] = React.useState(false);
   const [popupText, setPopupText] = React.useState("");
   const [dateTimeVal, setDateTimeVal] = React.useState<Date | null>(new Date());
+  const [error, setError] = React.useState({
+    Subject: false,
+    Option: false,
+  });
 
   const assets = useStreamQueries(Voting.Voting);
-
-  // if (
-  //   JSON.parse(localStorage.getItem("voteKeys") || "test").toString() !==
-  //     voteKeys.toString() &&
-  //   assets.contracts[0]?.payload?.voters !== undefined
-  // ) {
-  //   setVoteKeys(JSON.parse(localStorage.getItem("voteKeys") || "test"));
-  // }
+  const today = new Date();
 
   const ledger = useLedger();
 
@@ -76,35 +73,64 @@ const MainView: React.FC = () => {
    */
   const buttonHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (assets.contracts.length === 0) {
-      const keys = generateVoteKeys(value);
-      setVoteKeys(keys[0]);
-      localStorage.setItem("voteKeys", JSON.stringify(keys[0]));
-      console.log(dateTimeVal + "test");
-      if (dateTimeVal !== null) {
-        var stringDate = Math.floor(dateTimeVal.getTime() / 1000);
-      } else {
-        var stringDate = 0;
-      }
-      console.log(stringDate);
+    let updatedObj = {
+      Subject: false,
+      Option: false,
+    };
 
-      const voteDetails = {
-        username: hashUsername,
-        deadLine: stringDate.toString(),
-        voters: hashedVoteKeys,
-        votes: [],
-        voted: [],
-        voteTimes: [],
-        options: optionList,
-        subject: subjectText,
-      };
-      ledger.create(Voting.Voting, voteDetails);
-      setPopupText("Vote Created");
-      console.log(assets);
-      setPopup(true);
+    if (subjectText.length === 0) {
+      updatedObj = { ...updatedObj, Subject: true };
     } else {
-      setPopupText("Vote In Progress");
-      setPopup(true);
+      updatedObj = { ...updatedObj, Subject: false };
+    }
+
+    if (optionList.length === 0) {
+      updatedObj = { ...updatedObj, Option: true };
+    } else {
+      updatedObj = { ...updatedObj, Option: false };
+    }
+
+    setError(updatedObj);
+
+    console.log("test" + subjectText + "test");
+    console.log(error);
+    if (dateTimeVal !== null) {
+      if (
+        subjectText !== "" &&
+        optionList.length !== 0 &&
+        dateTimeVal.getTime() > today.getTime()
+      ) {
+        if (assets.contracts.length === 0) {
+          const keys = generateVoteKeys(value);
+          setVoteKeys(keys[0]);
+          localStorage.setItem("voteKeys", JSON.stringify(keys[0]));
+          console.log(dateTimeVal + "test");
+          if (dateTimeVal !== null) {
+            var stringDate = Math.floor(dateTimeVal.getTime() / 1000);
+          } else {
+            var stringDate = 0;
+          }
+          console.log(stringDate);
+
+          const voteDetails = {
+            username: hashUsername,
+            deadLine: stringDate.toString(),
+            voters: hashedVoteKeys,
+            votes: [],
+            voted: [],
+            voteTimes: [],
+            options: optionList,
+            subject: subjectText,
+          };
+          ledger.create(Voting.Voting, voteDetails);
+          setPopupText("Vote Created");
+          console.log(assets);
+          setPopup(true);
+        } else {
+          setPopupText("Vote In Progress");
+          setPopup(true);
+        }
+      }
     }
   };
 
@@ -184,7 +210,7 @@ const MainView: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "voteKeys.csv";
+    link.download = subjectText + ".csv";
     link.click();
     setPopupText("Keys Exported");
     setPopup(true);
@@ -238,9 +264,13 @@ const MainView: React.FC = () => {
               label="Subject"
               variant="outlined"
               value={subjectText}
+              onClick={() => {
+                setError({ ...error, Subject: false });
+              }}
               onChange={(event) => {
                 setSubjectText(event.target.value);
               }}
+              error={error.Subject}
               style={{ width: "94%" }}
               sx={{ m: 2 }}
             />
@@ -267,6 +297,10 @@ const MainView: React.FC = () => {
               label="Option"
               variant="outlined"
               value={optionText}
+              error={error.Option}
+              onClick={() => {
+                setError({ ...error, Option: false });
+              }}
               onChange={(event) => {
                 setOptionText(event.target.value);
               }}
@@ -313,14 +347,14 @@ const MainView: React.FC = () => {
 
           <Box textAlign="center">
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="Choose End Date"
+              <MobileDateTimePicker
+                label="Vote Deadline"
                 value={dateTimeVal}
+                minDateTime={today}
                 onChange={(newValue) => {
-                  console.log(newValue);
                   setDateTimeVal(newValue);
                 }}
+                renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
           </Box>

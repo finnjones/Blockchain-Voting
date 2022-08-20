@@ -14,6 +14,14 @@ const defaultRemainingTime = {
 function getRemainingTimeUntilMs(timestampMs: any) {
   const timestampDayjs = dayjs(timestampMs);
   const nowDayjs = dayjs();
+  if (timestampDayjs.isBefore(nowDayjs)) {
+    return {
+      days: "00",
+      hours: "00",
+      minutes: "00",
+      seconds: "00",
+    };
+  }
   return {
     seconds: getRemainingSeconds(nowDayjs, timestampDayjs).toString(),
     minutes: getRemainingMinutes(nowDayjs, timestampDayjs).toString(),
@@ -53,6 +61,15 @@ const DeadLineCountDown: React.FC = () => {
   function updateRemainingTime(countdown: any) {
     setRemainingTime(getRemainingTimeUntilMs(countdown));
   }
+  //   if (
+  //     remainingTime !==
+  //     {
+  //       days: "00",
+  //       hours: "00",
+  //       minutes: "00",
+  //       seconds: "00",
+  //     }
+  //   ) {
   if (voteDeadlineUnix === "0") {
     return <Typography> </Typography>;
   } else {
@@ -65,6 +82,12 @@ const DeadLineCountDown: React.FC = () => {
       </>
     );
   }
+  //   }
+  //   else {
+  //     <Typography variant="h5" textAlign={"center"}>
+  //       Voting period has ended.
+  //     </Typography>;
+  //   }
 };
 
 export default DeadLineCountDown;

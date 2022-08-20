@@ -13,13 +13,14 @@ import {
   AppBar,
 } from "@mui/material";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Ballot,
   Poll,
   Logout,
   PublishedWithChanges,
+  Home,
 } from "@mui/icons-material";
 import { useParty } from "@daml/react";
 import { usernameExport } from "./LoginScreen";
@@ -32,6 +33,8 @@ type Props = {
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
   const { isAuthenticated, logout } = useAuth0();
 
+  const navigate = useNavigate();
+
   const hashUsername = useParty();
 
   const [open, setOpen] = React.useState(false);
@@ -39,6 +42,10 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  // const goHome = () => {
+  //   navigate("/");
+  // };
   const LogoutCall = () => {
     logout({
       returnTo: window.location.origin,
@@ -59,9 +66,18 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
               <MenuIcon />
             </IconButton>
 
-            <Typography variant="h5" sx={{ flexGrow: 1 }} noWrap>
-              Votencrypt
-            </Typography>
+            <Typography variant="h5">Votencrypt</Typography>
+            {/* <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              sx={{ mx: 0.01 }}
+              onClick={goHome}
+              className="menu-button"
+            >
+              <Home />
+            </IconButton> */}
+            <Typography sx={{ flexGrow: 1 }} noWrap></Typography>
 
             <Button
               variant="outlined"
