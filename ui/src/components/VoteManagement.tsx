@@ -105,9 +105,9 @@ const VoteManagement: React.FC = () => {
       <HelpPopup
         heading="Vote Management Help"
         content="
-          This page allows you to view the details of the current active vote. 
-          You can end the vote by clicking the button at the bottom of the page. 
-          By ending a vote, users will no longer be able to cast any more votes.
+          This page allows you to view the details of the current active vote. \n
+          You can end the vote by clicking the button at the bottom of the page. \n
+          By ending a vote, users will no longer be able to cast any more votes. \n
           Once vote has been ended you will be able to create a new vote.
         "
       ></HelpPopup>

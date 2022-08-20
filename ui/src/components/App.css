@@ -14,3 +14,13 @@
     float: right;
     transition: all .5s;
   } */
+
+
+  .scrollhost {
+    scrollbar-width: none;
+   -ms-overflow-style: none;
+ }
+ 
+ .scrollhost::-webkit-scrollbar {
+   display: none;
+ }

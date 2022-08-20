@@ -38,8 +38,6 @@ import emailjs from "@emailjs/browser";
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
 let hashedVoteKeys: string[] = [];
@@ -61,6 +59,7 @@ const MainView: React.FC = () => {
     Subject: false,
     Option: false,
   });
+  const [voteNotCreated, setVoteNotCreated] = React.useState(true);
 
   const assets = useStreamQueries(Voting.Voting);
   const today = new Date();
@@ -124,8 +123,8 @@ const MainView: React.FC = () => {
           };
           ledger.create(Voting.Voting, voteDetails);
           setPopupText("Vote Created");
-          console.log(assets);
           setPopup(true);
+          setVoteNotCreated(false);
         } else {
           setPopupText("Vote In Progress");
           setPopup(true);
@@ -138,32 +137,32 @@ const MainView: React.FC = () => {
     return createHash("sha256").update(input).digest("hex");
   }
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const emails = ["jefflolshort@gmail.com", "finnwjones@gmail.com"];
-    for (let email = 0; email < emails.length; email++) {
-      var extractUserName = emails[email].match(/^([^@]*)@/);
-      var usernameE = extractUserName ? extractUserName[1] : null;
-      const emailDetails = {
-        name: usernameE,
-        email: emails[email],
-        message: voteKeys[email],
-      };
-      console.log(emailDetails);
-      emailjs.send(
-        "service_es53dwq",
-        "template_9e2xqtw",
-        emailDetails,
-        "pwgIagqBDgmParume"
-      );
-    }
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault();
+  //   const emails = ["jefflolshort@gmail.com", "finnwjones@gmail.com"];
+  //   for (let email = 0; email < emails.length; email++) {
+  //     var extractUserName = emails[email].match(/^([^@]*)@/);
+  //     var usernameE = extractUserName ? extractUserName[1] : null;
+  //     const emailDetails = {
+  //       name: usernameE,
+  //       email: emails[email],
+  //       message: voteKeys[email],
+  //     };
+  //     console.log(emailDetails);
+  //     emailjs.send(
+  //       "service_es53dwq",
+  //       "template_9e2xqtw",
+  //       emailDetails,
+  //       "pwgIagqBDgmParume"
+  //     );
+  //   }
 
-    const values = {
-      name: "jefflolshort",
-      email: "jefflolshort@gmail.com",
-      message: "test",
-    };
-  };
+  //   const values = {
+  //     name: "jefflolshort",
+  //     email: "jefflolshort@gmail.com",
+  //     message: "test",
+  //   };
+  // };
 
   /**
    * It takes a number as an argument and returns an array of two arrays, the first of which contains a
@@ -368,9 +367,6 @@ const MainView: React.FC = () => {
             >
               Create Vote
             </Button>
-            {/* <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Send Email
-            </Button> */}
           </Box>
           <Snackbar
             open={Popup}
@@ -401,7 +397,7 @@ const MainView: React.FC = () => {
                   display="block"
                   style={{ lineHeight: "15px" }}
                 >
-                  Distribute vote keys between voters
+                  Send each voter a key to vote
                 </Typography>
               </Grid>
             </Grid>
@@ -410,10 +406,15 @@ const MainView: React.FC = () => {
                 sx={{ margin: 1 }}
                 variant="contained"
                 onClick={exportVoteKeys}
+                disabled={voteNotCreated}
               >
                 Export CSV
               </Button>
-              <Button variant="contained" onClick={copyVoteKeys}>
+              <Button
+                variant="contained"
+                onClick={copyVoteKeys}
+                disabled={voteNotCreated}
+              >
                 Copy To Clipboard
               </Button>
             </Box>
@@ -428,6 +429,19 @@ const MainView: React.FC = () => {
               overflow: "auto",
               maxHeight: 300,
               "& ul": { padding: 0 },
+              padding: 1,
+
+              "&::-webkit-scrollbar": {
+                width: 10,
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "black",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#808080",
+                borderRadius: 2,
+              },
+              overflowX: "hidden",
             }}
             subheader={<li />}
           >
@@ -453,6 +467,7 @@ const MainView: React.FC = () => {
           3. Enter the options.\n
           4. Click on the create vote button.\n
           5. The vote will be created.\n
+          Vote keys allow voters to authenticate themselves when they vote. Make sure you send one vote key to each voter. A vote key can be used only once.
         "
       ></HelpPopup>
     </Container>

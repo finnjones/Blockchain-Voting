@@ -36,7 +36,7 @@ const App: React.FC = () => {
         },
 
         typography: {
-          fontFamily: "'Roboto', sans-serif",
+          fontFamily: "'Inter', sans-serif",
           subtitle1: {
             fontSize: 16,
           },
@@ -60,7 +60,7 @@ const App: React.FC = () => {
       wsBaseUrl={wsBaseUrl}
     >
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <CssBaseline enableColorScheme />
         <div>
           <Routes>
             <Route
@@ -75,6 +75,7 @@ const App: React.FC = () => {
               path="/CreateVote"
               element={
                 <>
+                  {" "}
                   <MainScreen onLogout={() => setCredentials(undefined)} />
                   <MainView />
                 </>
@@ -107,12 +108,14 @@ const App: React.FC = () => {
               }
             ></Route>
           </Routes>
+          {/* </Scrollbars> */}
         </div>
       </ThemeProvider>
     </DamlLedger>
   ) : (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssBaseline enableColorScheme />
+
       <div>
         <Routes>
           <Route

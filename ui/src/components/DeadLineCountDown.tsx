@@ -75,7 +75,7 @@ const DeadLineCountDown: React.FC = () => {
   } else {
     return (
       <>
-        <Typography variant="h5" textAlign={"center"}>
+        <Typography variant="h5">
           Vote Ends In: {remainingTime.days} Days {remainingTime.hours} Hours{" "}
           {remainingTime.minutes} Minutes {remainingTime.seconds} Seconds
         </Typography>

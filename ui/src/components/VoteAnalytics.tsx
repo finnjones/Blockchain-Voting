@@ -129,9 +129,10 @@ const VoteAnalytics: React.FC = () => {
           </Grid>
 
           <Divider />
-          <DeadLineCountDown />
-
-          <Typography variant="h5">Vote Progress: {voteProgress}%</Typography>
+          <Box sx={{ pt: 3 }}>
+            <DeadLineCountDown />
+          </Box>
+          <Typography variant="h5">Votes Counted: {voteProgress}%</Typography>
 
           <LinearProgress variant="determinate" value={voteProgress} />
 
@@ -205,9 +206,9 @@ const VoteAnalytics: React.FC = () => {
       <HelpPopup
         heading="Vote Analytics Help"
         content="
-          - This page shows the current vote results and the vote progress. \n
-          - The vote progress is the percentage of votes casted out of the total number of voters. \n
-          - The votes over time chart shows the number of votes that have been cast in relationship to time \n
+          This page shows the current vote results and the vote progress. \n
+          The vote progress is the percentage of votes casted out of the total number of voters. \n
+          The votes over time chart shows the number of votes that have been cast in relationship to time \n
         "
       ></HelpPopup>
     </Container>

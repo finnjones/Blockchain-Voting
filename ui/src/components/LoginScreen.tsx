@@ -137,7 +137,7 @@ export const LandingScreen: React.FC<Props> = ({ onLogin }) => {
               style={{ width: "100%" }}
               loading={loading}
             >
-              Create A Vote
+              Login
             </LoadingButton>
           </Grid>
           <Grid item>
@@ -244,10 +244,12 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
   } else {
     // assign characters in url path after  "/VoteLogin/" to username
     if (username === "") {
-      console.log(window.location.pathname.substring(
-        "/VoteLogin/".length,
-        window.location.pathname.length
-      ))
+      console.log(
+        window.location.pathname.substring(
+          "/VoteLogin/".length,
+          window.location.pathname.length
+        )
+      );
       setUsername(
         window.location.pathname.substring(
           "/VoteLogin/".length,

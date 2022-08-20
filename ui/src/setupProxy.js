@@ -23,12 +23,6 @@ const filter = function (pathname, req) {
 
 module.exports = function (app) {
   app.use(
-    compression({
-      level: 6,
-      threshold: 100 * 100,
-    }
-      
-    ),
     createProxyMiddleware(filter, {
       target: httpJsonDevUrl,
       ws: true, //Proxy websockets
