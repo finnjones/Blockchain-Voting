@@ -101,6 +101,48 @@ const VoteAnalytics: React.FC = () => {
     }
   }, [voteTimes]);
 
+  const LineTooltip = ({
+    active,
+    payload,
+  }: {
+    active: any;
+    payload: any;
+    label: any;
+  }) => {
+    if (active) {
+      return (
+        <Paper sx={{ px: 2, py: 1 }}>
+          <div className="custom-tooltip">
+            <Typography>Votes: {payload[0].value}</Typography>
+          </div>
+        </Paper>
+      );
+    }
+
+    return null;
+  };
+
+  // const BarTooltip = ({
+  //   active,
+  //   payload,
+  // }: {
+  //   active: any;
+  //   payload: any;
+  //   label: any;
+  // }) => {
+  //   if (active) {
+  //     return (
+  //       <Paper sx={{ px: 2, py: 1 }}>
+  //         <div className="custom-tooltip">
+  //           <Typography>Votes: {payload[0].value}</Typography>
+  //         </div>
+  //       </Paper>
+  //     );
+  //   }
+
+  //   return null;
+  // };
+
   return (
     <Container>
       <Box sx={{ p: 1 }}>
@@ -140,13 +182,12 @@ const VoteAnalytics: React.FC = () => {
             <Grid item>
               <BarChart width={400} height={100} data={votesFrequency}>
                 <XAxis dataKey="name" />
-                <Bar dataKey="value" fill="#8884d8">
+                <Tooltip cursor={{ fill: "transparent" }} />
+                <Bar dataKey="value" fill="#387DF6">
                   {votesFrequency.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={colours[index]} />
                   ))}
                 </Bar>
-
-                <Tooltip />
               </BarChart>
             </Grid>
             <Grid item>
@@ -185,17 +226,17 @@ const VoteAnalytics: React.FC = () => {
                     moment(unixTime).format("HH:mm Do")
                   }
                 >
-                  <Label value="Time" fill="#8884d8" position="bottom" />
+                  <Label value="Time" fill="#387DF6" position="bottom" />
                 </XAxis>
                 <YAxis allowDecimals={false}>
-                  <Label value="Votes" fill="#8884d8" angle={-90} />
+                  <Label value="Votes" fill="#387DF6" angle={-90} />
                 </YAxis>
-                <Tooltip />
+                <Tooltip content={<LineTooltip />} />
                 <Line
                   type="monotone"
                   name="Votes"
                   dataKey="value"
-                  stroke="#8884d8"
+                  stroke="#387DF6"
                   activeDot={{ r: 8 }}
                 />
               </LineChart>
