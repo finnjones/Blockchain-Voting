@@ -62,33 +62,42 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
   const now = new Date().getTime();
 
   const buttonHandler = async () => {
-    if (now < parseInt(assets.contracts[0]?.payload?.deadLine) * 1000) {
-      if (assets.contracts[0]?.payload.voted.includes(hashUsername)) {
-        setPopupText("You have already voted");
+    if (radioStatus !== "") {
+      if (now < parseInt(assets.contracts[0]?.payload?.deadLine) * 1000) {
+        if (assets.contracts[0]?.payload.voted.includes(hashUsername)) {
+          setPopupText("You have already voted");
 
-        setPopup(true);
+          setPopup(true);
+        } else {
+          await ledger
+            .exerciseByKey(
+              Voting.Voting.Vote,
+              assets.contracts[0]?.signatories[0],
+              {
+                voter: hashUsername,
+                vote: radioStatus,
+                unixTime: now.toString(),
+              }
+            )
+            .catch(console.error);
+          setVoted(true);
+          setPopupText(
+            "Your vote has been cast. Please logout or close the browser tab"
+          );
+
+          setPopup(true);
+        }
       } else {
-        await ledger
-          .exerciseByKey(
-            Voting.Voting.Vote,
-            assets.contracts[0]?.signatories[0],
-            { voter: hashUsername, vote: radioStatus, unixTime: now.toString() }
-          )
-          .catch(console.error);
-        setVoted(true);
-        setPopupText(
-          "Your vote has been cast. Please logout or close the browser tab"
-        );
+        setPopupText("The voting period has ended");
 
         setPopup(true);
       }
     } else {
-      setPopupText("The voting period has ended");
+      setPopupText("Please select an option");
 
       setPopup(true);
     }
   };
-
   if (Voted) {
     return (
       <>
