@@ -69,6 +69,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
           setPopup(true);
         } else {
+          /* Casting the vote. */
           await ledger
             .exerciseByKey(
               Voting.Voting.Vote,

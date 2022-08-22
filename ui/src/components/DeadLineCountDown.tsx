@@ -11,6 +11,13 @@ const defaultRemainingTime = {
   minutes: "00",
   seconds: "00",
 };
+/**
+ * It takes a timestamp in milliseconds and returns an object with the remaining time until that
+ * timestamp in days, hours, minutes, and seconds
+ * @param {any} timestampMs - The timestamp in milliseconds that you want to get the remaining time
+ * until.
+ * @returns An object with the remaining time until the timestampMs.
+ */
 function getRemainingTimeUntilMs(timestampMs: any) {
   const timestampDayjs = dayjs(timestampMs);
   const nowDayjs = dayjs();
@@ -29,6 +36,12 @@ function getRemainingTimeUntilMs(timestampMs: any) {
     days: getRemainingDays(nowDayjs, timestampDayjs).toString(),
   };
 }
+/**
+ * Get the difference between two dates in a specific unit of time.
+ * @param {any} nowDayjs - The current time
+ * @param {any} timestampDayjs - The timestamp that we want to count down to.
+ * @returns The remaining time in seconds, minutes, hours, and days.
+ */
 function getRemainingSeconds(nowDayjs: any, timestampDayjs: any) {
   const seconds = timestampDayjs.diff(nowDayjs, "seconds") % 60;
   return seconds;
@@ -45,6 +58,15 @@ function getRemainingDays(nowDayjs: any, timestampDayjs: any) {
   const days = timestampDayjs.diff(nowDayjs, "days");
   return days;
 }
+/**
+ * This function is a React component that uses the useStreamQueries hook to get the voteDeadlineUnix
+ * value from the Voting contract. It then uses the useState hook to set the remainingTime state
+ * variable to the defaultRemainingTime object. It then uses the useEffect hook to set an interval that
+ * calls the updateRemainingTime function every second. The updateRemainingTime function uses the
+ * getRemainingTimeUntilMs function to get the remaining time until the voteDeadlineUnix value. The
+ * function then returns a Typography component that displays the remaining time
+ * @returns A component that displays the remaining time until the vote deadline.
+ */
 const DeadLineCountDown: React.FC = () => {
   const assets = useStreamQueries(Voting.Voting);
   const voteDeadlineUnix = assets.contracts[0]?.payload?.deadLine || "0";
@@ -61,15 +83,7 @@ const DeadLineCountDown: React.FC = () => {
   function updateRemainingTime(countdown: any) {
     setRemainingTime(getRemainingTimeUntilMs(countdown));
   }
-  //   if (
-  //     remainingTime !==
-  //     {
-  //       days: "00",
-  //       hours: "00",
-  //       minutes: "00",
-  //       seconds: "00",
-  //     }
-  //   ) {
+
   if (voteDeadlineUnix === "0") {
     return <Typography> </Typography>;
   } else {
@@ -82,12 +96,6 @@ const DeadLineCountDown: React.FC = () => {
       </>
     );
   }
-  //   }
-  //   else {
-  //     <Typography variant="h5" textAlign={"center"}>
-  //       Voting period has ended.
-  //     </Typography>;
-  //   }
 };
 
 export default DeadLineCountDown;

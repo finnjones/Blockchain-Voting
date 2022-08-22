@@ -34,8 +34,6 @@ import { createHash } from "crypto";
 
 import HelpPopup from "./HelpPopup";
 
-import emailjs from "@emailjs/browser";
-
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -76,6 +74,8 @@ const MainView: React.FC = () => {
       Subject: false,
       Option: false,
     };
+    /* Checking if the subjectText and optionList are empty. If they are empty, it will set the Subject and
+  Option to true. If they are not empty, it will set the Subject and Option to false. */
 
     if (subjectText.length === 0) {
       updatedObj = { ...updatedObj, Subject: true };
@@ -100,6 +100,7 @@ const MainView: React.FC = () => {
         dateTimeVal.getTime() > today.getTime()
       ) {
         if (assets.contracts.length === 0) {
+          /* The bellow code is creating a vote. */
           const keys = generateVoteKeys(value);
           setVoteKeys(keys[0]);
           localStorage.setItem("voteKeys", JSON.stringify(keys[0]));
@@ -136,33 +137,6 @@ const MainView: React.FC = () => {
   function hash(input: string) {
     return createHash("sha256").update(input).digest("hex");
   }
-
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   const emails = ["jefflolshort@gmail.com", "finnwjones@gmail.com"];
-  //   for (let email = 0; email < emails.length; email++) {
-  //     var extractUserName = emails[email].match(/^([^@]*)@/);
-  //     var usernameE = extractUserName ? extractUserName[1] : null;
-  //     const emailDetails = {
-  //       name: usernameE,
-  //       email: emails[email],
-  //       message: voteKeys[email],
-  //     };
-  //     console.log(emailDetails);
-  //     emailjs.send(
-  //       "service_es53dwq",
-  //       "template_9e2xqtw",
-  //       emailDetails,
-  //       "pwgIagqBDgmParume"
-  //     );
-  //   }
-
-  //   const values = {
-  //     name: "jefflolshort",
-  //     email: "jefflolshort@gmail.com",
-  //     message: "test",
-  //   };
-  // };
 
   /**
    * It takes a number as an argument and returns an array of two arrays, the first of which contains a
@@ -215,6 +189,13 @@ const MainView: React.FC = () => {
     setPopup(true);
   };
 
+  /**
+   * A function that closes the popup.
+   * @param {React.SyntheticEvent | Event} event - React.SyntheticEvent | Event
+   * @param {string} [reason] - The reason for the close. Can be one of "timeout", "clickaway",
+   * "escapeKeyDown", or "offscreen".
+   * @returns The return statement is returning the following:
+   */
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: string

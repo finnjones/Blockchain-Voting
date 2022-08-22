@@ -13,8 +13,6 @@ import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 
-export function themeSwitcher() {}
-
 const App: React.FC = () => {
   const [credentials, setCredentials] = React.useState<
     Credentials | undefined
@@ -22,6 +20,7 @@ const App: React.FC = () => {
   // create a dark theme light theme switcher
   const preferedScheme = useMediaQuery("(prefers-color-scheme: dark)");
 
+  /* Creating a theme for the app. */
   const theme = React.useMemo(
     () =>
       createTheme({

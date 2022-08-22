@@ -33,19 +33,12 @@ type Props = {
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
   const { isAuthenticated, logout } = useAuth0();
 
-  const navigate = useNavigate();
-
-  const hashUsername = useParty();
-
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
-  // const goHome = () => {
-  //   navigate("/");
-  // };
   const LogoutCall = () => {
     logout({
       returnTo: window.location.origin,
@@ -67,16 +60,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
             </IconButton>
 
             <Typography variant="h5">Votencrypt</Typography>
-            {/* <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              sx={{ mx: 0.01 }}
-              onClick={goHome}
-              className="menu-button"
-            >
-              <Home />
-            </IconButton> */}
+
             <Typography sx={{ flexGrow: 1 }} noWrap></Typography>
 
             <Button

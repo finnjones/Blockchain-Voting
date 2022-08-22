@@ -101,6 +101,7 @@ const VoteAnalytics: React.FC = () => {
     }
   }, [voteTimes]);
 
+  /* This is a custom tooltip for the line chart. */
   const LineTooltip = ({
     active,
     payload,
@@ -121,27 +122,6 @@ const VoteAnalytics: React.FC = () => {
 
     return null;
   };
-
-  // const BarTooltip = ({
-  //   active,
-  //   payload,
-  // }: {
-  //   active: any;
-  //   payload: any;
-  //   label: any;
-  // }) => {
-  //   if (active) {
-  //     return (
-  //       <Paper sx={{ px: 2, py: 1 }}>
-  //         <div className="custom-tooltip">
-  //           <Typography>Votes: {payload[0].value}</Typography>
-  //         </div>
-  //       </Paper>
-  //     );
-  //   }
-
-  //   return null;
-  // };
 
   return (
     <Container>
