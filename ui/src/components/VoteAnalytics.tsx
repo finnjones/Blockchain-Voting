@@ -162,7 +162,10 @@ const VoteAnalytics: React.FC = () => {
             <Grid item>
               <BarChart width={400} height={100} data={votesFrequency}>
                 <XAxis dataKey="name" />
-                <Tooltip cursor={{ fill: "transparent" }} />
+                <Tooltip
+                  cursor={{ fill: "transparent" }}
+                  content={<LineTooltip active="" payload="" label="" />}
+                />
                 <Bar dataKey="value" fill="#387DF6">
                   {votesFrequency.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={colours[index]} />
@@ -177,9 +180,11 @@ const VoteAnalytics: React.FC = () => {
                     <Cell key={`cell-${index}`} fill={colours[index]} />
                   ))}
 
-                  <LabelList dataKey="name" fill="white" />
+                  <LabelList dataKey="name" />
                 </Pie>
-                <Tooltip />
+                <Tooltip
+                  content={<LineTooltip active="" payload="" label="" />}
+                />
               </PieChart>
             </Grid>
           </Grid>
@@ -211,7 +216,9 @@ const VoteAnalytics: React.FC = () => {
                 <YAxis allowDecimals={false}>
                   <Label value="Votes" fill="#387DF6" angle={-90} />
                 </YAxis>
-                <Tooltip content={<LineTooltip />} />
+                <Tooltip
+                  content={<LineTooltip active="" payload="" label="" />}
+                />
                 <Line
                   type="monotone"
                   name="Votes"
