@@ -1,5 +1,7 @@
 module Voting where
 
+
+-- Contract that holds users details
 template User with
     username: Party
 
@@ -9,7 +11,7 @@ template User with
     key username: Party
     maintainer key
 
-
+-- Contract defines the details of the vote and the accociated choices such as voting
 template Voting with
     username: Party
     deadLine: Text
@@ -21,13 +23,16 @@ template Voting with
     subject: Text
     
   where
+    -- Defining the signatories (creater) and observers (viewers) of the contract.
     signatory username
     observer voters
 
+    -- Defining the key of the contract.
     key username: Party
     maintainer key
 
  
+    -- A choice that is nonconsuming, means it can be called multiple times. Choice is only available to observers of the contract. It archives the contract that is calling the choice and creates a new contract with the same template but with the new values for the fields.
     nonconsuming choice Vote: ContractId Voting with
         voter: Party
         vote: Text

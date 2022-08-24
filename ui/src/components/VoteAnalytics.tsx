@@ -47,15 +47,15 @@ const VoteAnalytics: React.FC = () => {
   /* Creating a map of the votes and the frequency of the votes. */
   const votesFrequency = useMemo(() => {
     if (votes.length !== 0) {
-      const map = new Map<string, number>();
+      const voteFrequencyMap = new Map<string, number>();
       votes.forEach((vote) => {
-        if (map.has(vote)) {
-          map.set(vote, (map.get(vote) || 1) + 1);
+        if (voteFrequencyMap.has(vote)) {
+          voteFrequencyMap.set(vote, (voteFrequencyMap.get(vote) || 1) + 1);
         } else {
-          map.set(vote, 1);
+          voteFrequencyMap.set(vote, 1);
         }
       });
-      return [...map].map(([name, value]) => ({ name, value }));
+      return [...voteFrequencyMap].map(([name, value]) => ({ name, value }));
     } else {
       return [
         {

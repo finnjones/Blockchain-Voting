@@ -1,3 +1,12 @@
+f1e51f61c,finnjones,Mon Aug 22 18:26:29 2022 +1000,Code Comments,
+c19be3424,Finn-Jones1,Sun Aug 21 22:42:07 2022 +1000,fixing the recharts formatting,
+abffe83e0,finnjones,Sun Aug 21 21:39:34 2022 +1000,Small error fix,
+45ad2fafb,Finn-Jones1,Sat Aug 20 16:51:06 2022 +1000,build file,
+9794c3873,Finn-Jones1,Sat Aug 20 16:50:25 2022 +1000,update gitignore,
+818637019,Finn-Jones1,Sat Aug 20 16:29:17 2022 +1000,Pretty much finished,There is not much else to be done. I have made some minor adjustments after receiving feedback on how I could improve the interface.
+
+e1ddbf488,finnjones,Sat Aug 20 10:36:50 2022 +1000,working on deadline functionality,I have implemented a deadline widget to allow the user to set the deadline of the vote. I have also included a countdown clock on the vote screen and on the vote analytics screen
+
 bb527a85c,finnjones,Tue Aug 16 22:24:09 2022 +1000,Count Down For Vote,
 29eb1be81,Finn-Jones1,Mon Aug 15 21:52:56 2022 +1000,working on some ui tweaks,
 e079cd80a,finnjones,Sun Aug 14 12:06:24 2022 +1000,code comments,

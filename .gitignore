@@ -6,3 +6,4 @@ ui/.env.production
 
 ui/node_modules
 *.log
+*.csv

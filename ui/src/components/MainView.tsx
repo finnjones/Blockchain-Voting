@@ -15,7 +15,6 @@ import {
   Divider,
   IconButton,
   Paper,
-  Stack,
 } from "@mui/material";
 
 import {
@@ -64,6 +63,8 @@ const MainView: React.FC = () => {
 
   const ledger = useLedger();
 
+  let crypto = require("crypto");
+
   /**
    * The buttonHandler function is called when the user clicks the "Create Vote" button. It generates a
    * set of vote keys, stores them in local storage, and then creates a new vote contract on the ledger
@@ -91,8 +92,6 @@ const MainView: React.FC = () => {
 
     setError(updatedObj);
 
-    console.log("test" + subjectText + "test");
-    console.log(error);
     if (dateTimeVal !== null) {
       if (
         subjectText !== "" &&
@@ -103,8 +102,6 @@ const MainView: React.FC = () => {
           /* The bellow code is creating a vote. */
           const keys = generateVoteKeys(value);
           setVoteKeys(keys[0]);
-          localStorage.setItem("voteKeys", JSON.stringify(keys[0]));
-          console.log(dateTimeVal + "test");
           if (dateTimeVal !== null) {
             var stringDate = Math.floor(dateTimeVal.getTime() / 1000);
           } else {
@@ -145,10 +142,9 @@ const MainView: React.FC = () => {
    * @param {any} voterCount - The number of voters in the election.
    * @returns An array of voteKeys and hashedVoteKeys
    */
-  const generateVoteKeys = (voterCount: any) => {
+  const generateVoteKeys = (voterCount: number) => {
     for (let i = 0; i < voterCount; i++) {
-      var crypto = require("crypto");
-      var key = crypto.randomBytes(20).toString("hex");
+      let key = crypto.randomBytes(20).toString("hex");
       voteKeys.push(`${key}`);
       hashedVoteKeys.push(hash(key));
     }
