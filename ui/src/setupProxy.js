@@ -1,7 +1,6 @@
 
 
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const compression = require('compression')
 const httpJsonDevUrl =
   process.env.REACT_APP_HTTP_JSON ? process.env.REACT_APP_HTTP_JSON : "http://localhost:7575";
 

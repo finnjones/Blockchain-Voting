@@ -102,10 +102,10 @@ export const LandingScreen: React.FC<Props> = ({ onLogin }) => {
       const { name, sub } = user;
 
       usernameExport = name;
-      const hashedUsername = hash(sub ? sub : "");
+      const hashedStub = hash(sub ? sub : "");
       await login({
-        party: hashedUsername,
-        token: authConfig.makeToken(hashedUsername),
+        party: hashedStub,
+        token: authConfig.makeToken(hashedStub),
       });
     }
   };
@@ -244,12 +244,6 @@ export const LoginScreenVote: React.FC<Props> = ({ onLogin }) => {
   } else {
     // assign characters in url path after  "/VoteLogin/" to username
     if (username === "") {
-      console.log(
-        window.location.pathname.substring(
-          "/VoteLogin/".length,
-          window.location.pathname.length
-        )
-      );
       setUsername(
         window.location.pathname.substring(
           "/VoteLogin/".length,

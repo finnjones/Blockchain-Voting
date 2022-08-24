@@ -7,7 +7,7 @@ import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl, wsBaseUrl } from "../config";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import VoteAnalytics from "./VoteAnalytics";
 import MainView from "./MainView";

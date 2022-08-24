@@ -107,7 +107,6 @@ const MainView: React.FC = () => {
           } else {
             var stringDate = 0;
           }
-          console.log(stringDate);
 
           const voteDetails = {
             username: hashUsername,
@@ -120,7 +119,7 @@ const MainView: React.FC = () => {
             subject: subjectText,
           };
           ledger.create(Voting.Voting, voteDetails);
-          setPopupText("Vote Created");
+          setPopupText("Vote Created. Save Keys Before Closing App");
           setPopup(true);
           setVoteNotCreated(false);
         } else {

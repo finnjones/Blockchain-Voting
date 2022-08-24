@@ -10,6 +10,8 @@ export type Insecure = {
 export const isLocalDev = process.env.NODE_ENV === 'development';
 export type Authentication = Insecure;
 
+
+// Encoding user data and ledger data
 export const authConfig: Authentication = (() => {
     const ledgerId: string = process.env.REACT_APP_LEDGER_ID ?? "votencrypt-sandbox"
     const auth: Insecure = {

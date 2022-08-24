@@ -13,16 +13,15 @@ import {
   AppBar,
 } from "@mui/material";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Ballot,
   Poll,
   Logout,
   PublishedWithChanges,
-  Home,
 } from "@mui/icons-material";
-import { useParty } from "@daml/react";
+
 import { usernameExport } from "./LoginScreen";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -31,7 +30,7 @@ type Props = {
 };
 
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
-  const { isAuthenticated, logout } = useAuth0();
+  const { logout } = useAuth0();
 
   const [open, setOpen] = React.useState(false);
 
