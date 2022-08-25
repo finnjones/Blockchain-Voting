@@ -97,7 +97,7 @@ const VoteManagement: React.FC = () => {
               name="Arcive Vote"
               sx={{ m: 2, alignItems: "center" }}
             >
-              End Vote
+              Delete Vote
             </Button>
           </Box>
         </Paper>
@@ -106,9 +106,9 @@ const VoteManagement: React.FC = () => {
         heading="Vote Management Help"
         content="
           This page allows you to view the details of the current active vote. \n
-          You can end the vote by clicking the button at the bottom of the page. \n
-          By ending a vote, users will no longer be able to cast any more votes. \n
-          Once vote has been ended you will be able to create a new vote.
+          You can delete the vote by clicking the button at the bottom of the page. \n
+          By deleting a vote, users will no longer be able to cast any more votes. \n
+          Once the vote has been deleted you will be able to create a new vote.
         "
       ></HelpPopup>
     </Container>

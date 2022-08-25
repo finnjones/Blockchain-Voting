@@ -7,3 +7,5 @@ ui/.env.production
 ui/node_modules
 *.log
 *.csv
+.idea/workspace.xml
+sandbox.log

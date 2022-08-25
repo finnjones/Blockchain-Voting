@@ -346,7 +346,6 @@ const MainView: React.FC = () => {
           </Box>
           <Snackbar
             open={Popup}
-            autoHideDuration={2000}
             onClose={handleClose}
             message={popupText}
             action={action}
@@ -441,7 +440,7 @@ const MainView: React.FC = () => {
           1. Enter the subject of the vote.\n
           2. Enter the number of voters.\n
           3. Enter the options.\n
-          4. Click on the create vote button.\n
+          4. Click on the Create Vote button.\n
           5. The vote will be created.\n
           Vote keys allow voters to authenticate themselves when they vote. Make sure you send one vote key to each voter. A vote key can be used only once.
         "
