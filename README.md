@@ -4,6 +4,9 @@ My major work for software development written In DAML a smart contracting langu
 ## URL for site
 https://votencrypt.com
 
+## Theory Work
+https://finnjones.notion.site/12SDD-Assessment-3-5d1f775e29e349879993c1937a49ffc1
+
 
 ## Marking
 The majority of the react code is in
