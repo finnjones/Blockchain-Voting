@@ -26,6 +26,24 @@ const VoteManagement: React.FC = () => {
   /* A react hook that is used to query the ledger for all contracts of type Voting.Voting. */
   const assets = useStreamQueries(Voting.Voting);
 
+  // Contract loading handling
+  const voteContract = () => {
+    if (assets.loading === false) {
+      let details = {
+        subject: assets.contracts[0]?.payload?.subject,
+        voters: assets.contracts[0]?.payload?.voters,
+        options: assets.contracts[0]?.payload?.options,
+      };
+      return details;
+    } else {
+      let details = {
+        subject: "Loading...",
+        voters: ["Loading..."],
+        options: ["Loading..."],
+      };
+      return details;
+    }
+  };
   /**
    * It archives the contract with the key `Voting.Voting` and the signatory
    * `assets.contracts[0]?.signatories[0]`
@@ -67,19 +85,17 @@ const VoteManagement: React.FC = () => {
             <Typography variant="h6" sx={{ pt: 2 }}>
               Vote Description
             </Typography>
-            {assets.contracts[0]?.payload?.subject ?? "No Active Vote"}
+            {voteContract().subject ?? "No Active Vote"}
             <Divider sx={{ pt: 2 }} />
             <Typography variant="h6" sx={{ pt: 2 }}>
               Vote Options
             </Typography>
             <List>
-              {assets.contracts[0]?.payload?.options.map(
-                (item, currentItem) => (
-                  <ListItem key={item}>
-                    <ListItemText primary={currentItem + 1 + ". " + item} />
-                  </ListItem>
-                )
-              ) ?? "No Active Vote"}
+              {voteContract().options?.map((item, currentItem) => (
+                <ListItem key={item}>
+                  <ListItemText primary={currentItem + 1 + ". " + item} />
+                </ListItem>
+              )) ?? "No Active Vote"}
             </List>
             <Divider sx={{ pt: 2 }} />
 
@@ -87,7 +103,7 @@ const VoteManagement: React.FC = () => {
             <Typography variant="h6" sx={{ pt: 2 }}>
               Number of voters
             </Typography>
-            {assets.contracts[0]?.payload?.voters.length ?? "No Active Vote"}
+            {voteContract().voters?.length ?? "No Active Vote"}
           </Paper>
           <Box textAlign="center">
             <Button

@@ -17,7 +17,12 @@ import {
   IconButton,
   Paper,
 } from "@mui/material";
-import { Close, HowToVote, Logout } from "@mui/icons-material";
+import {
+  Close,
+  CommentsDisabledOutlined,
+  HowToVote,
+  Logout,
+} from "@mui/icons-material";
 import { Voting } from "@daml.js/votencrypt";
 import { useParty, useLedger, useStreamQueries } from "@daml/react";
 import { Link } from "react-router-dom";
@@ -58,9 +63,22 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
 
   const assets = useStreamQueries(Voting.Voting);
   const [radioStatus, setRadioStatus] = useState("");
+
+  // handle vote subject loading
+  const keyHandle = () => {
+    if (assets.loading === true) {
+      return "Loading...";
+    } else if (assets.contracts[0] === undefined) {
+      return "Invalid Vote Key";
+    } else {
+      return assets.contracts[0]?.payload?.subject;
+    }
+  };
+
   // get current unix time stamp
   const now = new Date().getTime();
 
+  // Handle Button function to cast the vote by exercising the choice on the ledger
   const buttonHandler = async () => {
     if (radioStatus !== "") {
       if (now < parseInt(assets.contracts[0]?.payload?.deadLine) * 1000) {
@@ -155,7 +173,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
               <Typography variant="h6" sx={{ pt: 2 }}>
                 Vote Description
               </Typography>
-              {assets.contracts[0]?.payload?.subject ?? "Invalid Vote Key"}
+              {keyHandle()}
               <Typography variant="h6" sx={{ pt: 2 }}>
                 You Voted For
               </Typography>
@@ -230,7 +248,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
               <Typography variant="h6" sx={{ pt: 2 }}>
                 Vote Description
               </Typography>
-              {assets.contracts[0]?.payload?.subject ?? "Invalid Vote Key"}
+              {keyHandle()}
 
               <Divider sx={{ pb: 2 }} />
               <Box textAlign="center">
