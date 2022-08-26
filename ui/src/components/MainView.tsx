@@ -265,7 +265,9 @@ const MainView: React.FC = () => {
               }}
             />
           </Box>
-          <Typography variant="h6">Options: {optionList.length}</Typography>
+          <Typography variant="h6">
+            Vote Options: {optionList.length}
+          </Typography>
           <Box textAlign="center">
             <TextField
               id="outlined-basic"

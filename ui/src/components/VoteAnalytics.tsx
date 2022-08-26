@@ -31,7 +31,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import moment from "moment";
+import dayjs from "dayjs";
 import HelpPopup from "./HelpPopup";
 import DeadLineCountDown from "./DeadLineCountDown";
 
@@ -208,7 +208,7 @@ const VoteAnalytics: React.FC = () => {
                 <XAxis
                   dataKey="time"
                   tickFormatter={(unixTime) =>
-                    moment(unixTime).format("HH:mm Do")
+                    dayjs(unixTime).format("HH:mm DD/MM/YY")
                   }
                 >
                   <Label value="Time" fill="#387DF6" position="bottom" />

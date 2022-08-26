@@ -2,16 +2,19 @@ import React from "react";
 import { LoginScreenVote, LandingScreen } from "./LoginScreen";
 import { LogoutConfirm, PageNotFound } from "./CatchNotFound";
 import MainScreen from "./MainScreen";
-import VoteManagement from "./VoteManagement";
 import VoteScreen from "./VoteScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl, wsBaseUrl } from "../config";
 import { Route, Routes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import VoteAnalytics from "./VoteAnalytics";
+import Loadable from "react-loadable";
 import MainView from "./MainView";
+
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
+
+import VoteAnalytics from "./VoteAnalytics";
+import VoteManagement from "./VoteManagement";
 
 const App: React.FC = () => {
   const [credentials, setCredentials] = React.useState<
