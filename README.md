@@ -3,3 +3,9 @@ My major work for software development written In DAML a smart contracting langu
 
 ## URL for site
 https://votencrypt.com
+
+
+
+# Credits
+- Digital Asset for the starter react template
+- MUI for gui components
