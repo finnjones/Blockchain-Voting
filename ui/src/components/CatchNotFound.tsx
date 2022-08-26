@@ -76,33 +76,3 @@ export const PageNotFound = () => {
     </>
   );
 };
-
-export const InvalidVoteKey = ({ onLogout }: any) => {
-  return (
-    <>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        textAlign="center"
-        style={{ height: "100vh" }}
-      >
-        <Paper sx={{ p: 3, borderRadius: "16px" }} elevation={2}>
-          <Typography variant="h5" sx={{ flexGrow: 1 }} noWrap>
-            Vote key is invalid.
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onLogout}
-            component={Link}
-            to="/"
-            sx={{ m: 2 }}
-          >
-            Go to home page
-          </Button>
-        </Paper>
-      </Box>
-    </>
-  );
-};

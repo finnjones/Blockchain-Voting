@@ -39,6 +39,7 @@ const VoteScreen: React.FC<Props> = ({ onLogout }) => {
   const [Popup, setPopup] = React.useState(false);
   const [popupText, setPopupText] = React.useState("");
 
+  // Handle close snackbar
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: string

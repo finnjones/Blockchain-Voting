@@ -64,6 +64,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
         <div>
+          {/* React router handles the browser url routing */}
           <Routes>
             <Route
               path="/Vote"
@@ -110,7 +111,6 @@ const App: React.FC = () => {
               }
             ></Route>
           </Routes>
-          {/* </Scrollbars> */}
         </div>
       </ThemeProvider>
     </DamlLedger>
@@ -138,6 +138,5 @@ const App: React.FC = () => {
     </ThemeProvider>
   );
 };
-// APP_END
 
 export default App;

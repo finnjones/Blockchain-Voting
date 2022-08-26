@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import SpeedDial from "@mui/material/SpeedDial";
 import { QuestionMark } from "@mui/icons-material";
 
+// This is a popup that appears when the user clicks on the question mark icon in the bottom right corner of the screen. The popup will display help information related to the current page.
 const HelpPopup = ({
   heading,
   content,

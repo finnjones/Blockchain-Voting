@@ -100,6 +100,8 @@ const MainView: React.FC = () => {
       ) {
         if (assets.contracts.length === 0) {
           /* The bellow code is creating a vote. */
+
+          // generating vote keys
           const keys = generateVoteKeys(value);
           setVoteKeys(keys[0]);
           if (dateTimeVal !== null) {
@@ -118,6 +120,7 @@ const MainView: React.FC = () => {
             options: optionList,
             subject: subjectText,
           };
+          // creating vote on ledger with details
           ledger.create(Voting.Voting, voteDetails);
           setPopupText("Vote Created. Save Keys Before Closing App");
           setPopup(true);

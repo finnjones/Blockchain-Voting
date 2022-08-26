@@ -4,9 +4,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const httpJsonDevUrl =
   process.env.REACT_APP_HTTP_JSON ? process.env.REACT_APP_HTTP_JSON : "http://localhost:7575";
 
-/**
- * @return {Boolean}
- */
+
 const filter = function (pathname, req) {
   // Proxy requests to the http json api when in development
   const proxied = pathname.match("^/v1") && process.env.NODE_ENV === "development";

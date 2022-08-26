@@ -32,5 +32,7 @@ export const authConfig: Authentication = (() => {
   }
 )();
 
+
+// defining ledger url and socket url
 export const httpBaseUrl = undefined;
 export const wsBaseUrl = isLocalDev ? 'ws://localhost:7575/' : undefined;

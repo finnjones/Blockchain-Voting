@@ -6,7 +6,7 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 const DateTime = () => {
   const [dateTimeVal, setDateTimeVal] = React.useState<Date | null>(new Date());
-
+  // date time picker interface
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker

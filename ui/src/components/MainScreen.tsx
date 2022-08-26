@@ -28,7 +28,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 type Props = {
   onLogout: () => void;
 };
-
+// Mainscreen component is the container of the app and contains the navigation bar and drawer to access the different pages
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
   const { logout } = useAuth0();
 
@@ -38,6 +38,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
     setOpen(true);
   };
 
+  // Handle logout button
   const LogoutCall = () => {
     logout({
       returnTo: window.location.origin,
