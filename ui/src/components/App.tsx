@@ -8,7 +8,7 @@ import Credentials from "../Credentials";
 import { httpBaseUrl, wsBaseUrl } from "../config";
 import { Route, Routes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import Loadable from "react-loadable";
+// import Loadable from "react-loadable";
 import MainView from "./MainView";
 
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
@@ -121,10 +121,6 @@ const App: React.FC = () => {
       <div>
         <Routes>
           <Route
-            path="/"
-            element={<LandingScreen onLogin={setCredentials} />}
-          ></Route>
-          <Route
             path="/VoteLogin/*"
             element={<LoginScreenVote onLogin={setCredentials} />}
           ></Route>
@@ -132,7 +128,10 @@ const App: React.FC = () => {
             path="/VoteLogin"
             element={<LoginScreenVote onLogin={setCredentials} />}
           ></Route>
-          <Route path="*" element={<PageNotFound />}></Route>
+          <Route
+            path="*"
+            element={<LandingScreen onLogin={setCredentials} />}
+          ></Route>
         </Routes>
       </div>
     </ThemeProvider>
