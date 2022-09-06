@@ -38,7 +38,7 @@ const App: React.FC = () => {
         },
 
         typography: {
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "sans-serif",
           subtitle1: {
             fontSize: 16,
           },
