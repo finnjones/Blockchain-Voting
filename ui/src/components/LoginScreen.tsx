@@ -1,5 +1,13 @@
 import React, { useCallback } from "react";
-import { Button, TextField, Paper, Typography, Grid, Box } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Paper,
+  Typography,
+  Grid,
+  Box,
+  Divider,
+} from "@mui/material";
 import Credentials from "../Credentials";
 import Ledger from "@daml/ledger";
 import { Voting } from "@daml.js/votencrypt";
@@ -29,7 +37,7 @@ const wrap: (c: JSX.Element) => JSX.Element = (component) => (
       direction="column"
       justifyContent="center"
       alignItems="center"
-      style={{ height: "100vh" }}
+      style={{ height: "95vh" }}
     >
       <Grid item>
         <Typography variant="h3" color="primary" textAlign="center">
@@ -51,6 +59,24 @@ const wrap: (c: JSX.Element) => JSX.Element = (component) => (
           {component}
         </Paper>
       </Grid>
+    </Grid>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      // style={{ height: "100vh" }}
+    >
+      <Typography color="secondary">
+        © Votencrypt 2023 Website by{" "}
+        <Link
+          style={{ color: "secondary" }}
+          target="_blank"
+          to="https://linktr.ee/finnwjones"
+        >
+          {"Finn Jones"}
+        </Link>
+      </Typography>
     </Grid>
   </>
 );

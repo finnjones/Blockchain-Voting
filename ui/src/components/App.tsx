@@ -11,7 +11,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 // import Loadable from "react-loadable";
 import MainView from "./MainView";
 
-import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
+import {
+  createTheme,
+  Divider,
+  Paper,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 
 import VoteAnalytics from "./VoteAnalytics";
 import VoteManagement from "./VoteManagement";
@@ -36,7 +42,6 @@ const App: React.FC = () => {
             main: "#666666",
           },
         },
-
         typography: {
           fontFamily: "sans-serif",
           subtitle1: {
